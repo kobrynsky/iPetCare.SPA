@@ -1,13 +1,17 @@
-import { combineReducers, createStore } from 'redux'
+import { combineReducers, createStore, AnyAction, Store } from 'redux'
 import { devToolsEnhancer } from 'redux-devtools-extension'
-import { CounterReducer } from './features/counter'
+import { userReducer, UserState } from './state/userReducer'
+
+export interface StoreState {
+  user: UserState
+}
 
 /* Create root reducer, containing all features of the application */
 const rootReducer = combineReducers({
-  count: CounterReducer,
+  user: userReducer,
 })
 
-const store = createStore(
+const store: Store<StoreState, AnyAction> = createStore(
   rootReducer,
   /* preloadedState, */ devToolsEnhancer({})
 )
