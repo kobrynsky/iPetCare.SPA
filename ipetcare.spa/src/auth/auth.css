@@ -9,14 +9,14 @@
   padding: 20px;
 }
 
-.authForm * {
+/* .authForm * {
   margin-bottom: 10px;
-}
+} */
 
-.authForm > h1 {
+.authForm > h2 {
   text-align: center;
 }
 
-input {
+/* input {
   height: 20px !important;
-}
+} */

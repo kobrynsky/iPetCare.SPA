@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { Form, Button } from 'semantic-ui-react'
+import { Button, TextField } from '@material-ui/core'
 import axios from 'axios'
 import { BASE_URL } from '../../constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { UserState } from '../../state/userReducer'
 import { StoreState } from '../../store'
 import { setUser } from '../../state/userActions'
+import { saveUserState } from '../../utils/localStorageHelper'
 import '../auth.css'
 
 export function LoginForm() {
@@ -13,35 +14,50 @@ export function LoginForm() {
   const user = useSelector((state: StoreState) => state.user)
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState(false)
 
-  const onSumbit = async () => {
-    const response = await axios.post(BASE_URL + '/users/login', {
-      email: login,
-      password,
-    })
-
-    console.log(response)
-
-    dispatch(setUser(response.data))
+  const onSumbit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setError(false)
+    try {
+      const response = await axios.post(BASE_URL + '/users/login', {
+        email: login,
+        password,
+      })
+      dispatch(setUser(response.data))
+      saveUserState(response.data as UserState)
+    } catch (error) {
+      if (error.response.status == 401) {
+        setError(true)
+      }
+    }
   }
 
   return (
-    <Form size="tiny" onSubmit={onSumbit}>
+    <form onSubmit={onSumbit}>
       <div className="authForm">
-        <h1>Logowanie</h1>
-        <Form.Input
+        <h2>Logowanie</h2>
+        <TextField
           required
+          margin="normal"
+          variant="outlined"
           label="Email"
+          error={error}
           onChange={e => setLogin(e.target.value)}
         />
-        <Form.Input
+
+        <TextField
           required
+          margin="normal"
+          variant="outlined"
           type="password"
           label="Hasło"
+          error={error}
+          helperText={error ? 'Nieprawidłowy email lub hasło' : ''}
           onChange={e => setPassword(e.target.value)}
         />
-        <Button fluid>Zaloguj</Button>
+        <Button type="submit">Zaloguj</Button>
       </div>
-    </Form>
+    </form>
   )
 }

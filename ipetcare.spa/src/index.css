@@ -5,8 +5,8 @@
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
+} */
+/*
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -21,3 +21,8 @@ code {
   display: flex;
   justify-content: space-between;
 } */
+
+.title {
+  margin-top: 100px !important;
+  text-align: center;
+}

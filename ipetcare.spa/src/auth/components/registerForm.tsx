@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form, Button } from 'semantic-ui-react'
+// import { Form, Button, Input } from 'semantic-ui-react'
 import axios from 'axios'
 import { BASE_URL } from '../../constants'
 import { useDispatch, useSelector } from 'react-redux'
@@ -7,10 +7,19 @@ import { UserState } from '../../state/userReducer'
 import { StoreState } from '../../store'
 import { setUser } from '../../state/userActions'
 import '../auth.css'
+import {
+  FormControl,
+  Radio,
+  RadioGroup,
+  FormLabel,
+  FormControlLabel,
+  Button,
+  TextField,
+  FormHelperText,
+} from '@material-ui/core'
 
 export function RegisterForm() {
   const dispatch = useDispatch()
-  const user: UserState = useSelector((state: StoreState) => state.user)
 
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -19,83 +28,118 @@ export function RegisterForm() {
   const [password, setPassword] = useState('')
   const [passwordRepeated, setPasswordRepeated] = useState('')
   const [role, setRole] = useState('')
+  const [error, setError] = useState('')
 
-  const onSumbit = async () => {
-    const response = await axios.post(BASE_URL + '/users/register', {
-      firstName,
-      lastName,
-      userName,
-      email,
-      password,
-      role,
-    })
+  const onSumbit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
 
-    console.log(response)
+    try {
+      const response = await axios.post(BASE_URL + '/users/register', {
+        firstName,
+        lastName,
+        userName,
+        email,
+        password,
+        role,
+      })
 
-    dispatch(setUser(response.data))
+      dispatch(setUser(response.data))
+    } catch (error) {
+      setError(error.response.data)
+    }
   }
 
   return (
-    <Form onSubmit={onSumbit} size="tiny">
+    <form onSubmit={onSumbit}>
       <div className="authForm">
-        <h1>Rejestracja</h1>
-        <Form.Input
+        <h2>Rejestracja</h2>
+
+        <TextField
           required
+          margin="normal"
+          variant="outlined"
           label="Imię"
-          placeholder="Jan"
           onChange={e => setFirstName(e.target.value)}
         />
-        <Form.Input
+
+        <TextField
           required
+          margin="normal"
+          variant="outlined"
           label="Nazwisko"
-          placeholder="Kowalski"
           onChange={e => setLastName(e.target.value)}
         />
-        <Form.Input
+
+        <TextField
           required
+          margin="normal"
+          variant="outlined"
           label="Nazwa użytkownika"
           onChange={e => setUserName(e.target.value)}
         />
-        <Form.Input
+
+        <TextField
           required
+          margin="normal"
+          variant="outlined"
           label="Email"
           onChange={e => setEmail(e.target.value)}
         />
-        <Form.Input
+
+        <TextField
           required
-          type="password"
+          margin="normal"
+          variant="outlined"
           label="Hasło"
+          type="password"
           onChange={e => setPassword(e.target.value)}
         />
-        <Form.Input
+        <TextField
           required
+          margin="normal"
+          variant="outlined"
+          label="Powtórz hasło"
           type="password"
           error={password !== passwordRepeated}
-          label="Powtórz hasło"
           onChange={e => setPasswordRepeated(e.target.value)}
         />
-        <Form.Field required>
-          <Form.Radio
-            label="Opiekun"
-            value="Owner"
-            name="roleRadio"
-            checked={role === 'Owner'}
-            onChange={(e, { value }) => {
-              if (typeof value === 'string') setRole(value)
-            }}
-          />
-          <Form.Radio
-            label="Weterynarz"
-            value="Vet"
-            name="roleRadio"
-            checked={role === 'Vet'}
-            onChange={(e, { value }) => {
-              if (typeof value === 'string') setRole(value)
-            }}
-          />
-        </Form.Field>
-        <Button fluid>Zarejestruj</Button>
+
+        <FormControl required margin="normal">
+          <FormLabel>Rola</FormLabel>
+          <RadioGroup row>
+            <FormControlLabel
+              label="Opiekun"
+              value="Owner"
+              control={
+                <Radio
+                  color="primary"
+                  checked={role === 'Owner'}
+                  onChange={e => {
+                    if (typeof e.target.value === 'string')
+                      setRole(e.target.value)
+                  }}
+                />
+              }
+            />
+            <FormControlLabel
+              label="Weterynarz"
+              value="Vet"
+              control={
+                <Radio
+                  color="primary"
+                  checked={role === 'Vet'}
+                  onChange={e => {
+                    if (typeof e.target.value === 'string')
+                      setRole(e.target.value)
+                  }}
+                />
+              }
+            />
+          </RadioGroup>
+        </FormControl>
+        <FormHelperText error={!!error}>{error}</FormHelperText>
+        <Button type="submit">Zarejestruj</Button>
       </div>
-    </Form>
+    </form>
   )
 }
