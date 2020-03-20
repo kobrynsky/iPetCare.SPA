@@ -18,6 +18,7 @@ export function RaceList() {
 
     return (
         <Container fixed>
+            <h1>Rasy</h1>
             <Grid container justify="flex-start" spacing={2}>
                 {
                     races.map(race => (
