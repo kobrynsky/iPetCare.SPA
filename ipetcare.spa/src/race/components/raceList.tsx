@@ -3,10 +3,31 @@ import axios from 'axios'
 import { BASE_URL } from '../../constants'
 import '../race.css'
 import { useParams } from 'react-router-dom'
+import RaceCard from './raceCard'
+import { Box, Container, Grid, GridList, Theme, makeStyles, createStyles, GridListTile, ListSubheader, GridListTileBar, IconButton } from '@material-ui/core'
 
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        // root: {
+        //     display: 'flex',
+        //     flexWrap: 'wrap',
+        //     justifyContent: 'space-around',
+        //     overflow: 'hidden',
+        //     backgroundColor: theme.palette.background.paper,
+        // },
+        // gridList: {
+        //     width: "100%",
+        //     height: "100%",
+        // },
+        // icon: {
+        //     color: 'rgba(255, 255, 255, 0.54)',
+        // },
+    }),
+);
 
 export function RaceList() {
-    const [races, setRaces] = useState([{ id: 0, name: "", specie: { id: 0, name: "" } }])
+    const [races, setRaces] = useState([{ id: 0, name: "", species: { id: 0, name: "" } }])
     useEffect(() => {
         axios.get(BASE_URL + '/races')
             .then(function (response) {
@@ -16,16 +37,19 @@ export function RaceList() {
             .catch(error => console.log(error));
     }, []);
 
+    const classes = useStyles();
     return (
-        <div>
-            {races.map(race => (
-                <div>
-                    <h5><a href={`/race/${race.id}`}>{race.name}</a></h5>
-                    <h5><a href={`/race/edit/${race.id}`}>Edytuj</a></h5>
-                    <div>{race.id}</div>
-                    <div>{race.specie?.name}</div>
-                </div>
-            ))}
-        </div>
+        <Container fixed>
+            <Grid container justify="flex-start" spacing={2}>
+                {
+                    races.map(race => (
+                        <Grid container item xs={4} spacing={0}>
+                            <RaceCard race={race} />
+                        </Grid>
+                    ))
+                }
+            </Grid>
+        </Container>
+
     )
 }

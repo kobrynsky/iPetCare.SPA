@@ -9,7 +9,6 @@ import { setUser } from './state/userActions'
 import { getUserState } from './utils/localStorageHelper'
 import { UserState } from './state/userReducer'
 import { RaceForm } from './race/components/raceForm'
-import { RaceDetails } from './race/components/raceDetails'
 import { RaceList } from './race/components/raceList'
 
 const App: React.FC = () => {
@@ -36,7 +35,6 @@ const App: React.FC = () => {
             path='/race/edit/:raceId'
             render={() => <RaceForm editing={true} />}
           />
-          <Route path="/race/:raceId" component={RaceDetails} />
           <Route path="/races" component={RaceList} />
         </Switch>
       </div>

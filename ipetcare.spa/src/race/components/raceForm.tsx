@@ -32,9 +32,9 @@ interface RaceFormProps {
 
 export function RaceForm({ editing }: RaceFormProps) {
     const [name, setName] = useState('')
-    const [specie, setSpecie] = useState({ id: 0, name: "" })
+    const [species, setSpecies] = useState({ id: 0, name: "" })
     const [error, setError] = useState('')
-    const [species, setSpecies] = useState([{ id: 0, name: "" }])
+    const [speciesList, setSpeciesList] = useState([{ id: 0, name: "" }])
 
     let { raceId } = useParams()
 
@@ -42,16 +42,15 @@ export function RaceForm({ editing }: RaceFormProps) {
     useEffect(() => {
         axios.get(BASE_URL + '/species')
             .then(function (response) {
-                setSpecies(response.data)
+                console.log(response.data)
+                setSpeciesList(response.data)
             })
             .catch(error => console.log(error));
-        console.log(editing);
-
         if (editing) {
             axios.get(BASE_URL + '/races/' + raceId)
                 .then(function (response) {
                     setName(response.data.name)
-                    setSpecie(response.data.specie)
+                    setSpecies(response.data.species)
                 })
                 .catch(error => console.log(error));
         }
@@ -59,7 +58,7 @@ export function RaceForm({ editing }: RaceFormProps) {
     }, []);
 
     const handleSpecieChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setSpecie({ id: event.target.value as number, name: "" });
+        setSpecies({ id: event.target.value as number, name: "" });
     };
 
 
@@ -68,17 +67,17 @@ export function RaceForm({ editing }: RaceFormProps) {
 
         try {
             if (editing) {
-                let speciesId = specie.id
+                let speciesId = species.id
                 const response = await axios.put(BASE_URL + '/races/' + raceId, {
                     name,
                     speciesId
                 })
             }
             else {
-                let specieId = specie.id
+                let speciesId = species.id
                 const response = await axios.post(BASE_URL + '/races', {
                     name,
-                    specieId
+                    speciesId
                 })
             }
 
@@ -108,10 +107,10 @@ export function RaceForm({ editing }: RaceFormProps) {
                     <FormLabel>Gatunek</FormLabel>
                     <Select
                         onChange={handleSpecieChange}
-                        value={specie.id}
+                        value={species.id}
                     >
-                        {species.map(specie => (
-                            <MenuItem key={specie.id} value={specie.id}>{specie.name}</MenuItem>
+                        {speciesList.map(species => (
+                            <MenuItem key={species.id} value={species.id}>{species.name}</MenuItem>
                         ))}
                     </Select>
                 </FormControl>
