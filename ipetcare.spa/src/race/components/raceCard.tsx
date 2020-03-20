@@ -1,12 +1,10 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Link } from '@material-ui/core';
 import { BASE_URL } from '../../constants';
 import axios from 'axios'
 
@@ -22,11 +20,10 @@ interface IProps {
 
 
 const RaceCard: React.FC<IProps> = ({ race }) => {
-    const preventDefault = (event: React.SyntheticEvent) => event.preventDefault();
 
     const deleteRace = (raceId: number) => {
         axios.delete(BASE_URL + '/races/' + raceId)
-            .then(function (response) {
+            .then(function () {
                 console.log("Usunięte");
             })
             .catch(error => console.log(error));
