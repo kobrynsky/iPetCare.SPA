@@ -10,6 +10,7 @@ import {
     FormHelperText,
     Select,
     MenuItem,
+    InputLabel,
 } from '@material-ui/core'
 import { getUserState } from '../../utils/localStorageHelper'
 import { useParams } from 'react-router-dom'
@@ -103,11 +104,13 @@ export function RaceForm({ editing }: RaceFormProps) {
                     onChange={e => setName(e.target.value)}
                     value={name}
                 />
-                <FormControl required margin="normal">
-                    <FormLabel>Gatunek</FormLabel>
+                <FormControl required variant="outlined" margin="normal">
+                    <InputLabel htmlFor="outlined-age-native-simple">Gatunek</InputLabel>
                     <Select
                         onChange={handleSpecieChange}
                         value={species.id}
+                        variant="outlined"
+                        label="Gatunek"
                     >
                         {speciesList.map(species => (
                             <MenuItem key={species.id} value={species.id}>{species.name}</MenuItem>
