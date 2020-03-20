@@ -10,6 +10,7 @@ import { getUserState } from './utils/localStorageHelper'
 import { UserState } from './state/userReducer'
 import { RaceForm } from './race/components/raceForm'
 import { RaceDetails } from './race/components/raceDetails'
+import { RaceList } from './race/components/raceList'
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -36,6 +37,7 @@ const App: React.FC = () => {
             render={() => <RaceForm editing={true} />}
           />
           <Route path="/race/:raceId" component={RaceDetails} />
+          <Route path="/races" component={RaceList} />
         </Switch>
       </div>
     </BrowserRouter>
