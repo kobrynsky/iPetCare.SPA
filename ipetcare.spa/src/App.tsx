@@ -4,11 +4,11 @@ import './index.css'
 import { HomeScreen } from './homePage/homeScreen'
 import { RegisterForm } from './auth/components/registerForm'
 import { LoginForm } from './auth/components/loginForm'
-import { Header } from './pageElements/header'
 import { useDispatch } from 'react-redux'
 import { setUser } from './state/userActions'
 import { getUserState } from './utils/localStorageHelper'
 import { UserState } from './state/userReducer'
+import { RaceForm } from './race/components/raceForm'
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -29,6 +29,7 @@ const App: React.FC = () => {
           <Route path="/" component={HomeScreen} exact />
           <Route path="/register" component={RegisterForm} />
           <Route path="/login" component={LoginForm} />
+          <Route path="/race/create" component={RaceForm} />
         </Switch>
       </div>
     </BrowserRouter>
