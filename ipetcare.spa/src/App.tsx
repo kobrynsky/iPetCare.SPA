@@ -9,6 +9,7 @@ import { setUser } from './state/userActions'
 import { getUserState } from './utils/localStorageHelper'
 import { UserState } from './state/userReducer'
 import { RaceForm } from './race/components/raceForm'
+import { RaceDetails } from './race/components/raceDetails'
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -30,6 +31,7 @@ const App: React.FC = () => {
           <Route path="/register" component={RegisterForm} />
           <Route path="/login" component={LoginForm} />
           <Route path="/race/create" component={RaceForm} />
+          <Route path="/race/:raceId" component={RaceDetails} />
         </Switch>
       </div>
     </BrowserRouter>
