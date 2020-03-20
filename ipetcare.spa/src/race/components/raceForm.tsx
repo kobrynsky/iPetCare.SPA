@@ -12,6 +12,7 @@ import {
     MenuItem,
 } from '@material-ui/core'
 import { getUserState } from '../../utils/localStorageHelper'
+import { useParams } from 'react-router-dom'
 
 axios.interceptors.request.use(
     config => {
@@ -24,11 +25,19 @@ axios.interceptors.request.use(
     }
 );
 
-export function RaceForm() {
+interface RaceFormProps {
+    editing: boolean
+}
+
+
+export function RaceForm({ editing }: RaceFormProps) {
     const [name, setName] = useState('')
-    const [specieId, setSpecieId] = useState(0)
+    const [specie, setSpecie] = useState({ id: 0, name: "" })
     const [error, setError] = useState('')
     const [species, setSpecies] = useState([{ id: 0, name: "" }])
+
+    let { raceId } = useParams()
+
 
     useEffect(() => {
         axios.get(BASE_URL + '/species')
@@ -36,10 +45,21 @@ export function RaceForm() {
                 setSpecies(response.data)
             })
             .catch(error => console.log(error));
+        console.log(editing);
+
+        if (editing) {
+            axios.get(BASE_URL + '/races/' + raceId)
+                .then(function (response) {
+                    setName(response.data.name)
+                    setSpecie(response.data.specie)
+                })
+                .catch(error => console.log(error));
+        }
+
     }, []);
 
     const handleSpecieChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setSpecieId(event.target.value as number);
+        setSpecie({ id: event.target.value as number, name: "" });
     };
 
 
@@ -47,10 +67,21 @@ export function RaceForm() {
         e.preventDefault()
 
         try {
-            const response = await axios.post(BASE_URL + '/races', {
-                name,
-                specieId
-            })
+            if (editing) {
+                let speciesId = specie.id
+                const response = await axios.put(BASE_URL + '/races/' + raceId, {
+                    name,
+                    speciesId
+                })
+            }
+            else {
+                let specieId = specie.id
+                const response = await axios.post(BASE_URL + '/races', {
+                    name,
+                    specieId
+                })
+            }
+
         } catch (error) {
             setError(error.response.data)
         }
@@ -59,7 +90,11 @@ export function RaceForm() {
     return (
         <form onSubmit={onSumbit}>
             <div className="raceForm">
-                <h2>Dodaj rasę</h2>
+                {editing ?
+                    <h2>Edytuj rasę</h2>
+                    :
+                    <h2>Dodaj rasę</h2>
+                }
 
                 <TextField
                     required
@@ -67,12 +102,13 @@ export function RaceForm() {
                     variant="outlined"
                     label="Nazwa"
                     onChange={e => setName(e.target.value)}
+                    value={name}
                 />
                 <FormControl required margin="normal">
                     <FormLabel>Gatunek</FormLabel>
                     <Select
                         onChange={handleSpecieChange}
-                        defaultValue=""
+                        value={specie.id}
                     >
                         {species.map(specie => (
                             <MenuItem key={specie.id} value={specie.id}>{specie.name}</MenuItem>

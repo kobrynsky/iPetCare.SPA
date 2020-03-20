@@ -31,6 +31,10 @@ const App: React.FC = () => {
           <Route path="/register" component={RegisterForm} />
           <Route path="/login" component={LoginForm} />
           <Route path="/race/create" component={RaceForm} />
+          <Route
+            path='/race/edit/:raceId'
+            render={() => <RaceForm editing={true} />}
+          />
           <Route path="/race/:raceId" component={RaceDetails} />
         </Switch>
       </div>
