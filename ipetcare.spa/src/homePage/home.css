@@ -9,3 +9,12 @@
   background-size: auto;
   background-color: lightslategray;
 }
+
+.sideNav {
+  color: black;
+  font-size: 18px;
+}
+
+.sideNav:hover {
+  color: gray;
+}
