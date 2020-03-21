@@ -10,7 +10,7 @@ export interface UserState {
   id: string
 }
 
-const initalState: UserState = {
+export const initalState: UserState = {
   firstName: '',
   lastName: '',
   email: '',
