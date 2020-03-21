@@ -13,6 +13,7 @@ import { StoreState } from '../store'
 import { initalState } from '../state/userReducer'
 import { setUser } from '../state/userActions'
 import { deleteUserState } from '../utils/localStorageHelper'
+import { deleteTokenInHeader } from '../utils/api'
 
 interface Route {
   caption: string
@@ -156,7 +157,7 @@ export function LoggedInNavbar() {
   const handleLogout = () => {
     dispatch(setUser(initalState))
     deleteUserState()
-    console.log(user)
+    deleteTokenInHeader()
   }
 
   const menuId = 'primary-search-account-menu'

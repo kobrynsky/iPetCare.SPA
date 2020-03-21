@@ -9,6 +9,7 @@ import { setUser } from '../../state/userActions'
 import { saveUserState } from '../../utils/localStorageHelper'
 import '../auth.css'
 import { useHistory } from 'react-router-dom'
+import { setTokenInHeader } from '../../utils/api'
 
 export function LoginForm() {
   const dispatch = useDispatch()
@@ -26,8 +27,12 @@ export function LoginForm() {
         email: login,
         password,
       })
-      dispatch(setUser(response.data))
-      saveUserState(response.data as UserState)
+
+      const user: UserState = response.data as UserState
+
+      dispatch(setUser(user))
+      saveUserState(user)
+      setTokenInHeader(user.token)
       history.push('/')
     } catch (error) {
       if (error.response.status == 401) {

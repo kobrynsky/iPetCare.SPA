@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom'
 import './index.css'
 import { HomeScreen } from './homePage/homeScreen'
 import { RegisterForm } from './auth/components/registerForm'
@@ -9,7 +9,7 @@ import { NotLoggedNavbar } from './pageElements/notLoggedNavbar'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from './state/userActions'
 import { getUserState } from './utils/localStorageHelper'
-import { Grid } from '@material-ui/core'
+import { Grid, Card, Typography } from '@material-ui/core'
 import { StoreState } from './store'
 
 const App: React.FC = () => {
@@ -23,13 +23,29 @@ const App: React.FC = () => {
     }
   }, [])
 
+  const header =
+    user.token.length > 0 ? (
+      <LoggedInNavbar />
+    ) : (
+      <>
+        {/* <Card className="titleContainerNotLogged"> */}
+        <NavLink className="titleContainerNotLogged" to="/">
+          <Typography className="title" variant="h5">
+            iPetCare
+          </Typography>
+        </NavLink>
+        {/* </Card> */}
+        <NotLoggedNavbar />
+      </>
+    )
+
   return (
     <div className="app">
       <div className="background"></div>
       <BrowserRouter>
         <Grid container direction="column">
-          <Grid container justify="flex-end">
-            {user.token.length > 0 ? <LoggedInNavbar /> : <NotLoggedNavbar />}
+          <Grid container justify="space-between">
+            {header}
           </Grid>
 
           <Grid item>

@@ -1,6 +1,6 @@
 import React from 'react'
 import './home.css'
-import { Grid } from '@material-ui/core'
+import { Grid, Typography } from '@material-ui/core'
 import { ContentCard } from './components/contentCard'
 import { Link, NavLink } from 'react-router-dom'
 
@@ -10,7 +10,9 @@ export function HomeScreen() {
       <Grid container direction="column">
         <Grid item>
           <NavLink className="title" to="/">
-            <h1>iPetCare</h1>
+            <Typography variant="h1" className="title">
+              iPetCare
+            </Typography>
           </NavLink>
         </Grid>
         <Grid container direction="row">
