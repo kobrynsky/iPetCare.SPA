@@ -23,7 +23,7 @@ export function ContentCard(props: Props) {
   return (
     <Card className={styles.container}>
       <Typography className={styles.title} color="textSecondary" gutterBottom>
-        Word of the Day
+        {props.title}
       </Typography>
       <CardContent>{props.content}</CardContent>
     </Card>

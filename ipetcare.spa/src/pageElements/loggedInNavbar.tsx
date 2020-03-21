@@ -10,7 +10,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle'
 import { Button } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 import { StoreState } from '../store'
-import { UserState, initalState } from '../state/userReducer'
+import { initalState } from '../state/userReducer'
 import { setUser } from '../state/userActions'
 import { deleteUserState } from '../utils/localStorageHelper'
 
@@ -170,6 +170,7 @@ export function LoggedInNavbar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
+      <MenuItem>{user.email}</MenuItem>
       <MenuItem onClick={handleMenuClose}>Moje konto</MenuItem>
       <MenuItem onClick={handleLogout}>Wyloguj</MenuItem>
     </Menu>
@@ -213,7 +214,7 @@ export function LoggedInNavbar() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
+      <AppBar position="static" color="transparent">
         <Toolbar>
           <div className={classes.sectionMobile}>
             <IconButton

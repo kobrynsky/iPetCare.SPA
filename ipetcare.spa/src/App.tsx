@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import './index.css'
 import { HomeScreen } from './homePage/homeScreen'
 import { RegisterForm } from './auth/components/registerForm'
@@ -9,7 +9,6 @@ import { NotLoggedNavbar } from './pageElements/notLoggedNavbar'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from './state/userActions'
 import { getUserState } from './utils/localStorageHelper'
-import { UserState } from './state/userReducer'
 import { Grid } from '@material-ui/core'
 import { StoreState } from './store'
 
@@ -26,16 +25,13 @@ const App: React.FC = () => {
 
   return (
     <div className="app">
+      <div className="background"></div>
       <BrowserRouter>
         <Grid container direction="column">
           <Grid container justify="flex-end">
             {user.token.length > 0 ? <LoggedInNavbar /> : <NotLoggedNavbar />}
           </Grid>
-          <Grid item>
-            <NavLink className="title" to="/">
-              <h1>iPetCare</h1>
-            </NavLink>
-          </Grid>
+
           <Grid item>
             <Switch>
               <Route path="/" component={HomeScreen} exact />
