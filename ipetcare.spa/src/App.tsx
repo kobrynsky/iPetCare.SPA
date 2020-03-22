@@ -11,6 +11,9 @@ import { setUser } from './state/userActions'
 import { getUserState } from './utils/localStorageHelper'
 import { Grid, Card, Typography } from '@material-ui/core'
 import { StoreState } from './store'
+import { UserState } from './state/userReducer'
+import { RaceForm } from './race/components/raceForm'
+import { RaceList } from './race/components/raceList'
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -53,6 +56,12 @@ const App: React.FC = () => {
               <Route path="/" component={HomeScreen} exact />
               <Route path="/register" component={RegisterForm} />
               <Route path="/login" component={LoginForm} />
+              <Route path="/race/create" component={RaceForm} />
+              <Route
+                path='/race/edit/:raceId'
+                render={() => <RaceForm editing={true} />}
+              />
+              <Route path="/races" component={RaceList} />
             </Switch>
           </Grid>
         </Grid>
