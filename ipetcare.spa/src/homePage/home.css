@@ -1,11 +1,9 @@
-.background {
-  /* position: fixed;
-  top: 0;
-  left: 0;
-  min-width: 100%;
-  min-height: 100%; */
-  /* background-image: url('https://thumbs.dreamstime.com/z/dog-golden-retriever-jumping-autumn-leaves-autumnal-sunlight-77861618.jpg'); */
-  background-position: center;
-  background-size: auto;
-  background-color: lightslategray;
+.sideNav {
+  color: black;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.sideNav:hover {
+  color: gray;
 }

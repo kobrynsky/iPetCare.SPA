@@ -1,18 +1,23 @@
 import React, { useEffect } from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom'
 import './index.css'
 import { HomeScreen } from './homePage/homeScreen'
 import { RegisterForm } from './auth/components/registerForm'
 import { LoginForm } from './auth/components/loginForm'
-import { useDispatch } from 'react-redux'
+import { LoggedInNavbar } from './pageElements/loggedInNavbar'
+import { NotLoggedNavbar } from './pageElements/notLoggedNavbar'
+import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from './state/userActions'
 import { getUserState } from './utils/localStorageHelper'
+import { Grid, Card, Typography } from '@material-ui/core'
+import { StoreState } from './store'
 import { UserState } from './state/userReducer'
 import { RaceForm } from './race/components/raceForm'
 import { RaceList } from './race/components/raceList'
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
+  const user = useSelector((state: StoreState) => state.user)
 
   useEffect(() => {
     const user = getUserState()
@@ -21,24 +26,47 @@ const App: React.FC = () => {
     }
   }, [])
 
+  const header =
+    user.token.length > 0 ? (
+      <LoggedInNavbar />
+    ) : (
+      <>
+        {/* <Card className="titleContainerNotLogged"> */}
+        <NavLink className="titleContainerNotLogged" to="/">
+          <Typography className="title" variant="h5">
+            iPetCare
+          </Typography>
+        </NavLink>
+        {/* </Card> */}
+        <NotLoggedNavbar />
+      </>
+    )
+
   return (
-    <BrowserRouter>
-      <div>
-        {/* <Header /> */}
-        <h1 className="title">iPetCare</h1>
-        <Switch>
-          <Route path="/" component={HomeScreen} exact />
-          <Route path="/register" component={RegisterForm} />
-          <Route path="/login" component={LoginForm} />
-          <Route path="/race/create" component={RaceForm} />
-          <Route
-            path='/race/edit/:raceId'
-            render={() => <RaceForm editing={true} />}
-          />
-          <Route path="/races" component={RaceList} />
-        </Switch>
-      </div>
-    </BrowserRouter>
+    <div className="app">
+      <div className="background"></div>
+      <BrowserRouter>
+        <Grid container direction="column">
+          <Grid container justify="space-between">
+            {header}
+          </Grid>
+
+          <Grid item>
+            <Switch>
+              <Route path="/" component={HomeScreen} exact />
+              <Route path="/register" component={RegisterForm} />
+              <Route path="/login" component={LoginForm} />
+              <Route path="/race/create" component={RaceForm} />
+              <Route
+                path='/race/edit/:raceId'
+                render={() => <RaceForm editing={true} />}
+              />
+              <Route path="/races" component={RaceList} />
+            </Switch>
+          </Grid>
+        </Grid>
+      </BrowserRouter>
+    </div>
   )
 }
 
