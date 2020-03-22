@@ -9,7 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import { Button } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
-import { StoreState } from '../store'
+import { RootState } from '../store'
 import { initalState } from '../state/userReducer'
 import { setUser } from '../state/userActions'
 import { deleteUserState } from '../utils/localStorageHelper'
@@ -127,7 +127,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export function LoggedInNavbar() {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const user = useSelector((state: StoreState) => state.user)
+  const user = useSelector((state: RootState) => state.user)
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const [
     mobileMoreAnchorEl,

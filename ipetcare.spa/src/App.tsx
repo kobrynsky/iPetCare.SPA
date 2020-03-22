@@ -10,14 +10,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from './state/userActions'
 import { getUserState } from './utils/localStorageHelper'
 import { Grid, Card, Typography } from '@material-ui/core'
-import { StoreState } from './store'
+import { RootState } from './store'
 import { UserState } from './state/userReducer'
 import { RaceForm } from './race/components/raceForm'
 import { RaceList } from './race/components/raceList'
+import PetsList from '../src/pets/containers/petsList'
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
-  const user = useSelector((state: StoreState) => state.user)
+  const user = useSelector((state: RootState) => state.user)
 
   useEffect(() => {
     const user = getUserState()
@@ -58,10 +59,11 @@ const App: React.FC = () => {
               <Route path="/login" component={LoginForm} />
               <Route path="/race/create" component={RaceForm} />
               <Route
-                path='/race/edit/:raceId'
+                path="/race/edit/:raceId"
                 render={() => <RaceForm editing={true} />}
               />
               <Route path="/races" component={RaceList} />
+              <Route path="/pets" exact component={PetsList} />
             </Switch>
           </Grid>
         </Grid>
