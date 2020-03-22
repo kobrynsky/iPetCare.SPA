@@ -14,6 +14,8 @@ import { StoreState } from './store'
 import { UserState } from './state/userReducer'
 import { RaceForm } from './race/components/raceForm'
 import { RaceList } from './race/components/raceList'
+import { AdminScreen } from './homePage/adminScreen'
+import { OwnerScreen } from './homePage/ownerScreen'
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -56,9 +58,11 @@ const App: React.FC = () => {
               <Route path="/" component={HomeScreen} exact />
               <Route path="/register" component={RegisterForm} />
               <Route path="/login" component={LoginForm} />
+              <Route path="/admin" component={AdminScreen} />
+              <Route path="/owner" component={OwnerScreen} />
               <Route path="/race/create" component={RaceForm} />
               <Route
-                path='/race/edit/:raceId'
+                path="/race/edit/:raceId"
                 render={() => <RaceForm editing={true} />}
               />
               <Route path="/races" component={RaceList} />

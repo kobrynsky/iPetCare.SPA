@@ -4,7 +4,6 @@ import { Card, CardContent, Typography } from '@material-ui/core'
 
 interface Props {
   title: string
-  content: string
 }
 
 const useStyles = makeStyles({
@@ -17,15 +16,15 @@ const useStyles = makeStyles({
   },
 })
 
-export function ContentCard(props: Props) {
+export const ContentCard: React.FC<Props> = ({ title, children }) => {
   const styles = useStyles()
 
   return (
     <Card className={styles.container}>
       <Typography className={styles.title} color="textSecondary" gutterBottom>
-        {props.title}
+        {title}
       </Typography>
-      <CardContent>{props.content}</CardContent>
+      <CardContent>{children}</CardContent>
     </Card>
   )
 }

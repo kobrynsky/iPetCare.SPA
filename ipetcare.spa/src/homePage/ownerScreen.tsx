@@ -3,8 +3,12 @@ import './home.css'
 import { Grid, Typography } from '@material-ui/core'
 import { ContentCard } from '../common/contentCard'
 import { Link, NavLink } from 'react-router-dom'
+import { StoreState } from '../store'
+import { useSelector } from 'react-redux'
 
-export function HomeScreen() {
+export function OwnerScreen() {
+  const user = useSelector((state: StoreState) => state.user)
+
   return (
     <div>
       <Grid container direction="column">
@@ -36,7 +40,7 @@ export function HomeScreen() {
           <Grid item xs={6}>
             <Grid container direction="column">
               <Grid item id="whatItIs">
-                <ContentCard title="Co to jest?">
+                <ContentCard title={`Witaj ${user.firstName}`}>
                   orem Ipsum is simply dummy text of the printing and
                   typesetting industry. Lorem Ipsum has been the industry's
                   standard dummy text ever since the 1500s, when an unknown
@@ -49,38 +53,10 @@ export function HomeScreen() {
                   like Aldus PageMaker including versions of Lorem Ipsum.
                 </ContentCard>
               </Grid>
-              <Grid item id="about">
-                <ContentCard title="O nas">
-                  orem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. It has survived not only five centuries, but
-                  also the leap into electronic typesetting, remaining
-                  essentially unchanged. It was popularised in the 1960s with
-                  the release of Letraset sheets containing Lorem Ipsum
-                  passages, and more recently with desktop publishing software
-                  like Aldus PageMaker including versions of Lorem Ipsum."
-                </ContentCard>
-              </Grid>
-              <Grid item id="contact">
-                <ContentCard title="Kontakt">
-                  orem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. It has survived not only five centuries, but
-                  also the leap into electronic typesetting, remaining
-                  essentially unchanged. It was popularised in the 1960s with
-                  the release of Letraset sheets containing Lorem Ipsum
-                  passages, and more recently with desktop publishing software
-                  like Aldus PageMaker including versions of Lorem Ipsum."
-                </ContentCard>
-              </Grid>
             </Grid>
           </Grid>
-          <Grid xs={3} />
         </Grid>
+        <Grid xs={3} />
       </Grid>
     </div>
   )

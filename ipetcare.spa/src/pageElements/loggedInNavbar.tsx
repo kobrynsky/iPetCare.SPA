@@ -14,6 +14,8 @@ import { initalState } from '../state/userReducer'
 import { setUser } from '../state/userActions'
 import { deleteUserState } from '../utils/localStorageHelper'
 import { deleteTokenInHeader } from '../utils/api'
+import { NavLink } from 'react-router-dom'
+import './pageElements.css'
 
 interface Route {
   caption: string
@@ -23,7 +25,7 @@ interface Route {
 const ownerRoutes: Route[] = [
   {
     caption: 'Zwierzęta',
-    path: '/',
+    path: '/races',
   },
   {
     caption: 'Weterynarze',
@@ -46,7 +48,7 @@ const adminRoutes: Route[] = [
   },
   {
     caption: 'Rasy',
-    path: '/',
+    path: '/races',
   },
   {
     caption: 'Badania',
@@ -180,7 +182,15 @@ export function LoggedInNavbar() {
   const renderMobileMenuItem = (routes: Route[]) => {
     return routes.map(r => (
       <MenuItem key={r.caption}>
-        <Button color="inherit">{r.caption}</Button>
+        <NavLink
+          exact
+          className="navlink"
+          activeClassName="activeNavLink"
+          color="inherit"
+          to={r.path}
+        >
+          {r.caption}
+        </NavLink>
       </MenuItem>
     ))
   }
@@ -197,7 +207,15 @@ export function LoggedInNavbar() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <Button color="inherit">Główna</Button>
+        <NavLink
+          exact
+          className="navlink"
+          activeClassName="activeNavLink"
+          color="inherit"
+          to="/"
+        >
+          Główna
+        </NavLink>
       </MenuItem>
       {renderMobileMenuItem(
         user.role.toLowerCase() === 'admin' ? adminRoutes : ownerRoutes
@@ -207,9 +225,16 @@ export function LoggedInNavbar() {
 
   const renderDesktopMenuItem = (routes: Route[]) => {
     return routes.map(r => (
-      <Button key={r.caption} color="inherit">
+      <NavLink
+        exact
+        key={r.caption}
+        className="navlink"
+        activeClassName={'activeNavLink'}
+        color="inherit"
+        to={r.path}
+      >
         {r.caption}
-      </Button>
+      </NavLink>
     ))
   }
 
@@ -229,7 +254,15 @@ export function LoggedInNavbar() {
             </IconButton>
           </div>
           <div className={classes.sectionDesktop}>
-            <Button color="inherit">Główna</Button>
+            <NavLink
+              exact
+              className="navlink"
+              activeClassName="activeNavLink"
+              color="inherit"
+              to="/"
+            >
+              Główna
+            </NavLink>
             {renderDesktopMenuItem(
               user.role.toLowerCase() === 'admin' ? adminRoutes : ownerRoutes
             )}

@@ -33,7 +33,17 @@ export function LoginForm() {
       dispatch(setUser(user))
       saveUserState(user)
       setTokenInHeader(user.token)
-      history.push('/')
+      switch (user.role.toLowerCase()) {
+        case 'owner':
+          history.push('/owner')
+          break
+        case 'admin':
+          history.push('/admin')
+          break
+        case 'vet':
+          history.push('/vet')
+          break
+      }
     } catch (error) {
       if (error.response.status == 401) {
         setError(true)
