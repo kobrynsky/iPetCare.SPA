@@ -1,0 +1,14 @@
+.raceForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 100px;
+  max-width: 600px;
+  padding: 20px;
+}
+
+.raceForm > h2 {
+  text-align: center;
+}
