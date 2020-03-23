@@ -20,26 +20,11 @@ export function OwnerScreen() {
           </NavLink>
         </Grid>
         <Grid container direction="row">
-          <Grid item xs={3}>
-            <Grid container alignItems="center" direction="column">
-              <Link className="sideNav" to="/">
-                Główna
-              </Link>
-              <a className="sideNav" href="#whatItIs">
-                Co to jest?
-              </a>
-              <a className="sideNav" href="#about">
-                O nas
-              </a>
-              <a className="sideNav" href="#contact">
-                Kontakt
-              </a>
-            </Grid>
-          </Grid>
+          <Grid item xs={3}></Grid>
 
           <Grid item xs={6}>
             <Grid container direction="column">
-              <Grid item id="whatItIs">
+              <Grid item>
                 <ContentCard title={`Witaj ${user.firstName}`}>
                   orem Ipsum is simply dummy text of the printing and
                   typesetting industry. Lorem Ipsum has been the industry's
