@@ -1,12 +1,12 @@
 import React from 'react'
 import '../home.css'
 import { Grid, Typography } from '@material-ui/core'
-import { ContentCard } from '../../common/components/contentCard'
+import { ContentCard } from '../../../common/components/contentCard'
 import { Link, NavLink } from 'react-router-dom'
-import { RootState } from '../../state/store'
+import { RootState } from '../../../state/store'
 import { useSelector } from 'react-redux'
 
-export function AdminScreen() {
+export function OwnerScreen() {
   const user = useSelector((state: RootState) => state.user)
 
   return (

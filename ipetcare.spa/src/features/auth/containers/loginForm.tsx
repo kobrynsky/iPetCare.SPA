@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import { Button, TextField, Card } from '@material-ui/core'
 import axios from 'axios'
-import { BASE_URL } from '../../utils/constants'
+import { BASE_URL } from '../../../utils/constants'
 import { useDispatch, useSelector } from 'react-redux'
-import { UserState } from '../../state/user/userReducer'
-import { RootState } from '../../state/store'
-import { setUser } from '../../state/user/userActions'
-import { saveUserState } from '../../utils/localStorageHelper'
+import { UserState } from '../../../state/user/userReducer'
+import { RootState } from '../../../state/store'
+import { setUser } from '../../../state/user/userActions'
+import { saveUserState } from '../../../utils/localStorageHelper'
 import '../auth.css'
 import { useHistory } from 'react-router-dom'
-import { setTokenInHeader } from '../../utils/api'
+import { setTokenInHeader } from '../../../utils/api'
+import { Users } from '../../../api'
 
 export function LoginForm() {
   const dispatch = useDispatch()
@@ -23,17 +24,12 @@ export function LoginForm() {
     e.preventDefault()
     setError(false)
     try {
-      const response = await axios.post(BASE_URL + '/users/login', {
-        email: login,
-        password,
-      })
+      const response = await Users.login({ email: login, password })
 
-      const user: UserState = response.data as UserState
-
-      dispatch(setUser(user))
-      saveUserState(user)
-      setTokenInHeader(user.token)
-      switch (user.role.toLowerCase()) {
+      dispatch(setUser(response))
+      saveUserState(response)
+      setTokenInHeader(response.token)
+      switch (response.role.toLowerCase()) {
         case 'owner':
           history.push('/owner')
           break

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { BASE_URL } from '../../utils/constants'
+import { BASE_URL } from '../../../utils/constants'
 import '../race.css'
 import {
   FormControl,
@@ -12,7 +12,7 @@ import {
   MenuItem,
   InputLabel,
 } from '@material-ui/core'
-import { getUserState } from '../../utils/localStorageHelper'
+import { getUserState } from '../../../utils/localStorageHelper'
 import { useParams } from 'react-router-dom'
 
 axios.interceptors.request.use(

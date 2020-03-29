@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { BASE_URL } from '../../utils/constants'
+import { BASE_URL } from '../../../utils/constants'
 import '../race.css'
 import RaceCard from './raceCard'
 import { Container, Grid } from '@material-ui/core'

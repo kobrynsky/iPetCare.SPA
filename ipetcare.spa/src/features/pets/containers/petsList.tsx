@@ -1,8 +1,8 @@
-import { Pet } from '../../state/pets/petsReducer'
-import { getPets } from '../../state/pets/petsActions'
+import { Pet } from '../../../state/pets/petsReducer'
+import { getPets } from '../../../state/pets/petsActions'
 import React, { Component } from 'react'
 import { PetsListItem } from '../components/petsListItem'
-import { RootState } from '../../state/store'
+import { RootState } from '../../../state/store'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 
