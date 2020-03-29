@@ -1,19 +1,26 @@
-import { combineReducers, createStore, AnyAction, Store } from 'redux'
-import { devToolsEnhancer } from 'redux-devtools-extension'
+import { PetsAction } from './actions/petsActions'
+import { USER_ACTIONS } from './state/userActions'
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
+import reduxThunk, { ThunkMiddleware } from 'redux-thunk'
+import { composeWithDevTools } from 'redux-devtools-extension'
 import { userReducer, UserState } from './state/userReducer'
+import { petsReducer, PetsState } from './reducers/petsReducer'
 
-export interface StoreState {
-  user: UserState
+export interface RootState {
+  readonly user: UserState
+  readonly pets: PetsState
 }
 
-/* Create root reducer, containing all features of the application */
-const rootReducer = combineReducers({
+const rootReducer = combineReducers<RootState>({
   user: userReducer,
+  pets: petsReducer,
 })
 
-const store: Store<StoreState, AnyAction> = createStore(
-  rootReducer,
-  /* preloadedState, */ devToolsEnhancer({})
-)
+export type RootActions = USER_ACTIONS | PetsAction // | CommentsAction | etc.
 
-export default store
+export const store = createStore(
+  rootReducer,
+  composeWithDevTools(
+    applyMiddleware(reduxThunk as ThunkMiddleware<RootState, RootActions>)
+  )
+)

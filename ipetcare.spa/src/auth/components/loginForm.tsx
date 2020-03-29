@@ -4,7 +4,7 @@ import axios from 'axios'
 import { BASE_URL } from '../../constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { UserState } from '../../state/userReducer'
-import { StoreState } from '../../store'
+import { RootState } from '../../store'
 import { setUser } from '../../state/userActions'
 import { saveUserState } from '../../utils/localStorageHelper'
 import '../auth.css'
@@ -13,7 +13,7 @@ import { setTokenInHeader } from '../../utils/api'
 
 export function LoginForm() {
   const dispatch = useDispatch()
-  const user = useSelector((state: StoreState) => state.user)
+  const user = useSelector((state: RootState) => state.user)
   const history = useHistory()
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
