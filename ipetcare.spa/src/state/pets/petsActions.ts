@@ -230,7 +230,7 @@ export const deletePet = (
   }
 }
 
-export type PetsAction =
+export type PETS_ACTIONS =
   | GetPets
   | GetPetsSuccess
   | GetPetsFail

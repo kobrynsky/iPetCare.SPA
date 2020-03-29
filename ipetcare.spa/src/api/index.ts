@@ -27,6 +27,9 @@ axios.interceptors.response.use(undefined, error => {
   if (status === 404) {
     history.push('/notfound')
   }
+  if (status === 403) {
+    history.push('/forbidden')
+  }
   if (status === 401) {
     deleteUserState()
     history.push('/')

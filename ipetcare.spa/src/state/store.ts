@@ -1,4 +1,4 @@
-import { PetsAction } from './pets/petsActions'
+import { PETS_ACTIONS } from './pets/petsActions'
 import { USER_ACTIONS } from './user/userActions'
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import reduxThunk, { ThunkMiddleware } from 'redux-thunk'
@@ -16,7 +16,7 @@ const rootReducer = combineReducers<RootState>({
   pets: petsReducer,
 })
 
-export type RootActions = USER_ACTIONS | PetsAction // | CommentsAction | etc.
+export type RootActions = USER_ACTIONS | PETS_ACTIONS
 
 export const store = createStore(
   rootReducer,
