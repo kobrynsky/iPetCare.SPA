@@ -1,7 +1,7 @@
 import React from 'react'
-import './home.css'
+import '../home.css'
 import { Grid, Typography } from '@material-ui/core'
-import { ContentCard } from '../common/contentCard'
+import { ContentCard } from '../../common/components/contentCard'
 import { Link, NavLink } from 'react-router-dom'
 
 export function HomeScreen() {

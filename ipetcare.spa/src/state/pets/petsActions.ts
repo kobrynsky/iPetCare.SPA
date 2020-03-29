@@ -1,8 +1,8 @@
-import pets from '../api'
+import pets from '../../api'
 import { ThunkAction } from 'redux-thunk'
 import { Dispatch } from 'redux'
 import { RootState, RootActions } from '../store'
-import { Pet, Pets } from '../reducers/petsReducer'
+import { Pet, Pets } from './petsReducer'
 import { AxiosResponse } from 'axios'
 // import history from '../history'
 

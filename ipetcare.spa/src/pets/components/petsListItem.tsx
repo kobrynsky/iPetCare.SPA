@@ -1,5 +1,5 @@
 import React from 'react'
-import { Pet } from '../../reducers/petsReducer'
+import { Pet } from '../../state/pets/petsReducer'
 
 interface PetListItemProps {
   pet: Pet

@@ -1,10 +1,10 @@
-import { PetsAction } from './actions/petsActions'
-import { USER_ACTIONS } from './state/userActions'
+import { PetsAction } from './pets/petsActions'
+import { USER_ACTIONS } from './user/userActions'
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import reduxThunk, { ThunkMiddleware } from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import { userReducer, UserState } from './state/userReducer'
-import { petsReducer, PetsState } from './reducers/petsReducer'
+import { userReducer, UserState } from './user/userReducer'
+import { petsReducer, PetsState } from './pets/petsReducer'
 
 export interface RootState {
   readonly user: UserState
