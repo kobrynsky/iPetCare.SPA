@@ -41,7 +41,7 @@ export function LoginForm() {
           break
       }
     } catch (error) {
-      if (error.response.status == 401) {
+      if (error.status == 401) {
         setError(true)
       }
     }

@@ -44,7 +44,7 @@ export function RegisterForm() {
 
       dispatch(setUser(response.data))
     } catch (error) {
-      setError(error.response.data)
+      setError(error.data)
     }
   }
 

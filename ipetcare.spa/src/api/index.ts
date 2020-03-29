@@ -4,6 +4,7 @@ import { getUserState, deleteUserState } from '../utils/localStorageHelper'
 import { useHistory } from 'react-router-dom'
 import { User } from '../state/user/userActions'
 import { Pet } from '../state/pets/petsReducer'
+import { history } from '../index'
 
 axios.defaults.baseURL = BASE_URL
 
@@ -19,8 +20,6 @@ axios.interceptors.request.use(
 )
 
 axios.interceptors.response.use(undefined, error => {
-  const history = useHistory()
-
   if (error.message === 'Network Error' && !error.response) {
     console.error('Błąd sieci - upewnij się, że API działa!')
   }
@@ -28,11 +27,7 @@ axios.interceptors.response.use(undefined, error => {
   if (status === 404) {
     history.push('/notfound')
   }
-  if (
-    status === 401 &&
-    headers['www-authenticate'] ===
-      'Bearer error="invalid_token", error_description="The token is expired"'
-  ) {
+  if (status === 401) {
     deleteUserState()
     history.push('/')
     console.info('Twoja sesja wygasła, zaloguj się ponownie.')
