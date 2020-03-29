@@ -4,3 +4,16 @@
   justify-content: flex-end;
   align-items: flex-end; */
 }
+
+.navlink {
+  margin: 5px;
+  color: gray;
+}
+
+.navlink:hover {
+  color: black;
+}
+
+.activeNavLink {
+  color: black;
+}
