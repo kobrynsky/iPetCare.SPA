@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { PetsAction, PetsActionTypes } from '../actions/petsActions'
+import { PetsAction, PetsActionTypes } from './petsActions'
 import { Reducer } from 'redux'
 
 export interface Pet {

@@ -11,7 +11,7 @@ body {
   width: 100%;
   height: 100%;
   /* background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%); */
-  background-image: url('https://s1.1zoom.me/b5050/447/346493-admin_2560x1440.jpg?fbclid=IwAR3HA2jjim2R10AONvDVuTKCoHbl3AMp_EAjlmW9XX5xE3Pk0VTNhiZkJW8');
+  background-image: url(assets/background.jpg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

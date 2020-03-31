@@ -1,8 +1,8 @@
-import pets from '../api'
+import { Pets as pets } from '../../api'
 import { ThunkAction } from 'redux-thunk'
 import { Dispatch } from 'redux'
 import { RootState, RootActions } from '../store'
-import { Pet, Pets } from '../reducers/petsReducer'
+import { Pet, Pets } from './petsReducer'
 import { AxiosResponse } from 'axios'
 // import history from '../history'
 
@@ -43,8 +43,8 @@ interface GetPetsFail {
 export const getPets = (): ThunkResult<void> => async dispatch => {
   handleGetPets(dispatch)
   try {
-    const response: AxiosResponse<Pet[]> = await pets.get('/pets')
-    handleGetPetsSuccess(dispatch, response.data)
+    const response: Pet[] = await pets.getPets()
+    handleGetPetsSuccess(dispatch, response)
   } catch (e) {
     handleGetPetsFail(dispatch)
   }
@@ -88,8 +88,8 @@ interface GetPetFail {
 export const getPet = (id: string): ThunkResult<void> => async dispatch => {
   handleGetPet(dispatch)
   try {
-    const response: AxiosResponse<Pet> = await pets.get(`/pets/${id}`)
-    handleGetPetSuccess(dispatch, response.data)
+    const response: Pet = await pets.getPet(id)
+    handleGetPetSuccess(dispatch, response)
   } catch (e) {
     handleGetPetFail(dispatch)
   }
@@ -133,7 +133,7 @@ interface CreatePetFail {
 export const createPet = (pet: Pet): ThunkResult<void> => async dispatch => {
   handleCreatePet(dispatch)
   try {
-    const response: AxiosResponse<Pet> = await pets.post(`/pets`, pet)
+    const response: AxiosResponse<Pet> = await pets.create(pet)
     handleCreatePetSuccess(dispatch, response.data)
   } catch (e) {
     handleCreatePetFail(dispatch)
@@ -176,10 +176,7 @@ export const updatePet = (
 ): ThunkResult<void> => async dispatch => {
   handleUpdatePet(dispatch)
   try {
-    const response: AxiosResponse<Pet> = await pets.patch(
-      `/posts/${updatedPet.id}`,
-      updatedPet
-    )
+    const response: AxiosResponse<Pet> = await pets.update(updatedPet)
     handleUpdatePetSuccess(dispatch, response.data)
   } catch (e) {
     handleUpdatePetFail(dispatch)
@@ -222,7 +219,7 @@ export const deletePet = (
 ): ThunkResult<void> => async dispatch => {
   dispatch({ type: PetsActionTypes.DELETE_PET })
   try {
-    await pets.delete(`/pets/${deletedId}`)
+    await pets.delete(deletedId)
     dispatch({
       type: PetsActionTypes.DELETE_PET_SUCCESS,
       payload: deletedId,
@@ -233,7 +230,7 @@ export const deletePet = (
   }
 }
 
-export type PetsAction =
+export type PETS_ACTIONS =
   | GetPets
   | GetPetsSuccess
   | GetPetsFail
