@@ -1,47 +1,38 @@
 import React from 'react'
-import {
-  TableContainer,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Paper,
-} from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
+import MaterialTable, { Column } from 'material-table'
 
-interface Row {
-  data: any[]
+const useStyles = makeStyles({})
+
+interface TableProps {
+  columns: Array<Column<any>>
+  onDelete?: (data: any) => Promise<void>
+  onEdit?: (newData: any) => Promise<void>
+  onAdd?: (newData: any) => Promise<void>
+  rows: any[]
+  title: string
 }
 
-interface Props {
-  onSave?: () => any
-  onEdit?: () => any
-  onAdd?: () => any
-  columns: string[]
-  rows: Row[]
-}
+export const TableCommon = ({
+  columns,
+  rows,
+  title,
+  onAdd,
+  onEdit,
+  onDelete,
+}: TableProps) => {
+  const styles = useStyles()
 
-export const TableCommon = ({ columns, rows }: Props) => {
   return (
-    <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            {columns.map(c => (
-              <TableCell align="center">{c}</TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map(r => (
-            <TableRow>
-              {r.data.map(cell => (
-                <TableCell align="center">{cell}</TableCell>
-              ))}
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <MaterialTable
+      title={title}
+      columns={columns}
+      data={rows}
+      editable={{
+        onRowAdd: onAdd,
+        onRowDelete: onDelete,
+        onRowUpdate: onEdit,
+      }}
+    />
   )
 }
