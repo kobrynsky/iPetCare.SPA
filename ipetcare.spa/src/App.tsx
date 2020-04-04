@@ -17,6 +17,7 @@ import PetsList from './features/pets/containers/petsList'
 import { AdminScreen } from './features/homePage/containers/adminScreen'
 import { OwnerScreen } from './features/homePage/containers/ownerScreen'
 import { RaceScreen } from './features/race/containers/raceScreen'
+import { SpeciesScreen } from './features/species/containers/speciesScreen'
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -62,6 +63,7 @@ const App: React.FC = () => {
               <Route path="/admin" component={AdminScreen} />
               <Route path="/owner" component={OwnerScreen} />
               <Route path="/races" component={RaceScreen} />
+              <Route path="/species" component={SpeciesScreen} />
               <Route path="/pets" exact component={PetsList} />
             </Switch>
           </Grid>

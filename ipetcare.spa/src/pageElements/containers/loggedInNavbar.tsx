@@ -51,6 +51,10 @@ const adminRoutes: Route[] = [
     path: '/races',
   },
   {
+    caption: 'Gatunki',
+    path: '/species',
+  },
+  {
     caption: 'Badania',
     path: '/',
   },
