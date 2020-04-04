@@ -25,7 +25,7 @@ interface Route {
 const ownerRoutes: Route[] = [
   {
     caption: 'Zwierzęta',
-    path: '/races',
+    path: '/',
   },
   {
     caption: 'Weterynarze',
@@ -218,7 +218,7 @@ export function LoggedInNavbar() {
         </NavLink>
       </MenuItem>
       {renderMobileMenuItem(
-        user.role.toLowerCase() === 'admin' ? adminRoutes : ownerRoutes
+        user.role.toLowerCase() === 'administrator' ? adminRoutes : ownerRoutes
       )}
     </Menu>
   )
@@ -264,7 +264,9 @@ export function LoggedInNavbar() {
               Główna
             </NavLink>
             {renderDesktopMenuItem(
-              user.role.toLowerCase() === 'admin' ? adminRoutes : ownerRoutes
+              user.role.toLowerCase() === 'administrator'
+                ? adminRoutes
+                : ownerRoutes
             )}
           </div>
           <div className={classes.grow} />
