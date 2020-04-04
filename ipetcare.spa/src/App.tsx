@@ -10,16 +10,17 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from './state/userActions'
 import { getUserState } from './utils/localStorageHelper'
 import { Grid, Card, Typography } from '@material-ui/core'
-import { StoreState } from './store'
+import { RootState } from './store'
 import { UserState } from './state/userReducer'
 import { RaceForm } from './race/components/raceForm'
 import { RaceList } from './race/components/raceList'
+import PetsList from '../src/pets/containers/petsList'
 import { AdminScreen } from './homePage/adminScreen'
 import { OwnerScreen } from './homePage/ownerScreen'
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
-  const user = useSelector((state: StoreState) => state.user)
+  const user = useSelector((state: RootState) => state.user)
 
   useEffect(() => {
     const user = getUserState()
@@ -66,6 +67,7 @@ const App: React.FC = () => {
                 render={() => <RaceForm editing={true} />}
               />
               <Route path="/races" component={RaceList} />
+              <Route path="/pets" exact component={PetsList} />
             </Switch>
           </Grid>
         </Grid>
