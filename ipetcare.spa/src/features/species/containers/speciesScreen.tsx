@@ -15,7 +15,7 @@ export function SpeciesScreen() {
         </Grid>
         <Grid item>
           <TableCommon
-            title="tabela"
+            title="Gatunki"
             isLoading={false}
             columns={[{ title: 'Nazwa', field: 'name' }]}
             rows={[

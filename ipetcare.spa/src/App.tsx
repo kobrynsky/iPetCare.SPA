@@ -18,6 +18,9 @@ import { AdminScreen } from './features/homePage/containers/adminScreen'
 import { OwnerScreen } from './features/homePage/containers/ownerScreen'
 import { RaceScreen } from './features/race/containers/raceScreen'
 import { SpeciesScreen } from './features/species/containers/speciesScreen'
+import { NotFoundPage } from './common/errorPages/notFoundPage'
+import { ForbiddenPage } from './common/errorPages/forbiddenPage'
+import { UnauthorizedPage } from './common/errorPages/unauthorizedPage'
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -64,7 +67,10 @@ const App: React.FC = () => {
               <Route path="/owner" component={OwnerScreen} />
               <Route path="/races" component={RaceScreen} />
               <Route path="/species" component={SpeciesScreen} />
+              <Route path="/forbidden" component={ForbiddenPage} />
+              <Route path="/unauthorized" component={UnauthorizedPage} />
               <Route path="/pets" exact component={PetsList} />
+              <Route path="*" component={NotFoundPage} />
             </Switch>
           </Grid>
         </Grid>

@@ -15,7 +15,7 @@ export function RaceScreen() {
         </Grid>
         <Grid item>
           <TableCommon
-            title="tabela"
+            title="Rasy"
             isLoading={false}
             columns={[
               { title: 'Nazwa', field: 'name' },
@@ -31,9 +31,7 @@ export function RaceScreen() {
               { id: 3, name: 'salamandra', speciesId: 9999 },
               { id: 4, name: 'syjamski', speciesId: 11 },
             ]}
-            onDelete={async data => {
-              console.log(data)
-            }}
+            onDelete={async data => {}}
             onAdd={async data => {
               console.log(data)
             }}
