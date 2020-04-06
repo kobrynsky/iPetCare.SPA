@@ -4,6 +4,20 @@ body {
   height: 100%;
 }
 
+body .MuiInputBase-root .MuiInput-underline,
+.MuiInput-underline::before,
+.MuiInput-underline::after,
+.MuiInput-underline:focus,
+.MuiOutlinedInput-input {
+  border: none !important;
+  border-bottom: none !important;
+  content: none !important;
+}
+
+body input {
+  margin-left: 10px !important;
+}
+
 .background {
   z-index: -1;
   position: absolute;
