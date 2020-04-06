@@ -18,6 +18,7 @@ import { AdminScreen } from './features/homePage/containers/adminScreen'
 import { OwnerScreen } from './features/homePage/containers/ownerScreen'
 import { RaceScreen } from './features/race/containers/raceScreen'
 import { SpeciesScreen } from './features/species/containers/speciesScreen'
+import { EditProfilePage } from './features/profile/containers/editProfilePage'
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -34,17 +35,17 @@ const App: React.FC = () => {
     user.token.length > 0 ? (
       <LoggedInNavbar />
     ) : (
-      <>
-        {/* <Card className="titleContainerNotLogged"> */}
-        <NavLink className="titleContainerNotLogged" to="/">
-          <Typography className="title" variant="h5">
-            iPetCare
+        <>
+          {/* <Card className="titleContainerNotLogged"> */}
+          <NavLink className="titleContainerNotLogged" to="/">
+            <Typography className="title" variant="h5">
+              iPetCare
           </Typography>
-        </NavLink>
-        {/* </Card> */}
-        <NotLoggedNavbar />
-      </>
-    )
+          </NavLink>
+          {/* </Card> */}
+          <NotLoggedNavbar />
+        </>
+      )
 
   return (
     <div className="app">
@@ -65,6 +66,7 @@ const App: React.FC = () => {
               <Route path="/races" component={RaceScreen} />
               <Route path="/species" component={SpeciesScreen} />
               <Route path="/pets" exact component={PetsList} />
+              <Route path="/profile/edit" component={EditProfilePage} />
             </Switch>
           </Grid>
         </Grid>

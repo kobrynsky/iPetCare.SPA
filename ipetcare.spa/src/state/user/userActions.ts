@@ -8,12 +8,20 @@ export interface User {
   id: string
 }
 
-export const SET_USER = 'SET_USER'
+export enum UserActionTypes {
+  UPDATE_PROFILE = 'UPDATE_PROFILE',
+  UPDATE_PROFILE_SUCCESS = 'UPDATE_PROFILE_SUCCESS',
+  UPDATE_PROFILE_FAIL = 'UPDATE_PROFILE_FAIL',
+  SET_USER = 'SET_USER',
+}
+
+
+// export const SET_USER = 'SET_USER'
 type SET_USER_ACTION = ReturnType<typeof setUser>
 
 export const setUser = (user: User) =>
   ({
-    type: SET_USER,
+    type: UserActionTypes.SET_USER,
     payload: user,
   } as const)
 
