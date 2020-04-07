@@ -1,3 +1,4 @@
+import { history } from './../../index'
 import { Pets as pets } from '../../api'
 import { ThunkAction } from 'redux-thunk'
 import { Dispatch } from 'redux'
@@ -145,7 +146,7 @@ const handleCreatePetSuccess = (
   response: Pet
 ) => {
   dispatch({ type: PetsActionTypes.CREATE_PET_SUCCESS, payload: response })
-  // history.push('/')
+  history.push('/pets')
 }
 
 const handleCreatePetFail = (dispatch: Dispatch<CreatePetFail>) => {
@@ -187,7 +188,7 @@ const handleUpdatePetSuccess = (
   updatedPet: Pet
 ) => {
   dispatch({ type: PetsActionTypes.UPDATE_PET_SUCCESS, payload: updatedPet })
-  // history.push('/')
+  history.push('/pets')
 }
 
 const handleUpdatePetFail = (dispatch: Dispatch<UpdatePetFail>) => {
@@ -218,7 +219,7 @@ export const deletePet = (
       type: PetsActionTypes.DELETE_PET_SUCCESS,
       payload: deletedId,
     })
-    // history.push('/')
+    history.push('/pets')
   } catch (e) {
     dispatch({ type: PetsActionTypes.DELETE_PET_FAIL })
   }
