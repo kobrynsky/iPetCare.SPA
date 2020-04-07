@@ -29,16 +29,16 @@ export function LoginForm() {
     }
   }, [userState.user])
 
+  useEffect(() => {
+    if (userState.error) {
+      setError(true)
+    }
+  }, [userState.error, error])
+
   const onSumbit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError(false)
-    try {
-      dispatch(loginUser({ email: login, password }))
-    } catch (error) {
-      if (error.status == 401) {
-        setError(true)
-      }
-    }
+    dispatch(loginUser({ email: login, password }))
   }
 
   return (
