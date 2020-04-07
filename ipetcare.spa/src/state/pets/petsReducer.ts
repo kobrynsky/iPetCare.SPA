@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { PetsAction, PetsActionTypes } from './petsActions'
+import { PETS_ACTIONS, PetsActionTypes } from './petsActions'
 import { Reducer } from 'redux'
 
 export interface Pet {
@@ -29,7 +29,7 @@ const initialState = {
   error: null,
 }
 
-export const petsReducer: Reducer<PetsState, PetsAction> = (
+export const petsReducer: Reducer<PetsState, PETS_ACTIONS> = (
   state = initialState,
   action
 ) => {

@@ -4,11 +4,26 @@ body {
   height: 100%;
 }
 
+body .MuiInputBase-root .MuiInput-underline,
+.MuiInput-underline::before,
+.MuiInput-underline::after,
+.MuiInput-underline:focus,
+.MuiOutlinedInput-input {
+  border: none !important;
+  border-bottom: none !important;
+  content: none !important;
+}
+
+body input {
+  margin-left: 10px !important;
+}
+
 .background {
   z-index: -1;
   position: absolute;
   margin: 0;
   width: 100%;
+  margin-top: 80px;
   height: 100%;
   /* background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%); */
   background-image: url(assets/background.jpg);

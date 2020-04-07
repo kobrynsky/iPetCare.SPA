@@ -33,7 +33,7 @@ export function LoginForm() {
         case 'owner':
           history.push('/owner')
           break
-        case 'admin':
+        case 'administrator':
           history.push('/admin')
           break
         case 'vet':

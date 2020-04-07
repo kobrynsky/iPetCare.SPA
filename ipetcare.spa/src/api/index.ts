@@ -1,7 +1,6 @@
 import axios, { AxiosResponse } from 'axios'
 import { BASE_URL } from '../utils/constants'
 import { getUserState, deleteUserState } from '../utils/localStorageHelper'
-import { useHistory } from 'react-router-dom'
 import { User } from '../state/user/userActions'
 import { Pet } from '../state/pets/petsReducer'
 import { history } from '../index'
@@ -32,7 +31,7 @@ axios.interceptors.response.use(undefined, error => {
   }
   if (status === 401) {
     deleteUserState()
-    history.push('/')
+    history.push('/unauthorized')
     console.info('Twoja sesja wygasła, zaloguj się ponownie.')
   }
   if (

@@ -16,9 +16,11 @@ import {
   FormHelperText,
   Card,
 } from '@material-ui/core'
+import { useHistory } from 'react-router-dom'
 
 export function RegisterForm() {
   const dispatch = useDispatch()
+  const history = useHistory()
 
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -42,7 +44,8 @@ export function RegisterForm() {
         role,
       })
 
-      dispatch(setUser(response.data))
+      // dispatch(setUser(response.data))
+      history.push('/login')
     } catch (error) {
       setError(error.data)
     }
