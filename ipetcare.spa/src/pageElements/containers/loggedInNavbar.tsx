@@ -7,11 +7,9 @@ import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
 import MenuIcon from '@material-ui/icons/Menu'
 import AccountCircle from '@material-ui/icons/AccountCircle'
-import { Button } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../state/store'
-import { initalState } from '../../state/user/userReducer'
-import { setUser } from '../../state/user/userActions'
+import { logout } from '../../state/user/userActions'
 import { deleteUserState } from '../../utils/localStorageHelper'
 import { deleteTokenInHeader } from '../../utils/api'
 import { NavLink } from 'react-router-dom'
@@ -133,7 +131,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export function LoggedInNavbar() {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const user = useSelector((state: RootState) => state.user)
+  const user = useSelector((state: RootState) => state.user.user)
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const [
     mobileMoreAnchorEl,
@@ -161,7 +159,7 @@ export function LoggedInNavbar() {
   }
 
   const handleLogout = () => {
-    dispatch(setUser(initalState))
+    dispatch(logout())
     deleteUserState()
     deleteTokenInHeader()
   }

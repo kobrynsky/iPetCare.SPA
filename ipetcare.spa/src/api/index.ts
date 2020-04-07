@@ -2,9 +2,9 @@ import axios, { AxiosResponse } from 'axios'
 import { BASE_URL } from '../utils/constants'
 import { getUserState, deleteUserState } from '../utils/localStorageHelper'
 import { useHistory } from 'react-router-dom'
-import { User } from '../state/user/userActions'
 import { Pet } from '../state/pets/petsReducer'
 import { history } from '../index'
+import { User } from '../state/user/userReducer'
 
 axios.defaults.baseURL = BASE_URL
 
@@ -59,12 +59,12 @@ const requests = {
   del: (url: string) => axios.delete(url).then(responseBody),
 }
 
-interface LoginProps {
+export interface LoginProps {
   email: string
   password: string
 }
 
-interface RegisterProps {
+export interface RegisterProps {
   firstName: string
   lastName: string
   userName: string

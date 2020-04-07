@@ -1,16 +1,16 @@
-import { USER_ACTIONS } from './userActions'
+import { USER_ACTIONS, UserActionTypes } from './userActions'
 
-export interface UserState {
-  firstName: string
-  lastName: string
-  userName: string
-  token: string
-  email: string
-  role: string
-  id: string
-}
+// export interface User {
+//   firstName: string
+//   lastName: string
+//   userName: string
+//   token: string
+//   email: string
+//   role: string
+//   id: string
+// }
 
-export interface UserProfile {
+export interface User {
   firstName: string
   lastName: string
   userName: string
@@ -23,38 +23,68 @@ export interface UserProfile {
   imageUrl: string
 }
 
-export const initalState: UserState = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  id: '',
-  userName: '',
-  token: '',
-  role: '',
+export interface UserState {
+  user: User
+  loading: boolean
+  error: string | null
 }
 
-export const initialUserProfile: UserProfile = {
-  firstName: '',
-  lastName: '',
-  userName: '',
-  token: '',
-  email: '',
-  role: '',
-  placeOfResidence: '',
-  specialization: '',
-  id: '',
-  imageUrl: '',
+// export const initalState: UserState = {
+//   firstName: '',
+//   lastName: '',
+//   email: '',
+//   id: '',
+//   userName: '',
+//   token: '',
+//   role: '',
+// }
+
+export const initialUserProfile: UserState = {
+  user: {
+    firstName: '',
+    lastName: '',
+    userName: '',
+    token: '',
+    email: '',
+    role: '',
+    placeOfResidence: '',
+    specialization: '',
+    id: '',
+    imageUrl: '',
+  },
+  loading: false,
+  error: null,
 }
 
 export const userReducer = (
-  state: UserState = initalState,
+  state: UserState = initialUserProfile,
   action: USER_ACTIONS
 ): UserState => {
   switch (action.type) {
-    case 'SET_USER':
+    case UserActionTypes.LOGIN_USER:
+      return { ...state, loading: true }
+
+    case UserActionTypes.LOGIN_USER_FAIL:
+      return { ...state, loading: false }
+
+    case UserActionTypes.LOGIN_USER_SUCCESS:
+      const user = action.payload
       return {
         ...state,
-        ...action.payload,
+        user: { ...state.user, ...user },
+        loading: false,
+      }
+
+    case UserActionTypes.SET_USER:
+      return {
+        ...state,
+        user: action.payload,
+      }
+
+    case UserActionTypes.LOGOUT:
+      return {
+        ...state,
+        user: {} as User,
       }
     default:
       return state

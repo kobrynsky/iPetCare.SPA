@@ -22,7 +22,7 @@ import { EditProfilePage } from './features/profile/containers/editProfilePage'
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
-  const user = useSelector((state: RootState) => state.user)
+  const user = useSelector((state: RootState) => state.user.user)
 
   useEffect(() => {
     const user = getUserState()
@@ -32,20 +32,20 @@ const App: React.FC = () => {
   }, [])
 
   const header =
-    user.token.length > 0 ? (
+    user && user.token?.length > 0 ? (
       <LoggedInNavbar />
     ) : (
-        <>
-          {/* <Card className="titleContainerNotLogged"> */}
-          <NavLink className="titleContainerNotLogged" to="/">
-            <Typography className="title" variant="h5">
-              iPetCare
+      <>
+        {/* <Card className="titleContainerNotLogged"> */}
+        <NavLink className="titleContainerNotLogged" to="/">
+          <Typography className="title" variant="h5">
+            iPetCare
           </Typography>
-          </NavLink>
-          {/* </Card> */}
-          <NotLoggedNavbar />
-        </>
-      )
+        </NavLink>
+        {/* </Card> */}
+        <NotLoggedNavbar />
+      </>
+    )
 
   return (
     <div className="app">

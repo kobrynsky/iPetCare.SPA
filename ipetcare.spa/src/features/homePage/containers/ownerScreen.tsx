@@ -7,7 +7,7 @@ import { RootState } from '../../../state/store'
 import { useSelector } from 'react-redux'
 
 export function OwnerScreen() {
-  const user = useSelector((state: RootState) => state.user)
+  const user = useSelector((state: RootState) => state.user.user)
 
   return (
     <div>
