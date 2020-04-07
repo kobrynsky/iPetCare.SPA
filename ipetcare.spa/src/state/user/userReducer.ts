@@ -62,7 +62,14 @@ export const userReducer = (
 ): UserState => {
   switch (action.type) {
     case UserActionTypes.LOGIN_USER:
+    case UserActionTypes.REGISTER_USER:
       return { ...state, loading: true }
+
+    case UserActionTypes.REGISTER_USER_FAIL:
+      return { ...state, loading: false, error: action.payload }
+
+    case UserActionTypes.REGISTER_USER_SUCCESS:
+      return { ...state, loading: false }
 
     case UserActionTypes.LOGIN_USER_FAIL:
       return { ...state, loading: false, error: 'Błędny login lub hasło' }

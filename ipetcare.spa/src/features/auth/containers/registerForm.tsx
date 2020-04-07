@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 // import { Form, Button, Input } from 'semantic-ui-react'
 import axios from 'axios'
-import { BASE_URL } from '../../../utils/constants'
-import { useDispatch } from 'react-redux'
-import { setUser } from '../../../state/user/userActions'
+import { BASE_URL, OWNER, VET } from '../../../utils/constants'
+import { useDispatch, useSelector } from 'react-redux'
+import { setUser, registerUser } from '../../../state/user/userActions'
 import '../auth.css'
 import {
   FormControl,
@@ -17,6 +17,7 @@ import {
   Card,
 } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
+import { RootState } from '../../../state/store'
 
 export function RegisterForm() {
   const dispatch = useDispatch()
@@ -28,14 +29,24 @@ export function RegisterForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passwordRepeated, setPasswordRepeated] = useState('')
-  const [role, setRole] = useState('')
+  const [role, setRole] = useState('' as 'Owner' | 'Vet')
   const [error, setError] = useState('')
+  const userState = useSelector((state: RootState) => state.user)
+
+  useEffect(() => {
+    if (userState.error) {
+      setError(userState.error)
+    }
+  }, [userState.error, error])
+
+  useEffect(() => {
+    if (userState.user.token) history.push('/login')
+  }, [userState.user])
 
   const onSumbit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
-    try {
-      const response = await axios.post(BASE_URL + '/users/register', {
+    dispatch(
+      registerUser({
         firstName,
         lastName,
         userName,
@@ -43,12 +54,7 @@ export function RegisterForm() {
         password,
         role,
       })
-
-      // dispatch(setUser(response.data))
-      history.push('/login')
-    } catch (error) {
-      setError(error.data)
-    }
+    )
   }
 
   return (
@@ -112,28 +118,26 @@ export function RegisterForm() {
             <RadioGroup row>
               <FormControlLabel
                 label="Opiekun"
-                value="Owner"
+                value={OWNER}
                 control={
                   <Radio
                     color="primary"
-                    checked={role === 'Owner'}
+                    checked={role === OWNER}
                     onChange={e => {
-                      if (typeof e.target.value === 'string')
-                        setRole(e.target.value)
+                      setRole(e.target.value as 'Owner' | 'Vet')
                     }}
                   />
                 }
               />
               <FormControlLabel
                 label="Weterynarz"
-                value="Vet"
+                value={VET}
                 control={
                   <Radio
                     color="primary"
-                    checked={role === 'Vet'}
+                    checked={role === VET}
                     onChange={e => {
-                      if (typeof e.target.value === 'string')
-                        setRole(e.target.value)
+                      setRole(e.target.value as 'Owner' | 'Vet')
                     }}
                   />
                 }
@@ -141,7 +145,9 @@ export function RegisterForm() {
             </RadioGroup>
           </FormControl>
           <FormHelperText error={!!error}>{error}</FormHelperText>
-          <Button type="submit">Zarejestruj</Button>
+          <Button disabled={password !== passwordRepeated} type="submit">
+            Zarejestruj
+          </Button>
         </div>
       </form>
     </Card>

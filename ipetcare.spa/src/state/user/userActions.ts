@@ -1,4 +1,4 @@
-import { LoginProps } from '../../api'
+import { LoginProps, RegisterProps } from '../../api'
 import { ThunkResult } from '../pets/petsActions'
 import { AxiosResponse } from 'axios'
 import { Users } from '../../api'
@@ -16,6 +16,9 @@ export enum UserActionTypes {
   LOGIN_USER = 'LOGIN_USER',
   LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS',
   LOGIN_USER_FAIL = 'LOGIN_USER_FAIL',
+  REGISTER_USER = 'REGISTER_USER',
+  REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS',
+  REGISTER_USER_FAIL = 'REGISTER_USER_FAIL',
 }
 
 type SET_USER = ReturnType<typeof setUser>
@@ -55,7 +58,6 @@ export const loginUser = (
   handleLoginUser(dispatch)
   try {
     const response: User = await Users.login(login)
-    console.log('po strzale', response)
     saveUserState(response)
     setTokenInHeader(response.token)
     handleLoginUserSuccess(dispatch, response)
@@ -84,8 +86,62 @@ export const handleLoginUserFail = (dispatch: Dispatch<LoginUserFail>) => {
   })
 }
 
+interface RegisterUser {
+  type: UserActionTypes.REGISTER_USER
+}
+
+interface RegisterUserSuccess {
+  type: UserActionTypes.REGISTER_USER_SUCCESS
+  payload: User
+}
+
+interface RegisterUserFail {
+  type: UserActionTypes.REGISTER_USER_FAIL
+  payload: string
+}
+
+type REGISTER_USER = RegisterUser | RegisterUserSuccess | RegisterUserFail
+
+export const registerUser = (
+  login: RegisterProps
+): ThunkResult<void> => async dispatch => {
+  handleRegisterUser(dispatch)
+  try {
+    const response: User = await Users.register(login)
+    saveUserState(response)
+    setTokenInHeader(response.token)
+    handleRegisterUserSuccess(dispatch, response)
+  } catch (e) {
+    handleRegisterUserFail(dispatch, e.data)
+  }
+}
+
+export const handleRegisterUser = (dispatch: Dispatch<RegisterUser>) => {
+  dispatch({ type: UserActionTypes.REGISTER_USER })
+}
+
+export const handleRegisterUserSuccess = (
+  dispatch: Dispatch<RegisterUserSuccess>,
+  response: User
+) => {
+  dispatch({
+    type: UserActionTypes.REGISTER_USER_SUCCESS,
+    payload: response,
+  })
+}
+
+export const handleRegisterUserFail = (
+  dispatch: Dispatch<RegisterUserFail>,
+  response: string
+) => {
+  dispatch({
+    type: UserActionTypes.REGISTER_USER_FAIL,
+    payload: response,
+  })
+}
+
 // export const updateProfile = (user: User) => (
 
 // )
 
-export type USER_ACTIONS = LOGIN_USER | LOGOUT_ACTION | SET_USER
+export type USER_ACTIONS = LOGIN_USER | LOGOUT_ACTION | SET_USER | REGISTER_USER
