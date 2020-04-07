@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
-// import { Form, Button, Input } from 'semantic-ui-react'
-import axios from 'axios'
-import { BASE_URL, OWNER, VET } from '../../../utils/constants'
+import { OWNER, VET } from '../../../utils/constants'
 import { useDispatch, useSelector } from 'react-redux'
-import { setUser, registerUser } from '../../../state/user/userActions'
+import { registerUser } from '../../../state/user/userActions'
 import '../auth.css'
 import {
   FormControl,
