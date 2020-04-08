@@ -1,10 +1,10 @@
+import { history } from './../../index'
 import { Pets as pets } from '../../api'
 import { ThunkAction } from 'redux-thunk'
 import { Dispatch } from 'redux'
 import { RootState, RootActions } from '../store'
 import { Pet, Pets } from './petsReducer'
 import { AxiosResponse } from 'axios'
-// import history from '../history'
 
 export type ThunkResult<R> = ThunkAction<R, RootState, undefined, RootActions>
 export enum PetsActionTypes {
@@ -25,8 +25,7 @@ export enum PetsActionTypes {
   DELETE_PET_FAIL = 'DELETE_PET_FAIL',
 }
 
-// FETCH POSTS
-
+// FETCH PET LIST
 interface GetPets {
   type: PetsActionTypes.GET_PETS
 }
@@ -70,8 +69,7 @@ export const handleGetPetsFail = (dispatch: Dispatch<GetPetsFail>) => {
   })
 }
 
-// FETCH POST
-
+// FETCH SINGLE PET
 interface GetPet {
   type: PetsActionTypes.GET_PET
 }
@@ -115,8 +113,7 @@ const handleGetPetFail = (dispatch: Dispatch<GetPetFail>) => {
   })
 }
 
-// ADD POST
-
+// ADD PET
 interface CreatePet {
   type: PetsActionTypes.CREATE_PET
 }
@@ -149,15 +146,14 @@ const handleCreatePetSuccess = (
   response: Pet
 ) => {
   dispatch({ type: PetsActionTypes.CREATE_PET_SUCCESS, payload: response })
-  // history.push('/')
+  history.push('/pets')
 }
 
 const handleCreatePetFail = (dispatch: Dispatch<CreatePetFail>) => {
   dispatch({ type: PetsActionTypes.CREATE_PET_FAIL })
 }
 
-// EDIT POST
-
+// EDIT PET
 interface UpdatePet {
   type: PetsActionTypes.UPDATE_PET
 }
@@ -192,15 +188,14 @@ const handleUpdatePetSuccess = (
   updatedPet: Pet
 ) => {
   dispatch({ type: PetsActionTypes.UPDATE_PET_SUCCESS, payload: updatedPet })
-  // history.push('/')
+  history.push('/pets')
 }
 
 const handleUpdatePetFail = (dispatch: Dispatch<UpdatePetFail>) => {
   dispatch({ type: PetsActionTypes.UPDATE_PET_FAIL })
 }
 
-// DELETE POST
-
+// DELETE PET
 interface DeletePet {
   type: PetsActionTypes.DELETE_PET
 }
@@ -224,7 +219,7 @@ export const deletePet = (
       type: PetsActionTypes.DELETE_PET_SUCCESS,
       payload: deletedId,
     })
-    // history.push('/')
+    history.push('/pets')
   } catch (e) {
     dispatch({ type: PetsActionTypes.DELETE_PET_FAIL })
   }

@@ -32,7 +32,7 @@ axios.interceptors.response.use(undefined, error => {
   }
   if (status === 401) {
     deleteUserState()
-    history.push('/')
+    history.push('/unauthorized')
     console.info('Twoja sesja wygasła, zaloguj się ponownie.')
   }
   if (
