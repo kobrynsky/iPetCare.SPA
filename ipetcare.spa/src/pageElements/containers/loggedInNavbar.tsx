@@ -12,7 +12,7 @@ import { RootState } from '../../state/store'
 import { logout } from '../../state/user/userActions'
 import { deleteUserState } from '../../utils/localStorageHelper'
 import { deleteTokenInHeader } from '../../utils/api'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 import '../pageElements.css'
 
 interface Route {
@@ -54,10 +54,6 @@ const adminRoutes: Route[] = [
   },
   {
     caption: 'Badania',
-    path: '/',
-  },
-  {
-    caption: 'Konto',
     path: '/',
   },
 ]
@@ -131,6 +127,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export function LoggedInNavbar() {
   const classes = useStyles()
   const dispatch = useDispatch()
+  const history = useHistory()
   const user = useSelector((state: RootState) => state.user.user)
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const [
@@ -176,7 +173,13 @@ export function LoggedInNavbar() {
       onClose={handleMenuClose}
     >
       <MenuItem>{user.email}</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Moje konto</MenuItem>
+      <MenuItem
+        onClick={() => {
+          history.push('/profile/edit')
+        }}
+      >
+        Moje konto
+      </MenuItem>
       <MenuItem onClick={handleLogout}>Wyloguj</MenuItem>
     </Menu>
   )

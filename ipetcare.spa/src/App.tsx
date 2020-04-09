@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom'
 import './index.css'
 import { HomeScreen } from './features/homePage/containers/homeScreen'
@@ -26,16 +26,19 @@ import { UnauthorizedPage } from './common/errorPages/unauthorizedPage'
 const App: React.FC = () => {
   const dispatch = useDispatch()
   const user = useSelector((state: RootState) => state.user.user)
+  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
+    setLoaded(false)
     const user = getUserState()
     if (user) {
       dispatch(setUser(user))
     }
+    setLoaded(true)
   }, [])
 
   const header =
-    user && user.token?.length > 0 ? (
+    user.token && user.token?.length > 0 ? (
       <LoggedInNavbar />
     ) : (
       <>
@@ -60,20 +63,22 @@ const App: React.FC = () => {
           </Grid>
 
           <Grid item>
-            <Switch>
-              <Route path="/" component={HomeScreen} exact />
-              <Route path="/register" component={RegisterForm} />
-              <Route path="/login" component={LoginForm} />
-              <Route path="/admin" component={AdminScreen} />
-              <Route path="/owner" component={OwnerScreen} />
-              <Route path="/races" component={RaceScreen} />
-              <Route path="/species" component={SpeciesScreen} />
-              <Route path="/forbidden" component={ForbiddenPage} />
-              <Route path="/unauthorized" component={UnauthorizedPage} />
-              <Route path="/pets" exact component={PetsList} />
-              <Route path="/profile/edit" component={EditProfilePage} />
-              <Route path="*" component={NotFoundPage} />
-            </Switch>
+            {loaded && (
+              <Switch>
+                <Route path="/" component={HomeScreen} exact />
+                <Route path="/register" component={RegisterForm} />
+                <Route path="/login" component={LoginForm} />
+                <Route path="/admin" component={AdminScreen} />
+                <Route path="/owner" component={OwnerScreen} />
+                <Route path="/races" component={RaceScreen} />
+                <Route path="/species" component={SpeciesScreen} />
+                <Route path="/forbidden" component={ForbiddenPage} />
+                <Route path="/unauthorized" component={UnauthorizedPage} />
+                <Route path="/pets" exact component={PetsList} />
+                <Route path="/profile/edit" component={EditProfilePage} />
+                <Route path="*" component={NotFoundPage} />
+              </Switch>
+            )}
           </Grid>
         </Grid>
       </BrowserRouter>

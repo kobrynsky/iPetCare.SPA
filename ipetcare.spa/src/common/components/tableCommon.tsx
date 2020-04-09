@@ -52,7 +52,7 @@ export const TableCommon = ({
             editRow: {
               deleteText: 'Czy na pewno chcesz usunąć ten wpis?',
               cancelTooltip: 'anuluj',
-              saveTooltip: 'usuń',
+              saveTooltip: 'zapisz',
             },
             addTooltip: 'dodaj',
             deleteTooltip: 'usuń',

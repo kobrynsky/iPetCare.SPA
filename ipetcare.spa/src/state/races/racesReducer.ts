@@ -1,32 +1,29 @@
 import _ from 'lodash'
 import { RACES_ACTIONS, RacesActionTypes } from './racesActions'
 import { Reducer } from 'redux'
+import { ListItemSecondaryAction } from '@material-ui/core'
 
 export interface Race {
-  id: number
+  id?: number
   name: string
   speciesId: number
 }
 
-export interface Races {
-  [id: number]: Race
-}
-
 export interface RacesState {
-  items: Races
+  items: Race[]
   loading: boolean
   error: String | null
 }
 
 const initialState = {
-  items: {},
+  items: [] as Race[],
   loading: false,
   error: null,
 }
 
-export const racesReducer: Reducer<RacesState, RACES_ACTIONS> = (
-  state = initialState,
-  action
+export const racesReducer = (
+  state: RacesState = initialState,
+  action: RACES_ACTIONS
 ) => {
   switch (action.type) {
     case RacesActionTypes.GET_RACE:
@@ -45,21 +42,21 @@ export const racesReducer: Reducer<RacesState, RACES_ACTIONS> = (
       const { id } = action.payload
       return {
         ...state,
-        items: { ...state.items, [id]: action.payload },
+        items: [...state.items, action.payload],
         loading: false,
       }
 
     case RacesActionTypes.GET_RACES_SUCCESS:
       return {
         ...state,
-        items: { ...state.items, ..._.mapKeys(action.payload.races, 'id') },
+        items: [...state.items, ...action.payload],
         loading: false,
       }
 
     case RacesActionTypes.DELETE_RACE_SUCCESS:
       return {
         ...state,
-        items: { ..._.omit(state.items, action.payload) },
+        items: state.items.map(x => x.id !== action.payload),
       }
 
     default:

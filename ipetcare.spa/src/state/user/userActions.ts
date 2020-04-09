@@ -1,4 +1,3 @@
-import { LoginProps, RegisterProps } from '../../api'
 import { ThunkResult } from '../pets/petsActions'
 import { AxiosResponse } from 'axios'
 import { Users } from '../../api'
@@ -6,6 +5,7 @@ import { Dispatch } from 'react'
 import { User } from './userReducer'
 import { setTokenInHeader } from '../../utils/api'
 import { saveUserState } from '../../utils/localStorageHelper'
+import { LoginProps, RegisterProps } from '../../api/dto'
 
 export enum UserActionTypes {
   UPDATE_PROFILE = 'UPDATE_PROFILE',
@@ -19,6 +19,9 @@ export enum UserActionTypes {
   REGISTER_USER = 'REGISTER_USER',
   REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS',
   REGISTER_USER_FAIL = 'REGISTER_USER_FAIL',
+  EDIT_USER = 'EDIT_USER',
+  EDIT_USER_SUCCESS = 'EDIT_USER_SUCCESS',
+  EDIT_USER_FAIL = 'EDIT_USER_FAIL',
 }
 
 type SET_USER = ReturnType<typeof setUser>
@@ -59,7 +62,7 @@ export const loginUser = (
   try {
     const response: User = await Users.login(login)
     saveUserState(response)
-    setTokenInHeader(response.token)
+    response.token && setTokenInHeader(response.token)
     handleLoginUserSuccess(dispatch, response)
   } catch (e) {
     handleLoginUserFail(dispatch)
@@ -109,7 +112,7 @@ export const registerUser = (
   try {
     const response: User = await Users.register(login)
     saveUserState(response)
-    setTokenInHeader(response.token)
+    response.token && setTokenInHeader(response.token)
     handleRegisterUserSuccess(dispatch, response)
   } catch (e) {
     handleRegisterUserFail(dispatch, e.data)
@@ -140,8 +143,65 @@ export const handleRegisterUserFail = (
   })
 }
 
+interface EditUser {
+  type: UserActionTypes.EDIT_USER
+}
+
+interface EditUserSuccess {
+  type: UserActionTypes.EDIT_USER_SUCCESS
+  payload: User
+}
+
+interface EditUserFail {
+  type: UserActionTypes.EDIT_USER_FAIL
+  payload: string
+}
+
+type EDIT_USER = EditUser | EditUserSuccess | EditUserFail
+
+export const editUser = (user: User): ThunkResult<void> => async dispatch => {
+  handleRegisterUser(dispatch)
+  try {
+    const response: User = await Users.edit(user)
+    saveUserState(response)
+    response.token && setTokenInHeader(response.token)
+    handleRegisterUserSuccess(dispatch, response)
+  } catch (e) {
+    handleRegisterUserFail(dispatch, e.data)
+  }
+}
+
+export const handleEditUser = (dispatch: Dispatch<EditUser>) => {
+  dispatch({ type: UserActionTypes.EDIT_USER })
+}
+
+export const handleEditUserSuccess = (
+  dispatch: Dispatch<EditUserSuccess>,
+  response: User
+) => {
+  dispatch({
+    type: UserActionTypes.EDIT_USER_SUCCESS,
+    payload: response,
+  })
+}
+
+export const handleEditUserFail = (
+  dispatch: Dispatch<EditUserFail>,
+  response: string
+) => {
+  dispatch({
+    type: UserActionTypes.EDIT_USER_FAIL,
+    payload: response,
+  })
+}
+
 // export const updateProfile = (user: User) => (
 
 // )
 
-export type USER_ACTIONS = LOGIN_USER | LOGOUT_ACTION | SET_USER | REGISTER_USER
+export type USER_ACTIONS =
+  | LOGIN_USER
+  | LOGOUT_ACTION
+  | SET_USER
+  | REGISTER_USER
+  | EDIT_USER

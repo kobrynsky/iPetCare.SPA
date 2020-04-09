@@ -3,8 +3,10 @@ import { BASE_URL } from '../utils/constants'
 import { getUserState, deleteUserState } from '../utils/localStorageHelper'
 import { useHistory } from 'react-router-dom'
 import { Pet } from '../state/pets/petsReducer'
+import { Race } from '../state/races/racesReducer'
 import { history } from '../index'
 import { User } from '../state/user/userReducer'
+import { LoginProps, RegisterProps } from './dto'
 
 axios.defaults.baseURL = BASE_URL
 
@@ -51,6 +53,7 @@ axios.interceptors.response.use(undefined, error => {
 })
 
 const responseBody = (response: AxiosResponse) => response.data
+const racesBody = (response: any) => response.races
 
 const requests = {
   get: (url: string) => axios.get(url).then(responseBody),
@@ -59,26 +62,13 @@ const requests = {
   del: (url: string) => axios.delete(url).then(responseBody),
 }
 
-export interface LoginProps {
-  email: string
-  password: string
-}
-
-export interface RegisterProps {
-  firstName: string
-  lastName: string
-  userName: string
-  email: string
-  password: string
-  role: 'Owner' | 'Vet' | 'Admin'
-}
-
 export const Users = {
   login: (user: LoginProps): Promise<User> =>
     requests.post('/users/login', user),
   register: (user: RegisterProps): Promise<User> =>
     requests.post('/users/register', user),
   users: (): Promise<User[]> => requests.get('/users'),
+  edit: (user: User): Promise<User> => requests.put('/users', user),
 }
 
 export const Pets = {
@@ -87,4 +77,12 @@ export const Pets = {
   create: (pet: Pet) => requests.post('/pets', pet),
   update: (pet: Pet) => requests.put('/pets', pet),
   delete: (id: string) => requests.del(`/pets/${id}`),
+}
+
+export const Races = {
+  getRaces: (): Promise<Race[]> => requests.get('/races').then(racesBody),
+  getRace: (id: number): Promise<Race> => requests.get(`/races/${id}`),
+  create: (race: Race) => requests.post('/races', race),
+  update: (race: Race) => requests.put('/races', race),
+  delete: (id: number) => requests.del(`/races/${id}`),
 }

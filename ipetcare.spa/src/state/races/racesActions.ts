@@ -3,7 +3,7 @@ import { Races as races } from '../../api'
 import { ThunkAction } from 'redux-thunk'
 import { Dispatch } from 'redux'
 import { RootState, RootActions } from '../store'
-import { Race, Races } from './racesReducer'
+import { Race } from './racesReducer'
 import { AxiosResponse } from 'axios'
 
 export type ThunkResult<R> = ThunkAction<R, RootState, undefined, RootActions>
@@ -55,7 +55,7 @@ export const handleGetRaces = (dispatch: Dispatch<GetRaces>) => {
 
 export const handleGetRacesSuccess = (
   dispatch: Dispatch<GetRacesSuccess>,
-  response: Races
+  response: Race[]
 ) => {
   dispatch({
     type: RacesActionTypes.GET_RACES_SUCCESS,

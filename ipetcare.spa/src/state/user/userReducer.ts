@@ -14,12 +14,12 @@ export interface User {
   firstName: string
   lastName: string
   userName: string
-  token: string
+  token?: string
   email: string
   role: string
   placeOfResidence: string
   specialization: string
-  id: string
+  id?: string
   imageUrl: string
 }
 
@@ -63,9 +63,11 @@ export const userReducer = (
   switch (action.type) {
     case UserActionTypes.LOGIN_USER:
     case UserActionTypes.REGISTER_USER:
+    case UserActionTypes.EDIT_USER:
       return { ...state, loading: true }
 
     case UserActionTypes.REGISTER_USER_FAIL:
+    case UserActionTypes.EDIT_USER_FAIL:
       return { ...state, loading: false, error: action.payload }
 
     case UserActionTypes.REGISTER_USER_SUCCESS:
@@ -75,6 +77,7 @@ export const userReducer = (
       return { ...state, loading: false, error: 'Błędny login lub hasło' }
 
     case UserActionTypes.LOGIN_USER_SUCCESS:
+    case UserActionTypes.EDIT_USER_SUCCESS:
       const user = action.payload
       return {
         ...state,
