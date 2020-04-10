@@ -4,6 +4,7 @@ import { getUserState, deleteUserState } from '../utils/localStorageHelper'
 import { useHistory } from 'react-router-dom'
 import { Pet } from '../state/pets/petsReducer'
 import { Race } from '../state/races/racesReducer'
+import { Species } from '../state/species/speciesReducer'
 import { history } from '../index'
 import { User } from '../state/user/userReducer'
 import { LoginProps, RegisterProps } from './dto'
@@ -54,6 +55,7 @@ axios.interceptors.response.use(undefined, error => {
 
 const responseBody = (response: AxiosResponse) => response.data
 const racesBody = (response: any) => response.races
+const speciesBody = (response: any) => response.species
 
 const requests = {
   get: (url: string) => axios.get(url).then(responseBody),
@@ -85,4 +87,12 @@ export const Races = {
   create: (race: Race) => requests.post('/races', race),
   update: (race: Race) => requests.put('/races', race),
   delete: (id: number) => requests.del(`/races/${id}`),
+}
+
+export const AllSpecies = {
+  getAllSpecies: (): Promise<Species[]> => requests.get('/species').then(speciesBody),
+  getSpecies: (id: number): Promise<Species> => requests.get(`/species/${id}`),
+  create: (species: Species) => requests.post('/species', species),
+  update: (species: Species) => requests.put('/species', species),
+  delete: (id: number) => requests.del(`/species/${id}`),
 }
