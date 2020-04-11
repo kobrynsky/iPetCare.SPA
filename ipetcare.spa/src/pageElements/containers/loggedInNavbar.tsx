@@ -56,6 +56,10 @@ const adminRoutes: Route[] = [
     caption: 'Badania',
     path: '/',
   },
+  {
+    caption: 'Instytucje',
+    path: '/institutions',
+  },
 ]
 
 const useStyles = makeStyles((theme: Theme) =>

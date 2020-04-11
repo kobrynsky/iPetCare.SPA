@@ -22,6 +22,8 @@ import { EditProfilePage } from './features/profile/containers/editProfilePage'
 import { NotFoundPage } from './common/errorPages/notFoundPage'
 import { ForbiddenPage } from './common/errorPages/forbiddenPage'
 import { UnauthorizedPage } from './common/errorPages/unauthorizedPage'
+import { InstitutionsPage } from './features/institutions/containers/institutionsPage';
+
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -41,17 +43,17 @@ const App: React.FC = () => {
     user.token && user.token?.length > 0 ? (
       <LoggedInNavbar />
     ) : (
-      <>
-        {/* <Card className="titleContainerNotLogged"> */}
-        <NavLink className="titleContainerNotLogged" to="/">
-          <Typography className="title" variant="h5">
-            iPetCare
+        <>
+          {/* <Card className="titleContainerNotLogged"> */}
+          <NavLink className="titleContainerNotLogged" to="/">
+            <Typography className="title" variant="h5">
+              iPetCare
           </Typography>
-        </NavLink>
-        {/* </Card> */}
-        <NotLoggedNavbar />
-      </>
-    )
+          </NavLink>
+          {/* </Card> */}
+          <NotLoggedNavbar />
+        </>
+      )
 
   return (
     <div className="app">
@@ -76,6 +78,7 @@ const App: React.FC = () => {
                 <Route path="/unauthorized" component={UnauthorizedPage} />
                 <Route path="/pets" exact component={PetsList} />
                 <Route path="/profile/edit" component={EditProfilePage} />
+                <Route path='/institutions' component={InstitutionsPage} />
                 <Route path="*" component={NotFoundPage} />
               </Switch>
             )}

@@ -7,6 +7,8 @@ import { Race } from '../state/races/racesReducer'
 import { history } from '../index'
 import { User } from '../state/user/userReducer'
 import { LoginProps, RegisterProps } from './dto'
+import { Institution } from '../state/institutions/institutionsReducer'
+
 
 axios.defaults.baseURL = BASE_URL
 
@@ -54,6 +56,7 @@ axios.interceptors.response.use(undefined, error => {
 
 const responseBody = (response: AxiosResponse) => response.data
 const racesBody = (response: any) => response.races
+const institutionsBody = (response: any) => response.institutions
 
 const requests = {
   get: (url: string) => axios.get(url).then(responseBody),
@@ -85,4 +88,12 @@ export const Races = {
   create: (race: Race) => requests.post('/races', race),
   update: (race: Race) => requests.put('/races', race),
   delete: (id: number) => requests.del(`/races/${id}`),
+}
+
+export const Institutions = {
+  getInstitutions: (): Promise<Institution[]> => requests.get('/institutions').then(institutionsBody),
+  getInstitution: (id: string): Promise<Institution> => requests.get(`/institutions/${id}`),
+  create: (institution: Institution) => requests.post('/institutions', institution),
+  update: (institution: Institution) => requests.put(`/institutions/${institution.id}`, institution),
+  delete: (id: string) => requests.del(`/institutions/${id}`),
 }

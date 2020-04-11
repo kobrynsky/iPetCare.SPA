@@ -7,20 +7,24 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { userReducer, UserState } from './user/userReducer'
 import { petsReducer, PetsState } from './pets/petsReducer'
 import { racesReducer, RacesState } from './races/racesReducer'
+import { InstitutionsState, institutionsReducer } from './institutions/institutionsReducer'
+import { INSTITUTIONS_ACTIONS } from './institutions/institutionsActions'
 
 export interface RootState {
   readonly user: UserState
   readonly pets: PetsState
   readonly races: RacesState
+  readonly institutions: InstitutionsState
 }
 
 const rootReducer = combineReducers<RootState>({
   user: userReducer,
   pets: petsReducer,
   races: racesReducer,
+  institutions: institutionsReducer,
 })
 
-export type RootActions = USER_ACTIONS | PETS_ACTIONS | RACES_ACTIONS
+export type RootActions = USER_ACTIONS | PETS_ACTIONS | RACES_ACTIONS | INSTITUTIONS_ACTIONS
 
 export const store = createStore(
   rootReducer,
