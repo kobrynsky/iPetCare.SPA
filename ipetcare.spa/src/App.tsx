@@ -30,15 +30,18 @@ const App: React.FC = () => {
 
   useEffect(() => {
     setLoaded(false)
-    const user = getUserState()
-    if (user) {
-      dispatch(setUser(user))
+    if (user.token === '') {
+      const userState = getUserState()
+      if (userState) {
+        dispatch(setUser(userState))
+      }
     }
+
     setLoaded(true)
   }, [])
 
   const header =
-    user.token && user.token?.length > 0 ? (
+    user.userName && user.userName.length > 0 ? (
       <LoggedInNavbar />
     ) : (
       <>
