@@ -8,6 +8,7 @@ import { history } from '../index'
 import { User } from '../state/user/userReducer'
 import { LoginProps, RegisterProps } from './dto'
 import { Institution } from '../state/institutions/institutionsReducer'
+import { ExaminationType } from '../state/examinationTypes/examinationTypesReducer'
 
 
 axios.defaults.baseURL = BASE_URL
@@ -57,6 +58,8 @@ axios.interceptors.response.use(undefined, error => {
 const responseBody = (response: AxiosResponse) => response.data
 const racesBody = (response: any) => response.races
 const institutionsBody = (response: any) => response.institutions
+const examinationTypesBody = (response: any) => response.examinationTypes
+
 
 const requests = {
   get: (url: string) => axios.get(url).then(responseBody),
@@ -96,4 +99,12 @@ export const Institutions = {
   create: (institution: Institution) => requests.post('/institutions', institution),
   update: (institution: Institution) => requests.put(`/institutions/${institution.id}`, institution),
   delete: (id: string) => requests.del(`/institutions/${id}`),
+}
+
+export const ExaminationTypes = {
+  getExaminationTypes: (): Promise<ExaminationType[]> => requests.get('/examinationTypes').then(examinationTypesBody),
+  getExaminationType: (id: number): Promise<ExaminationType> => requests.get(`/examinationTypes/${id}`),
+  create: (examinationType: ExaminationType) => requests.post('/examinationTypes', examinationType),
+  update: (examinationType: ExaminationType) => requests.put(`/examinationTypes/${examinationType.id}`, examinationType),
+  delete: (id: number) => requests.del(`/examinationTypes/${id}`),
 }
