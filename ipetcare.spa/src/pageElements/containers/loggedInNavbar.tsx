@@ -222,6 +222,17 @@ export function LoggedInNavbar() {
           Główna
         </NavLink>
       </MenuItem>
+      <MenuItem>
+        <NavLink
+          exact
+          className="navlink"
+          activeClassName="activeNavLink"
+          color="inherit"
+          to="/users/search"
+        >
+          Wyszukaj
+        </NavLink>
+      </MenuItem>
       {renderMobileMenuItem(
         user.role.toLowerCase() === 'administrator' ? adminRoutes : ownerRoutes
       )}
@@ -267,6 +278,15 @@ export function LoggedInNavbar() {
               to="/"
             >
               Główna
+            </NavLink>
+            <NavLink
+              exact
+              className="navlink"
+              activeClassName="activeNavLink"
+              color="inherit"
+              to="/users/search"
+            >
+              Wyszukaj
             </NavLink>
             {renderDesktopMenuItem(
               user.role.toLowerCase() === 'administrator'

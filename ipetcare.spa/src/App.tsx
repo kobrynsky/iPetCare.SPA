@@ -11,8 +11,6 @@ import { setUser } from './state/user/userActions'
 import { getUserState } from './utils/localStorageHelper'
 import { Grid, Card, Typography } from '@material-ui/core'
 import { RootState } from './state/store'
-import { RaceForm } from './features/race/components/raceForm'
-import { RaceList } from './features/race/components/raceList'
 import PetsList from './features/pets/containers/petsList'
 import { AdminScreen } from './features/homePage/containers/adminScreen'
 import { OwnerScreen } from './features/homePage/containers/ownerScreen'
@@ -22,6 +20,7 @@ import { EditProfilePage } from './features/profile/containers/editProfilePage'
 import { NotFoundPage } from './common/errorPages/notFoundPage'
 import { ForbiddenPage } from './common/errorPages/forbiddenPage'
 import { UnauthorizedPage } from './common/errorPages/unauthorizedPage'
+import { UserSearchPage } from './features/userSearch/containers/userSearchPage'
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -45,13 +44,11 @@ const App: React.FC = () => {
       <LoggedInNavbar />
     ) : (
       <>
-        {/* <Card className="titleContainerNotLogged"> */}
         <NavLink className="titleContainerNotLogged" to="/">
           <Typography className="title" variant="h5">
             iPetCare
           </Typography>
         </NavLink>
-        {/* </Card> */}
         <NotLoggedNavbar />
       </>
     )
@@ -79,6 +76,7 @@ const App: React.FC = () => {
                 <Route path="/unauthorized" component={UnauthorizedPage} />
                 <Route path="/pets" exact component={PetsList} />
                 <Route path="/profile/edit" component={EditProfilePage} />
+                <Route path="/users/search" component={UserSearchPage} />
                 <Route path="*" component={NotFoundPage} />
               </Switch>
             )}
