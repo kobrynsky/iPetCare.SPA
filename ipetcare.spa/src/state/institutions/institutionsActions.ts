@@ -174,7 +174,6 @@ export const updateInstitution = (
     handleUpdateInstitution(dispatch)
     try {
         const response: Institution = await institutions.update(updatedInstitution)
-        console.log(response)
         handleUpdateInstitutionSuccess(dispatch, response)
     } catch (e) {
         handleUpdateInstitutionFail(dispatch)
@@ -201,7 +200,7 @@ interface DeleteInstitution {
     type: InstitutionsActionTypes.DELETE_INSTITUTION
 }
 
-interface DeleteInstitutionsuccess {
+interface DeleteInstitutionSuccess {
     type: InstitutionsActionTypes.DELETE_INSTITUTION_SUCCESS
     payload: string
 }
@@ -241,5 +240,5 @@ export type INSTITUTIONS_ACTIONS =
     | UpdateInstitutionSuccess
     | UpdateInstitutionFail
     | DeleteInstitution
-    | DeleteInstitutionsuccess
+    | DeleteInstitutionSuccess
     | DeleteInstitutionFail
