@@ -1,9 +1,36 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { UserResult } from '../components/userResult'
+import { TextField, makeStyles } from '@material-ui/core'
+
+const useStyles = makeStyles({
+  container: {
+    display: 'flex',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+  },
+  input: {
+    maxWidth: 500,
+    minWidth: 300,
+    margin: 20,
+  },
+})
 
 export const UserSearchPage = () => {
+  // const [searchResults, setSearchResults] = useState()
+  const styles = useStyles()
+
   return (
-    <div>
+    <div className={styles.container}>
+      <TextField
+        className={styles.input}
+        type="search"
+        title="Wyszukaj"
+        placeholder="Wyszukaj"
+        inputMode="search"
+      />
+
       <UserResult
         lastName="Borowski"
         firstName="Piotr"
