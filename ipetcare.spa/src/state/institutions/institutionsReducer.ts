@@ -41,7 +41,6 @@ export const institutionsReducer = (
 
         case InstitutionsActionTypes.GET_INSTITUTION_SUCCESS:
         case InstitutionsActionTypes.CREATE_INSTITUTION_SUCCESS:
-            console.log("payload:" + action.payload)
             return {
                 ...state,
                 items: [...state.items, action.payload],

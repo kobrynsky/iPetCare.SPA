@@ -37,7 +37,6 @@ export function InstitutionsPage() {
                         onAdd={async data => {
                             dispatch(
                                 createInstitution({
-                                    id: undefined,
                                     name: data.name,
                                     address: data.address,
                                 })

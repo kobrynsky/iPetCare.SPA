@@ -147,7 +147,6 @@ const handleCreateInstitutionSuccess = (
     response: Institution
 ) => {
     dispatch({ type: InstitutionsActionTypes.CREATE_INSTITUTION_SUCCESS, payload: response })
-    history.push('/Institutions')
 }
 
 const handleCreateInstitutionFail = (dispatch: Dispatch<CreateInstitutionFail>) => {

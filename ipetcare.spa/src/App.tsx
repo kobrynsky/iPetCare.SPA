@@ -17,13 +17,13 @@ import PetsList from './features/pets/containers/petsList'
 import { AdminScreen } from './features/homePage/containers/adminScreen'
 import { OwnerScreen } from './features/homePage/containers/ownerScreen'
 import { RaceScreen } from './features/race/containers/raceScreen'
-import { SpeciesScreen } from './features/species/containers/speciesScreen'
+import { SpeciesPage } from './features/species/containers/speciesPage'
 import { EditProfilePage } from './features/profile/containers/editProfilePage'
 import { NotFoundPage } from './common/errorPages/notFoundPage'
 import { ForbiddenPage } from './common/errorPages/forbiddenPage'
 import { UnauthorizedPage } from './common/errorPages/unauthorizedPage'
 import { InstitutionsPage } from './features/institutions/containers/institutionsPage';
-
+import { ExaminationTypesPage } from './features/examinationTypes/containers/examinationTypesPage';
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -73,12 +73,13 @@ const App: React.FC = () => {
                 <Route path="/admin" component={AdminScreen} />
                 <Route path="/owner" component={OwnerScreen} />
                 <Route path="/races" component={RaceScreen} />
-                <Route path="/species" component={SpeciesScreen} />
+                <Route path="/species" component={SpeciesPage} />
                 <Route path="/forbidden" component={ForbiddenPage} />
                 <Route path="/unauthorized" component={UnauthorizedPage} />
                 <Route path="/pets" exact component={PetsList} />
                 <Route path="/profile/edit" component={EditProfilePage} />
                 <Route path='/institutions' component={InstitutionsPage} />
+                <Route path='/examinationTypes' component={ExaminationTypesPage} />
                 <Route path="*" component={NotFoundPage} />
               </Switch>
             )}

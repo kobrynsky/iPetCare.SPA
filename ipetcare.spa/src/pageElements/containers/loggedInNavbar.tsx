@@ -60,6 +60,10 @@ const adminRoutes: Route[] = [
     caption: 'Instytucje',
     path: '/institutions',
   },
+  {
+    caption: 'Typy badań',
+    path: '/examinationTypes',
+  },
 ]
 
 const useStyles = makeStyles((theme: Theme) =>

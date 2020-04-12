@@ -113,6 +113,6 @@ export const AllSpecies = {
   getAllSpecies: (): Promise<Species[]> => requests.get('/species').then(speciesBody),
   getSpecies: (id: number): Promise<Species> => requests.get(`/species/${id}`),
   create: (species: Species) => requests.post('/species', species),
-  update: (species: Species) => requests.put('/species', species),
+  update: (species: Species) => requests.put(`/species/${species.id}`, species),
   delete: (id: number) => requests.del(`/species/${id}`),
 }
