@@ -21,7 +21,7 @@ import { NotFoundPage } from './common/errorPages/notFoundPage'
 import { ForbiddenPage } from './common/errorPages/forbiddenPage'
 import { UnauthorizedPage } from './common/errorPages/unauthorizedPage'
 import { InstitutionsPage } from './features/institutions/containers/institutionsPage';
-import { ExaminationTypesPage } from './features/examinationTypes/containers/examinationTypesPage';
+import { ExaminationTypesPage } from './features/examinations/containers/examinationTypesPage';
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
