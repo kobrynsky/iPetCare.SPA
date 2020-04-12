@@ -13,6 +13,8 @@ import { examinationTypesReducer, ExaminationTypesState } from './examinationTyp
 import { EXAMINATION_TYPES_ACTIONS } from './examinationTypes/examinationTypesActions'
 import { SpeciesState, speciesReducer } from './species/speciesReducer'
 import { SPECIES_ACTIONS } from './species/speciesActions'
+import { examinationParametersReducer, ExaminationParametersState } from './examinationParameters/examinationParametersReducer'
+import { EXAMINATION_PARAMETERS_ACTIONS } from './examinationParameters/examinationParametersActions'
 
 export interface RootState {
   readonly user: UserState
@@ -20,6 +22,7 @@ export interface RootState {
   readonly races: RacesState
   readonly institutions: InstitutionsState
   readonly examinationTypes: ExaminationTypesState
+  readonly examinationParameters: ExaminationParametersState
   readonly species: SpeciesState
 }
 
@@ -29,10 +32,11 @@ const rootReducer = combineReducers<RootState>({
   races: racesReducer,
   institutions: institutionsReducer,
   examinationTypes: examinationTypesReducer,
+  examinationParameters: examinationParametersReducer,
   species: speciesReducer
 })
 
-export type RootActions = USER_ACTIONS | PETS_ACTIONS | RACES_ACTIONS | INSTITUTIONS_ACTIONS | EXAMINATION_TYPES_ACTIONS | SPECIES_ACTIONS
+export type RootActions = USER_ACTIONS | PETS_ACTIONS | RACES_ACTIONS | INSTITUTIONS_ACTIONS | EXAMINATION_TYPES_ACTIONS | SPECIES_ACTIONS | EXAMINATION_PARAMETERS_ACTIONS
 
 export const store = createStore(
   rootReducer,

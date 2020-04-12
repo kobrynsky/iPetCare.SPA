@@ -9,6 +9,7 @@ import { User } from '../state/user/userReducer'
 import { LoginProps, RegisterProps } from './dto'
 import { Institution } from '../state/institutions/institutionsReducer'
 import { ExaminationType } from '../state/examinationTypes/examinationTypesReducer'
+import { ExaminationParameter } from '../state/examinationParameters/examinationParametersReducer'
 
 
 axios.defaults.baseURL = BASE_URL
@@ -60,6 +61,7 @@ const racesBody = (response: any) => response.races
 const institutionsBody = (response: any) => response.institutions
 const examinationTypesBody = (response: any) => response.examinationTypes
 const speciesBody = (response: any) => response.species
+const examinationParameterBody = (response: any) => response.examinationParameters
 
 const requests = {
   get: (url: string) => axios.get(url).then(responseBody),
@@ -108,6 +110,15 @@ export const ExaminationTypes = {
   update: (examinationType: ExaminationType) => requests.put(`/examinationTypes/${examinationType.id}`, examinationType),
   delete: (id: number) => requests.del(`/examinationTypes/${id}`),
 }
+
+export const ExaminationParameters = {
+  getExaminationParameters: (): Promise<ExaminationParameter[]> => requests.get('/examinationParameters').then(examinationParameterBody),
+  getExaminationParameter: (id: number): Promise<ExaminationParameter> => requests.get(`/examinationParameters/${id}`),
+  create: (examinationParameter: ExaminationParameter) => requests.post('/examinationParameters', examinationParameter),
+  update: (examinationParameter: ExaminationParameter) => requests.put(`/examinationParameters/${examinationParameter.id}`, examinationParameter),
+  delete: (id: number) => requests.del(`/examinationParameters/${id}`),
+}
+
 export const AllSpecies = {
   getAllSpecies: (): Promise<Species[]> => requests.get('/species').then(speciesBody),
   getSpecies: (id: number): Promise<Species> => requests.get(`/species/${id}`),

@@ -22,6 +22,7 @@ import { ForbiddenPage } from './common/errorPages/forbiddenPage'
 import { UnauthorizedPage } from './common/errorPages/unauthorizedPage'
 import { InstitutionsPage } from './features/institutions/containers/institutionsPage';
 import { ExaminationTypesPage } from './features/examinations/containers/examinationTypesPage';
+import { ExaminationParametersPage } from './features/examinations/containers/examinationParametersPage'
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -77,7 +78,8 @@ const App: React.FC = () => {
                 <Route path="/pets" exact component={PetsList} />
                 <Route path="/profile/edit" component={EditProfilePage} />
                 <Route path='/institutions' component={InstitutionsPage} />
-                <Route path='/examinationTypes' component={ExaminationTypesPage} />
+                <Route path='/examination/types' component={ExaminationTypesPage} />
+                <Route path='/examination/parameters' component={ExaminationParametersPage} />
                 <Route path="*" component={NotFoundPage} />
               </Switch>
             )}

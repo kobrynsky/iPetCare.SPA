@@ -62,7 +62,11 @@ const adminRoutes: Route[] = [
   },
   {
     caption: 'Typy badań',
-    path: '/examinationTypes',
+    path: '/examination/types',
+  },
+  {
+    caption: 'Parametry badań',
+    path: '/examination/parameters',
   },
 ]
 

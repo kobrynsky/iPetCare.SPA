@@ -29,7 +29,7 @@ export function ExaminationTypesPage() {
                 </Grid>
                 <Grid item>
                     <TableCommon
-                        title="Type badań"
+                        title="Typy badań"
                         isLoading={examinationTypesState.loading}
                         columns={[
                             { title: 'Nazwa', field: 'name' },
