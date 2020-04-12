@@ -157,8 +157,7 @@ export function LoggedInNavbar() {
 
   const handleLogout = () => {
     dispatch(logout())
-    deleteUserState()
-    deleteTokenInHeader()
+    history.push('/')
   }
 
   const menuId = 'primary-search-account-menu'
