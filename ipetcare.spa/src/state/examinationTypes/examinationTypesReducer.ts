@@ -1,6 +1,4 @@
-import _ from 'lodash'
 import { EXAMINATION_TYPES_ACTIONS, ExaminationTypesActionTypes } from './examinationTypesActions'
-import { Reducer } from 'redux'
 
 export interface ExaminationType {
     id?: number

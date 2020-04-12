@@ -1,7 +1,6 @@
 import axios, { AxiosResponse } from 'axios'
 import { BASE_URL } from '../utils/constants'
 import { getUserState, deleteUserState } from '../utils/localStorageHelper'
-import { useHistory } from 'react-router-dom'
 import { Pet } from '../state/pets/petsReducer'
 import { Race } from '../state/races/racesReducer'
 import { Species } from '../state/species/speciesReducer'
@@ -29,7 +28,7 @@ axios.interceptors.response.use(undefined, error => {
   if (error.message === 'Network Error' && !error.response) {
     console.error('Błąd sieci - upewnij się, że API działa!')
   }
-  const { status, data, config, headers } = error.response
+  const { status, data, config } = error.response
   if (status === 404) {
     history.push('/notfound')
   }

@@ -1,6 +1,4 @@
-import _ from 'lodash'
 import { INSTITUTIONS_ACTIONS, InstitutionsActionTypes } from './institutionsActions'
-import { Reducer } from 'redux'
 
 export interface Institution {
     id?: string

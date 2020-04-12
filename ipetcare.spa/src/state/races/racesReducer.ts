@@ -1,7 +1,4 @@
-import _ from 'lodash'
 import { RACES_ACTIONS, RacesActionTypes } from './racesActions'
-import { Reducer } from 'redux'
-import { ListItemSecondaryAction } from '@material-ui/core'
 
 export interface Race {
   id?: number
@@ -39,7 +36,6 @@ export const racesReducer = (
 
     case RacesActionTypes.GET_RACE_SUCCESS:
     case RacesActionTypes.CREATE_RACE_SUCCESS:
-      const { id } = action.payload
       return {
         ...state,
         items: [...state.items, action.payload],

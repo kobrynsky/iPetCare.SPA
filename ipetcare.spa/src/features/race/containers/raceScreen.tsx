@@ -1,12 +1,9 @@
 import React, { useEffect } from 'react'
 import { Grid, Typography } from '@material-ui/core'
-import { ContentCard } from '../../../common/components/contentCard'
-import { Link, NavLink } from 'react-router-dom'
 import { TableCommon } from '../../../common/components/tableCommon'
 import { RootState } from '../../../state/store'
 import { useSelector, useDispatch } from 'react-redux'
 import { getRaces, createRace } from '../../../state/races/racesActions'
-import { Race } from '../../../state/races/racesReducer'
 
 export function RaceScreen() {
   const dispatch = useDispatch()
@@ -37,7 +34,7 @@ export function RaceScreen() {
               },
             ]}
             rows={racesState.items}
-            onDelete={async data => {}}
+            onDelete={async data => { }}
             onAdd={async data => {
               console.log(data)
               dispatch(

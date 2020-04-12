@@ -1,12 +1,9 @@
 import React, { useEffect } from 'react'
 import { Grid, Typography } from '@material-ui/core'
-import { ContentCard } from '../../../common/components/contentCard'
-import { Link, NavLink } from 'react-router-dom'
 import { TableCommon } from '../../../common/components/tableCommon'
 import { createInstitution, getInstitutions, deleteInstitution, updateInstitution } from '../../../state/institutions/institutionsActions'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../state/store'
-import { Institution } from '../../../state/institutions/institutionsReducer'
 
 export function InstitutionsPage() {
     const dispatch = useDispatch()
@@ -15,7 +12,6 @@ export function InstitutionsPage() {
     useEffect(() => {
         dispatch(getInstitutions())
     }, [])
-
 
     return (
         <div>

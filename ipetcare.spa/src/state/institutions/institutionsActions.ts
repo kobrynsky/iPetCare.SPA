@@ -4,7 +4,6 @@ import { ThunkAction } from 'redux-thunk'
 import { Dispatch } from 'redux'
 import { RootState, RootActions } from '../store'
 import { Institution } from './institutionsReducer'
-import { AxiosResponse } from 'axios'
 
 export type ThunkResult<R> = ThunkAction<R, RootState, undefined, RootActions>
 export enum InstitutionsActionTypes {

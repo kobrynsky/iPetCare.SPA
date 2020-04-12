@@ -1,5 +1,4 @@
 import { ThunkResult } from '../pets/petsActions'
-import { AxiosResponse } from 'axios'
 import { Users } from '../../api'
 import { Dispatch } from 'react'
 import { User } from './userReducer'

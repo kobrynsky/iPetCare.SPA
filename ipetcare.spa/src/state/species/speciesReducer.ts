@@ -1,7 +1,4 @@
-import _ from 'lodash'
 import { SPECIES_ACTIONS, SpeciesActionTypes } from './speciesActions'
-import { Reducer } from 'redux'
-import { ListItemSecondaryAction } from '@material-ui/core'
 
 export interface Species {
   id?: number

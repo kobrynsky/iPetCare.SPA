@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { Grid, Typography } from '@material-ui/core'
 import { TableCommon } from '../../../common/components/tableCommon'
-import { createInstitution, deleteInstitution, updateInstitution } from '../../../state/institutions/institutionsActions'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../state/store'
 import { getExaminationTypes, deleteExaminationType, createExaminationType, updateExaminationType } from '../../../state/examinationTypes/examinationTypesActions'
