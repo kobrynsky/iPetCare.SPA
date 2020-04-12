@@ -1,16 +1,22 @@
 import React, { useEffect } from 'react'
 import { Grid, Typography } from '@material-ui/core'
 import { TableCommon } from '../../../common/components/tableCommon'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../state/store'
-import { useSelector, useDispatch } from 'react-redux'
-import { getRaces, createRace } from '../../../state/races/racesActions'
+import { getRaces, createRace, updateRace, deleteRace } from '../../../state/races/racesActions'
+import { getAllSpecies } from '../../../state/species/speciesActions'
 
-export function RaceScreen() {
+export function RacesPage() {
   const dispatch = useDispatch()
   const racesState = useSelector((state: RootState) => state.races)
+  const speciesState = useSelector((state: RootState) => state.species)
 
   useEffect(() => {
     dispatch(getRaces())
+  }, [])
+
+  useEffect(() => {
+    dispatch(getAllSpecies())
   }, [])
 
   return (
@@ -30,22 +36,29 @@ export function RaceScreen() {
               {
                 title: 'Gatunek',
                 field: 'speciesId',
-                lookup: { 22: 'psy', 11: 'koty', 9999: 'jaszczurki' },
+                lookup: speciesState.items.reduce((a, x) => ({ ...a, [x.id as number]: x.name }), {})
               },
             ]}
             rows={racesState.items}
-            onDelete={async data => { }}
+            onDelete={async data => {
+              dispatch(deleteRace(data.id))
+            }}
             onAdd={async data => {
-              console.log(data)
               dispatch(
                 createRace({
                   name: data.name,
-                  speciesId: parseInt(data.speciesId),
+                  speciesId: parseInt(data.speciesId)
                 })
               )
             }}
             onEdit={async data => {
-              console.log(data)
+              dispatch(
+                updateRace({
+                  id: data.id,
+                  name: data.name,
+                  speciesId: parseInt(data.speciesId)
+                })
+              )
             }}
           />
         </Grid>

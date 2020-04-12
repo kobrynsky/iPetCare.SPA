@@ -91,7 +91,7 @@ export const Races = {
   getRaces: (): Promise<Race[]> => requests.get('/races').then(racesBody),
   getRace: (id: number): Promise<Race> => requests.get(`/races/${id}`),
   create: (race: Race) => requests.post('/races', race),
-  update: (race: Race) => requests.put('/races', race),
+  update: (race: Race) => requests.put(`/races/${race.id}`, race),
   delete: (id: number) => requests.del(`/races/${id}`),
 }
 
