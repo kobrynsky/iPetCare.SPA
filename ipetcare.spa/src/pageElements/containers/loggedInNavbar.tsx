@@ -22,8 +22,8 @@ interface Route {
 
 const ownerRoutes: Route[] = [
   {
-    caption: 'Zwierzęta',
-    path: '/',
+    caption: 'Moje Zwierzęta',
+    path: '/pets',
   },
   {
     caption: 'Weterynarze',

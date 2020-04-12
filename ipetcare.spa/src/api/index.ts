@@ -31,12 +31,15 @@ axios.interceptors.response.use(undefined, error => {
   }
   const { status, data, config } = error.response
   if (status === 404) {
+    console.log(error.response)
     history.push('/notfound')
   }
   if (status === 403) {
+    console.log(error.response)
     history.push('/forbidden')
   }
   if (status === 401) {
+    console.log(error.response)
     deleteUserState()
     history.push('/unauthorized')
     console.info('Twoja sesja wygasła, zaloguj się ponownie.')
@@ -49,6 +52,7 @@ axios.interceptors.response.use(undefined, error => {
     history.push('/notfound')
   }
   if (status === 500) {
+    console.log(error.response)
     console.error(
       'Błąd serwera - sprawdź konsolę, aby uzyskać więcej informacji!'
     )
@@ -62,6 +66,7 @@ const institutionsBody = (response: any) => response.institutions
 const examinationTypesBody = (response: any) => response.examinationTypes
 const speciesBody = (response: any) => response.species
 const examinationParameterBody = (response: any) => response.examinationParameters
+const petsBody = (response: any) => response.pets
 
 const requests = {
   get: (url: string) => axios.get(url).then(responseBody),
@@ -80,10 +85,11 @@ export const Users = {
 }
 
 export const Pets = {
-  getPets: (): Promise<Pet[]> => requests.get('/pets'),
+  getPets: (): Promise<Pet[]> => requests.get('/pets').then(petsBody),
+  getMyPets: (): Promise<Pet[]> => requests.get('/pets/my').then(petsBody),
   getPet: (id: string): Promise<Pet> => requests.get(`/pets/${id}`),
   create: (pet: Pet) => requests.post('/pets', pet),
-  update: (pet: Pet) => requests.put('/pets', pet),
+  update: (pet: Pet) => requests.put(`/pets/${pet.id}`, pet),
   delete: (id: string) => requests.del(`/pets/${id}`),
 }
 

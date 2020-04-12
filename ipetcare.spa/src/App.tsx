@@ -11,7 +11,6 @@ import { setUser } from './state/user/userActions'
 import { getUserState } from './utils/localStorageHelper'
 import { Grid, Typography } from '@material-ui/core'
 import { RootState } from './state/store'
-import PetsList from './features/pets/containers/petsList'
 import { AdminScreen } from './features/homePage/containers/adminScreen'
 import { OwnerScreen } from './features/homePage/containers/ownerScreen'
 import { RacesPage } from './features/race/containers/racesPage'
@@ -23,6 +22,8 @@ import { UnauthorizedPage } from './common/errorPages/unauthorizedPage'
 import { InstitutionsPage } from './features/institutions/containers/institutionsPage';
 import { ExaminationTypesPage } from './features/examinations/containers/examinationTypesPage';
 import { ExaminationParametersPage } from './features/examinations/containers/examinationParametersPage'
+import { PetsPage } from './features/pets/containers/petsPage'
+import { PetPage } from './features/pets/containers/petPage'
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -75,7 +76,8 @@ const App: React.FC = () => {
                 <Route path="/species" component={SpeciesPage} />
                 <Route path="/forbidden" component={ForbiddenPage} />
                 <Route path="/unauthorized" component={UnauthorizedPage} />
-                <Route path="/pets" exact component={PetsList} />
+                <Route path="/pets/details/:petId" component={PetPage} />
+                <Route path="/pets" component={PetsPage} />
                 <Route path="/profile/edit" component={EditProfilePage} />
                 <Route path='/institutions' component={InstitutionsPage} />
                 <Route path='/examination/types' component={ExaminationTypesPage} />

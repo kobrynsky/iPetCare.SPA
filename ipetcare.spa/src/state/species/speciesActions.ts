@@ -31,7 +31,7 @@ interface GetAllSpecies {
 
 interface GetAllSpeciesSuccess {
   type: SpeciesActionTypes.GET_ALL_SPECIES_SUCCESS
-  payload: any
+  payload: Species[]
 }
 
 interface GetAllSpeciesFail {

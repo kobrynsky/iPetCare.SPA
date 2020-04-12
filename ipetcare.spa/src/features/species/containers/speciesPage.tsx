@@ -24,7 +24,7 @@ export function SpeciesPage() {
         <Grid item>
           <TableCommon
             title="Gatunki"
-            isLoading={false}
+            isLoading={speciesState.loading}
             columns={[{ title: 'Nazwa', field: 'name' }]}
             rows={speciesState.items}
             onDelete={async data => {

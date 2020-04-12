@@ -3,7 +3,7 @@ import { Pets as pets } from '../../api'
 import { ThunkAction } from 'redux-thunk'
 import { Dispatch } from 'redux'
 import { RootState, RootActions } from '../store'
-import { Pet, Pets } from './petsReducer'
+import { Pet } from './petsReducer'
 import { AxiosResponse } from 'axios'
 
 export type ThunkResult<R> = ThunkAction<R, RootState, undefined, RootActions>
@@ -11,6 +11,9 @@ export enum PetsActionTypes {
   GET_PETS = 'GET_PETS',
   GET_PETS_SUCCESS = 'GET_PETS_SUCCESS',
   GET_PETS_FAIL = 'GET_PETS_FAIL',
+  GET_MY_PETS = 'GET_MY_PETS',
+  GET_MY_PETS_SUCCESS = 'GET_MY_PETS_SUCCESS',
+  GET_MY_PETS_FAIL = 'GET_MY_PETS_FAIL',
   GET_PET = 'GET_PET',
   GET_PET_SUCCESS = 'GET_PET_SUCCESS',
   GET_PET_FAIL = 'GET_PET_FAIL',
@@ -55,7 +58,7 @@ export const handleGetPets = (dispatch: Dispatch<GetPets>) => {
 
 export const handleGetPetsSuccess = (
   dispatch: Dispatch<GetPetsSuccess>,
-  response: Pets
+  response: Pet[]
 ) => {
   dispatch({
     type: PetsActionTypes.GET_PETS_SUCCESS,
@@ -66,6 +69,50 @@ export const handleGetPetsSuccess = (
 export const handleGetPetsFail = (dispatch: Dispatch<GetPetsFail>) => {
   dispatch({
     type: PetsActionTypes.GET_PETS_FAIL,
+  })
+}
+
+// FETCH MY PETS LIST
+interface GetMyPets {
+  type: PetsActionTypes.GET_MY_PETS
+}
+
+interface GetMyPetsSuccess {
+  type: PetsActionTypes.GET_MY_PETS_SUCCESS
+  payload: Pet[]
+}
+
+interface GetMyPetsFail {
+  type: PetsActionTypes.GET_MY_PETS_FAIL
+}
+
+export const getMyPets = (): ThunkResult<void> => async dispatch => {
+  handleGetMyPets(dispatch)
+  try {
+    const response: Pet[] = await pets.getMyPets()
+    handleGetMyPetsSuccess(dispatch, response)
+  } catch (e) {
+    handleGetMyPetsFail(dispatch)
+  }
+}
+
+export const handleGetMyPets = (dispatch: Dispatch<GetMyPets>) => {
+  dispatch({ type: PetsActionTypes.GET_MY_PETS })
+}
+
+export const handleGetMyPetsSuccess = (
+  dispatch: Dispatch<GetMyPetsSuccess>,
+  response: Pet[]
+) => {
+  dispatch({
+    type: PetsActionTypes.GET_MY_PETS_SUCCESS,
+    payload: response,
+  })
+}
+
+export const handleGetMyPetsFail = (dispatch: Dispatch<GetMyPetsFail>) => {
+  dispatch({
+    type: PetsActionTypes.GET_MY_PETS_FAIL,
   })
 }
 
@@ -130,8 +177,10 @@ interface CreatePetFail {
 export const createPet = (pet: Pet): ThunkResult<void> => async dispatch => {
   handleCreatePet(dispatch)
   try {
-    const response: AxiosResponse<Pet> = await pets.create(pet)
-    handleCreatePetSuccess(dispatch, response.data)
+    console.log(pet)
+    const response: Pet = await pets.create(pet)
+    console.log(response)
+    handleCreatePetSuccess(dispatch, response)
   } catch (e) {
     handleCreatePetFail(dispatch)
   }
@@ -146,7 +195,6 @@ const handleCreatePetSuccess = (
   response: Pet
 ) => {
   dispatch({ type: PetsActionTypes.CREATE_PET_SUCCESS, payload: response })
-  history.push('/pets')
 }
 
 const handleCreatePetFail = (dispatch: Dispatch<CreatePetFail>) => {
@@ -188,7 +236,6 @@ const handleUpdatePetSuccess = (
   updatedPet: Pet
 ) => {
   dispatch({ type: PetsActionTypes.UPDATE_PET_SUCCESS, payload: updatedPet })
-  history.push('/pets')
 }
 
 const handleUpdatePetFail = (dispatch: Dispatch<UpdatePetFail>) => {
@@ -229,6 +276,9 @@ export type PETS_ACTIONS =
   | GetPets
   | GetPetsSuccess
   | GetPetsFail
+  | GetMyPets
+  | GetMyPetsSuccess
+  | GetMyPetsFail
   | GetPet
   | GetPetSuccess
   | GetPetFail
