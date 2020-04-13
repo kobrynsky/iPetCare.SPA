@@ -1,4 +1,3 @@
-import { ThunkResult } from '../pets/petsActions'
 import { AxiosResponse } from 'axios'
 import { Users } from '../../api'
 import { Dispatch } from 'react'
@@ -7,6 +6,7 @@ import { setTokenInHeader, deleteTokenInHeader } from '../../utils/api'
 import { saveUserState, deleteUserState } from '../../utils/localStorageHelper'
 import { LoginProps, RegisterProps } from '../../api/dto'
 import { history } from '../../'
+import { ThunkResult } from '../store'
 
 export enum UserActionTypes {
   UPDATE_PROFILE = 'UPDATE_PROFILE',

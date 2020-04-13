@@ -13,6 +13,7 @@ import {
   TextField,
   FormHelperText,
   Card,
+  CircularProgress,
 } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 import { RootState } from '../../../state/store'
@@ -143,9 +144,13 @@ export function RegisterForm() {
             </RadioGroup>
           </FormControl>
           <FormHelperText error={!!error}>{error}</FormHelperText>
-          <Button disabled={password !== passwordRepeated} type="submit">
-            Zarejestruj
-          </Button>
+          {userState.loading ? (
+            <CircularProgress style={{ alignSelf: 'center' }} />
+          ) : (
+            <Button disabled={password !== passwordRepeated} type="submit">
+              Zarejestruj
+            </Button>
+          )}
         </div>
       </form>
     </Card>

@@ -6,7 +6,12 @@ import { Pet } from '../state/pets/petsReducer'
 import { Race } from '../state/races/racesReducer'
 import { history } from '../index'
 import { User } from '../state/user/userReducer'
-import { LoginProps, RegisterProps } from './dto'
+import {
+  LoginProps,
+  RegisterProps,
+  GetVetsSearchDto,
+  GetVetsSearchResponseDto,
+} from './dto'
 
 axios.defaults.baseURL = BASE_URL
 
@@ -56,7 +61,8 @@ const responseBody = (response: AxiosResponse) => response.data
 const racesBody = (response: any) => response.races
 
 const requests = {
-  get: (url: string) => axios.get(url).then(responseBody),
+  get: (url: string, body?: {}) =>
+    axios.get(url, { data: body }).then(responseBody),
   post: (url: string, body: {}) => axios.post(url, body).then(responseBody),
   put: (url: string, body: {}) => axios.put(url, body).then(responseBody),
   del: (url: string) => axios.delete(url).then(responseBody),
@@ -69,6 +75,8 @@ export const Users = {
     requests.post('/users/register', user),
   users: (): Promise<User[]> => requests.get('/users'),
   edit: (user: User): Promise<User> => requests.put('/users', user),
+  getVets: (searchDto: GetVetsSearchDto): Promise<GetVetsSearchResponseDto> =>
+    requests.get('/vets', searchDto),
 }
 
 export const Pets = {

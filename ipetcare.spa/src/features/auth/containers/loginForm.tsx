@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Button, TextField, Card } from '@material-ui/core'
+import { Button, TextField, Card, CircularProgress } from '@material-ui/core'
 import { OWNER, ADMIN, VET } from '../../../utils/constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../state/store'
@@ -65,9 +65,11 @@ export function LoginForm() {
             helperText={error ? 'Nieprawidłowy email lub hasło' : ''}
             onChange={e => setPassword(e.target.value)}
           />
-          <Button type="submit" disabled={userState.loading}>
-            Zaloguj
-          </Button>
+          {!userState.loading ? (
+            <CircularProgress style={{ alignSelf: 'center' }} />
+          ) : (
+            <Button type="submit">Zaloguj</Button>
+          )}
         </div>
       </form>
     </Card>

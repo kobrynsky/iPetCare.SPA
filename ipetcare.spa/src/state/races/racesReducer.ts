@@ -56,7 +56,7 @@ export const racesReducer = (
     case RacesActionTypes.DELETE_RACE_SUCCESS:
       return {
         ...state,
-        items: state.items.map(x => x.id !== action.payload),
+        items: state.items.filter(x => x.id !== action.payload),
       }
 
     default:

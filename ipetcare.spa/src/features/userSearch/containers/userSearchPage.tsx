@@ -1,6 +1,14 @@
 import React, { useState } from 'react'
 import { UserResult } from '../components/userResult'
-import { TextField, makeStyles } from '@material-ui/core'
+import { TextField, makeStyles, CircularProgress } from '@material-ui/core'
+import {
+  GetVetsSearchResponseDto,
+  SortBy,
+  GetVetsSearchDto,
+} from '../../../api/dto'
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState } from '../../../state/store'
+import { searchVets } from '../../../state/search/searchActions'
 
 const useStyles = makeStyles({
   container: {
@@ -17,9 +25,43 @@ const useStyles = makeStyles({
   },
 })
 
+const renderResults = (results: GetVetsSearchResponseDto) => {
+  if (results.vets) {
+    return results.vets.map(v => (
+      <UserResult
+        key={v.id}
+        firstName={v.firstName}
+        lastName={v.lastName}
+        title="lek"
+        email={v.email}
+        imageUrl="https://www.wprost.pl/_thumb/5f/09/909272231d1fcb0bd2a3bcd3d8c3.jpeg"
+        institutions={v.institutions}
+        specialization={v.specialization}
+      />
+    ))
+  }
+}
+
 export const UserSearchPage = () => {
-  // const [searchResults, setSearchResults] = useState()
   const styles = useStyles()
+  const dispatch = useDispatch()
+  const searchState = useSelector((state: RootState) => state.search)
+  const [query, setQuery] = useState('')
+  const [sortBy, setSortBy] = useState('' as SortBy)
+  const [timeout, setTimeoutState] = useState(0 as any)
+
+  const onInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setQuery(e.target.value)
+    const request = {
+      query,
+      getVetsSortBy: sortBy === '' ? undefined : sortBy,
+    } as GetVetsSearchDto
+
+    if (timeout) clearTimeout(timeout)
+    setTimeoutState(setTimeout(() => dispatch(searchVets(request)), 700))
+  }
 
   return (
     <div className={styles.container}>
@@ -29,17 +71,18 @@ export const UserSearchPage = () => {
         title="Wyszukaj"
         placeholder="Wyszukaj"
         inputMode="search"
+        onChange={onInputChange}
       />
 
-      <UserResult
-        lastName="Borowski"
-        firstName="Piotr"
-        email="pb@gmail.com"
-        imageUrl="https://www.wprost.pl/_thumb/5f/09/909272231d1fcb0bd2a3bcd3d8c3.jpeg"
-        placeOfResidence="Wrocław jakas 2/1"
-        specialization="stomatolog"
-        title="lek"
-      />
+      <div
+        style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
+      >
+        {searchState.loading ? (
+          <CircularProgress />
+        ) : (
+          renderResults(searchState.vetsResponse)
+        )}
+      </div>
     </div>
   )
 }
