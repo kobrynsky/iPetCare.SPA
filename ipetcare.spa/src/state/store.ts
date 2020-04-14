@@ -9,15 +9,25 @@ import { petsReducer, PetsState } from './pets/petsReducer'
 import { racesReducer, RacesState } from './races/racesReducer'
 import { searchReducer, SearchState } from './search/searchReducer'
 
-export type ThunkResult<R> = ThunkAction<R, RootState, undefined, RootActions>
-import { InstitutionsState, institutionsReducer } from './institutions/institutionsReducer'
+import {
+  InstitutionsState,
+  institutionsReducer,
+} from './institutions/institutionsReducer'
 import { INSTITUTIONS_ACTIONS } from './institutions/institutionsActions'
-import { examinationTypesReducer, ExaminationTypesState } from './examinationTypes/examinationTypesReducer'
+import {
+  examinationTypesReducer,
+  ExaminationTypesState,
+} from './examinationTypes/examinationTypesReducer'
 import { EXAMINATION_TYPES_ACTIONS } from './examinationTypes/examinationTypesActions'
 import { SpeciesState, speciesReducer } from './species/speciesReducer'
 import { SPECIES_ACTIONS } from './species/speciesActions'
-import { examinationParametersReducer, ExaminationParametersState } from './examinationParameters/examinationParametersReducer'
+import {
+  examinationParametersReducer,
+  ExaminationParametersState,
+} from './examinationParameters/examinationParametersReducer'
 import { EXAMINATION_PARAMETERS_ACTIONS } from './examinationParameters/examinationParametersActions'
+
+export type ThunkResult<R> = ThunkAction<R, RootState, undefined, RootActions>
 
 export interface RootState {
   readonly user: UserState
@@ -38,10 +48,17 @@ const rootReducer = combineReducers<RootState>({
   institutions: institutionsReducer,
   examinationTypes: examinationTypesReducer,
   examinationParameters: examinationParametersReducer,
-  species: speciesReducer
+  species: speciesReducer,
 })
 
-export type RootActions = USER_ACTIONS | PETS_ACTIONS | RACES_ACTIONS | INSTITUTIONS_ACTIONS | EXAMINATION_TYPES_ACTIONS | SPECIES_ACTIONS | EXAMINATION_PARAMETERS_ACTIONS
+export type RootActions =
+  | USER_ACTIONS
+  | PETS_ACTIONS
+  | RACES_ACTIONS
+  | INSTITUTIONS_ACTIONS
+  | EXAMINATION_TYPES_ACTIONS
+  | SPECIES_ACTIONS
+  | EXAMINATION_PARAMETERS_ACTIONS
 
 export const store = createStore(
   rootReducer,

@@ -2,7 +2,7 @@ import { history } from './../../index'
 import { Pets as pets } from '../../api'
 import { Dispatch } from 'redux'
 import { ThunkResult } from '../store'
-import { Pet, Pets } from './petsReducer'
+import { Pet } from './petsReducer'
 import { RootState, RootActions } from '../store'
 import { AxiosResponse } from 'axios'
 

@@ -11,7 +11,6 @@ import { setUser } from './state/user/userActions'
 import { getUserState } from './utils/localStorageHelper'
 import { Grid, Typography } from '@material-ui/core'
 import { RootState } from './state/store'
-import PetsList from './features/pets/containers/petsList'
 import { AdminScreen } from './features/homePage/containers/adminScreen'
 import { OwnerScreen } from './features/homePage/containers/ownerScreen'
 import { RacesPage } from './features/race/containers/racesPage'
@@ -21,8 +20,8 @@ import { NotFoundPage } from './common/errorPages/notFoundPage'
 import { ForbiddenPage } from './common/errorPages/forbiddenPage'
 import { UnauthorizedPage } from './common/errorPages/unauthorizedPage'
 import { UserSearchPage } from './features/userSearch/containers/userSearchPage'
-import { InstitutionsPage } from './features/institutions/containers/institutionsPage';
-import { ExaminationTypesPage } from './features/examinations/containers/examinationTypesPage';
+import { InstitutionsPage } from './features/institutions/containers/institutionsPage'
+import { ExaminationTypesPage } from './features/examinations/containers/examinationTypesPage'
 import { ExaminationParametersPage } from './features/examinations/containers/examinationParametersPage'
 import { PetsPage } from './features/pets/containers/petsPage'
 import { PetPage } from './features/pets/containers/petPage'
@@ -83,9 +82,15 @@ const App: React.FC = () => {
                 <Route path="/pets" component={PetsPage} />
                 <Route path="/profile/edit" component={EditProfilePage} />
                 <Route path="/users/search" component={UserSearchPage} />
-                <Route path='/institutions' component={InstitutionsPage} />
-                <Route path='/examination/types' component={ExaminationTypesPage} />
-                <Route path='/examination/parameters' component={ExaminationParametersPage} />
+                <Route path="/institutions" component={InstitutionsPage} />
+                <Route
+                  path="/examination/types"
+                  component={ExaminationTypesPage}
+                />
+                <Route
+                  path="/examination/parameters"
+                  component={ExaminationParametersPage}
+                />
                 <Route path="*" component={NotFoundPage} />
               </Switch>
             )}

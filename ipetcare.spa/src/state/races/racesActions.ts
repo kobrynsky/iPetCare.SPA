@@ -5,7 +5,7 @@ import { Dispatch } from 'redux'
 import { ThunkResult } from '../store'
 import { Race } from './racesReducer'
 
-export enum RacesActionTypes {
+export enum RacesActionParameters {
   GET_RACES = 'GET_RACES',
   GET_RACES_SUCCESS = 'GET_RACES_SUCCESS',
   GET_RACES_FAIL = 'GET_RACES_FAIL',
@@ -125,7 +125,9 @@ interface CreateRaceFail {
   type: RacesActionParameters.CREATE_RACE_FAIL
 }
 
-export const createRace = (examinationParameter: Race): ThunkResult<void> => async dispatch => {
+export const createRace = (
+  examinationParameter: Race
+): ThunkResult<void> => async dispatch => {
   handleCreateRace(dispatch)
   try {
     const response: Race = await races.create(examinationParameter)
@@ -143,7 +145,10 @@ const handleCreateRaceSuccess = (
   dispatch: Dispatch<CreateRaceSuccess>,
   response: Race
 ) => {
-  dispatch({ type: RacesActionParameters.CREATE_RACE_SUCCESS, payload: response })
+  dispatch({
+    type: RacesActionParameters.CREATE_RACE_SUCCESS,
+    payload: response,
+  })
   history.push('/Races')
 }
 
@@ -185,7 +190,10 @@ const handleUpdateRaceSuccess = (
   dispatch: Dispatch<UpdateRaceSuccess>,
   updatedRace: Race
 ) => {
-  dispatch({ type: RacesActionParameters.UPDATE_RACE_SUCCESS, payload: updatedRace })
+  dispatch({
+    type: RacesActionParameters.UPDATE_RACE_SUCCESS,
+    payload: updatedRace,
+  })
 }
 
 const handleUpdateRaceFail = (dispatch: Dispatch<UpdateRaceFail>) => {
