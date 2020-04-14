@@ -1,10 +1,12 @@
-import { ThunkResult } from '../pets/petsActions'
+import { AxiosResponse } from 'axios'
 import { Users } from '../../api'
 import { Dispatch } from 'react'
 import { User } from './userReducer'
-import { setTokenInHeader } from '../../utils/api'
-import { saveUserState } from '../../utils/localStorageHelper'
+import { setTokenInHeader, deleteTokenInHeader } from '../../utils/api'
+import { saveUserState, deleteUserState } from '../../utils/localStorageHelper'
 import { LoginProps, RegisterProps } from '../../api/dto'
+import { history } from '../../'
+import { ThunkResult } from '../store'
 
 export enum UserActionTypes {
   UPDATE_PROFILE = 'UPDATE_PROFILE',
@@ -34,10 +36,13 @@ export const setUser = (user: User) => {
 
 type LOGOUT_ACTION = ReturnType<typeof logout>
 
-export const logout = () =>
-  ({
+export const logout = () => {
+  deleteUserState()
+  deleteTokenInHeader()
+  return {
     type: UserActionTypes.LOGOUT,
-  } as const)
+  } as const
+}
 
 interface LoginUser {
   type: UserActionTypes.LOGIN_USER

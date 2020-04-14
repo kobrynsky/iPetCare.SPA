@@ -6,11 +6,15 @@ import { Race } from '../state/races/racesReducer'
 import { Species } from '../state/species/speciesReducer'
 import { history } from '../index'
 import { User } from '../state/user/userReducer'
-import { LoginProps, RegisterProps } from './dto'
+import {
+  LoginProps,
+  RegisterProps,
+  GetSearchDto,
+  GetSearchResponseDto,
+} from './dto'
 import { Institution } from '../state/institutions/institutionsReducer'
 import { ExaminationType } from '../state/examinationTypes/examinationTypesReducer'
 import { ExaminationParameter } from '../state/examinationParameters/examinationParametersReducer'
-
 
 axios.defaults.baseURL = BASE_URL
 
@@ -69,7 +73,8 @@ const examinationParameterBody = (response: any) => response.examinationParamete
 const petsBody = (response: any) => response.pets
 
 const requests = {
-  get: (url: string) => axios.get(url).then(responseBody),
+  get: (url: string, body?: {}) =>
+    axios.get(url, { data: body }).then(responseBody),
   post: (url: string, body: {}) => axios.post(url, body).then(responseBody),
   put: (url: string, body: {}) => axios.put(url, body).then(responseBody),
   del: (url: string) => axios.delete(url).then(responseBody),
@@ -82,6 +87,10 @@ export const Users = {
     requests.post('/users/register', user),
   users: (): Promise<User[]> => requests.get('/users'),
   edit: (user: User): Promise<User> => requests.put('/users', user),
+  getVets: (searchDto: GetSearchDto): Promise<GetSearchResponseDto> =>
+    requests.post('users/vets', searchDto),
+  getOwners: (searchDto: GetSearchDto): Promise<GetSearchResponseDto> =>
+    requests.post('users/owners', searchDto),
 }
 
 export const Pets = {

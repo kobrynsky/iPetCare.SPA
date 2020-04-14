@@ -44,7 +44,7 @@ export const EditProfileForm = ({ user, onSubmit, disabled }: Props) => {
           <TextField
             required
             margin="normal"
-            variant="outlined"
+            // variant="outlined"
             label="Imię"
             value={firstName}
             onChange={e => setFirstName(e.target.value)}
@@ -53,7 +53,7 @@ export const EditProfileForm = ({ user, onSubmit, disabled }: Props) => {
           <TextField
             required
             margin="normal"
-            variant="outlined"
+            // variant="outlined"
             label="Nazwisko"
             value={lastName}
             onChange={e => setLastName(e.target.value)}
@@ -62,7 +62,7 @@ export const EditProfileForm = ({ user, onSubmit, disabled }: Props) => {
           <TextField
             required
             margin="normal"
-            variant="outlined"
+            // variant="outlined"
             label="E-mail"
             value={email}
             onChange={e => setEmail(e.target.value)}
@@ -71,7 +71,7 @@ export const EditProfileForm = ({ user, onSubmit, disabled }: Props) => {
           <TextField
             required
             margin="normal"
-            variant="outlined"
+            // variant="outlined"
             label="Zdjęcie"
             value={imageUrl}
             onChange={e => setImageUrl(e.target.value)}
@@ -79,7 +79,7 @@ export const EditProfileForm = ({ user, onSubmit, disabled }: Props) => {
 
           <TextField
             margin="normal"
-            variant="outlined"
+            // variant="outlined"
             label="Miejsce zamieszkania"
             value={placeOfResidence}
             onChange={e => setPlaceOfResidence(e.target.value)}
@@ -89,7 +89,7 @@ export const EditProfileForm = ({ user, onSubmit, disabled }: Props) => {
             <TextField
               required
               margin="normal"
-              variant="outlined"
+              // variant="outlined"
               label="Specjalizacja"
               value={specialization}
               onChange={e => setSpecialization(e.target.value)}
@@ -99,7 +99,7 @@ export const EditProfileForm = ({ user, onSubmit, disabled }: Props) => {
           <TextField
             required
             margin="normal"
-            variant="outlined"
+            // variant="outlined"
             label="Nazwa użytkownika"
             value={userName}
             onChange={e => setUserName(e.target.value)}

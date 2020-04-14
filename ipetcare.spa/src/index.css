@@ -14,7 +14,8 @@ body .MuiInputBase-root .MuiInput-underline,
   content: none !important;
 }
 
-body input {
+body input,
+label {
   margin-left: 10px !important;
 }
 

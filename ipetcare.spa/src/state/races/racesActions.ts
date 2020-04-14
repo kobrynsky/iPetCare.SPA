@@ -2,11 +2,10 @@ import { history } from './../../index'
 import { Races as races } from '../../api'
 import { ThunkAction } from 'redux-thunk'
 import { Dispatch } from 'redux'
-import { RootState, RootActions } from '../store'
+import { ThunkResult } from '../store'
 import { Race } from './racesReducer'
 
-export type ThunkResult<R> = ThunkAction<R, RootState, undefined, RootActions>
-export enum RacesActionParameters {
+export enum RacesActionTypes {
   GET_RACES = 'GET_RACES',
   GET_RACES_SUCCESS = 'GET_RACES_SUCCESS',
   GET_RACES_FAIL = 'GET_RACES_FAIL',

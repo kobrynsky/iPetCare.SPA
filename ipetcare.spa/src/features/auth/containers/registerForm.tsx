@@ -13,6 +13,7 @@ import {
   TextField,
   FormHelperText,
   Card,
+  CircularProgress,
 } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 import { RootState } from '../../../state/store'
@@ -64,7 +65,7 @@ export function RegisterForm() {
           <TextField
             required
             margin="normal"
-            variant="outlined"
+            // variant="outlined"
             label="Imię"
             onChange={e => setFirstName(e.target.value)}
           />
@@ -72,7 +73,7 @@ export function RegisterForm() {
           <TextField
             required
             margin="normal"
-            variant="outlined"
+            // variant="outlined"
             label="Nazwisko"
             onChange={e => setLastName(e.target.value)}
           />
@@ -80,7 +81,7 @@ export function RegisterForm() {
           <TextField
             required
             margin="normal"
-            variant="outlined"
+            // variant="outlined"
             label="Nazwa użytkownika"
             onChange={e => setUserName(e.target.value)}
           />
@@ -88,7 +89,7 @@ export function RegisterForm() {
           <TextField
             required
             margin="normal"
-            variant="outlined"
+            // variant="outlined"
             label="Email"
             onChange={e => setEmail(e.target.value)}
           />
@@ -96,7 +97,7 @@ export function RegisterForm() {
           <TextField
             required
             margin="normal"
-            variant="outlined"
+            // variant="outlined"
             label="Hasło"
             type="password"
             onChange={e => setPassword(e.target.value)}
@@ -104,7 +105,7 @@ export function RegisterForm() {
           <TextField
             required
             margin="normal"
-            variant="outlined"
+            // variant="outlined"
             label="Powtórz hasło"
             type="password"
             error={password !== passwordRepeated}
@@ -143,9 +144,13 @@ export function RegisterForm() {
             </RadioGroup>
           </FormControl>
           <FormHelperText error={!!error}>{error}</FormHelperText>
-          <Button disabled={password !== passwordRepeated} type="submit">
-            Zarejestruj
-          </Button>
+          {userState.loading ? (
+            <CircularProgress style={{ alignSelf: 'center' }} />
+          ) : (
+            <Button disabled={password !== passwordRepeated} type="submit">
+              Zarejestruj
+            </Button>
+          )}
         </div>
       </form>
     </Card>

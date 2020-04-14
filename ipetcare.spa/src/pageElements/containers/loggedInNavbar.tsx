@@ -169,8 +169,7 @@ export function LoggedInNavbar() {
 
   const handleLogout = () => {
     dispatch(logout())
-    deleteUserState()
-    deleteTokenInHeader()
+    history.push('/')
   }
 
   const menuId = 'primary-search-account-menu'
@@ -234,6 +233,17 @@ export function LoggedInNavbar() {
           Główna
         </NavLink>
       </MenuItem>
+      <MenuItem>
+        <NavLink
+          exact
+          className="navlink"
+          activeClassName="activeNavLink"
+          color="inherit"
+          to="/users/search"
+        >
+          Wyszukaj
+        </NavLink>
+      </MenuItem>
       {renderMobileMenuItem(
         user.role.toLowerCase() === 'administrator' ? adminRoutes : ownerRoutes
       )}
@@ -279,6 +289,15 @@ export function LoggedInNavbar() {
               to="/"
             >
               Główna
+            </NavLink>
+            <NavLink
+              exact
+              className="navlink"
+              activeClassName="activeNavLink"
+              color="inherit"
+              to="/users/search"
+            >
+              Wyszukaj
             </NavLink>
             {renderDesktopMenuItem(
               user.role.toLowerCase() === 'administrator'

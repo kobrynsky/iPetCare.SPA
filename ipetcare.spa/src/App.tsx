@@ -11,6 +11,7 @@ import { setUser } from './state/user/userActions'
 import { getUserState } from './utils/localStorageHelper'
 import { Grid, Typography } from '@material-ui/core'
 import { RootState } from './state/store'
+import PetsList from './features/pets/containers/petsList'
 import { AdminScreen } from './features/homePage/containers/adminScreen'
 import { OwnerScreen } from './features/homePage/containers/ownerScreen'
 import { RacesPage } from './features/race/containers/racesPage'
@@ -19,6 +20,7 @@ import { EditProfilePage } from './features/profile/containers/editProfilePage'
 import { NotFoundPage } from './common/errorPages/notFoundPage'
 import { ForbiddenPage } from './common/errorPages/forbiddenPage'
 import { UnauthorizedPage } from './common/errorPages/unauthorizedPage'
+import { UserSearchPage } from './features/userSearch/containers/userSearchPage'
 import { InstitutionsPage } from './features/institutions/containers/institutionsPage';
 import { ExaminationTypesPage } from './features/examinations/containers/examinationTypesPage';
 import { ExaminationParametersPage } from './features/examinations/containers/examinationParametersPage'
@@ -32,28 +34,29 @@ const App: React.FC = () => {
 
   useEffect(() => {
     setLoaded(false)
-    const user = getUserState()
-    if (user) {
-      dispatch(setUser(user))
+    if (user.token === '') {
+      const userState = getUserState()
+      if (userState) {
+        dispatch(setUser(userState))
+      }
     }
+
     setLoaded(true)
   }, [])
 
   const header =
-    user.token && user.token?.length > 0 ? (
+    user.userName && user.userName.length > 0 ? (
       <LoggedInNavbar />
     ) : (
-        <>
-          {/* <Card className="titleContainerNotLogged"> */}
-          <NavLink className="titleContainerNotLogged" to="/">
-            <Typography className="title" variant="h5">
-              iPetCare
+      <>
+        <NavLink className="titleContainerNotLogged" to="/">
+          <Typography className="title" variant="h5">
+            iPetCare
           </Typography>
-          </NavLink>
-          {/* </Card> */}
-          <NotLoggedNavbar />
-        </>
-      )
+        </NavLink>
+        <NotLoggedNavbar />
+      </>
+    )
 
   return (
     <div className="app">
@@ -79,6 +82,7 @@ const App: React.FC = () => {
                 <Route path="/pets/details/:petId" component={PetPage} />
                 <Route path="/pets" component={PetsPage} />
                 <Route path="/profile/edit" component={EditProfilePage} />
+                <Route path="/users/search" component={UserSearchPage} />
                 <Route path='/institutions' component={InstitutionsPage} />
                 <Route path='/examination/types' component={ExaminationTypesPage} />
                 <Route path='/examination/parameters' component={ExaminationParametersPage} />

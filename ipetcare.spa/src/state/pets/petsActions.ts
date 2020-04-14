@@ -1,12 +1,11 @@
 import { history } from './../../index'
 import { Pets as pets } from '../../api'
-import { ThunkAction } from 'redux-thunk'
 import { Dispatch } from 'redux'
+import { ThunkResult } from '../store'
+import { Pet, Pets } from './petsReducer'
 import { RootState, RootActions } from '../store'
-import { Pet } from './petsReducer'
 import { AxiosResponse } from 'axios'
 
-export type ThunkResult<R> = ThunkAction<R, RootState, undefined, RootActions>
 export enum PetsActionTypes {
   GET_PETS = 'GET_PETS',
   GET_PETS_SUCCESS = 'GET_PETS_SUCCESS',
