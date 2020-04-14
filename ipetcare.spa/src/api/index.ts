@@ -1,9 +1,9 @@
 import axios, { AxiosResponse } from 'axios'
 import { BASE_URL } from '../utils/constants'
 import { getUserState, deleteUserState } from '../utils/localStorageHelper'
-import { useHistory } from 'react-router-dom'
 import { Pet } from '../state/pets/petsReducer'
 import { Race } from '../state/races/racesReducer'
+import { Species } from '../state/species/speciesReducer'
 import { history } from '../index'
 import { User } from '../state/user/userReducer'
 import {
@@ -12,6 +12,9 @@ import {
   GetSearchDto,
   GetSearchResponseDto,
 } from './dto'
+import { Institution } from '../state/institutions/institutionsReducer'
+import { ExaminationType } from '../state/examinationTypes/examinationTypesReducer'
+import { ExaminationParameter } from '../state/examinationParameters/examinationParametersReducer'
 
 axios.defaults.baseURL = BASE_URL
 
@@ -30,14 +33,17 @@ axios.interceptors.response.use(undefined, error => {
   if (error.message === 'Network Error' && !error.response) {
     console.error('Błąd sieci - upewnij się, że API działa!')
   }
-  const { status, data, config, headers } = error.response
+  const { status, data, config } = error.response
   if (status === 404) {
+    console.log(error.response)
     history.push('/notfound')
   }
   if (status === 403) {
+    console.log(error.response)
     history.push('/forbidden')
   }
   if (status === 401) {
+    console.log(error.response)
     deleteUserState()
     history.push('/unauthorized')
     console.info('Twoja sesja wygasła, zaloguj się ponownie.')
@@ -50,6 +56,7 @@ axios.interceptors.response.use(undefined, error => {
     history.push('/notfound')
   }
   if (status === 500) {
+    console.log(error.response)
     console.error(
       'Błąd serwera - sprawdź konsolę, aby uzyskać więcej informacji!'
     )
@@ -59,6 +66,11 @@ axios.interceptors.response.use(undefined, error => {
 
 const responseBody = (response: AxiosResponse) => response.data
 const racesBody = (response: any) => response.races
+const institutionsBody = (response: any) => response.institutions
+const examinationTypesBody = (response: any) => response.examinationTypes
+const speciesBody = (response: any) => response.species
+const examinationParameterBody = (response: any) => response.examinationParameters
+const petsBody = (response: any) => response.pets
 
 const requests = {
   get: (url: string, body?: {}) =>
@@ -82,10 +94,11 @@ export const Users = {
 }
 
 export const Pets = {
-  getPets: (): Promise<Pet[]> => requests.get('/pets'),
+  getPets: (): Promise<Pet[]> => requests.get('/pets').then(petsBody),
+  getMyPets: (): Promise<Pet[]> => requests.get('/pets/my').then(petsBody),
   getPet: (id: string): Promise<Pet> => requests.get(`/pets/${id}`),
   create: (pet: Pet) => requests.post('/pets', pet),
-  update: (pet: Pet) => requests.put('/pets', pet),
+  update: (pet: Pet) => requests.put(`/pets/${pet.id}`, pet),
   delete: (id: string) => requests.del(`/pets/${id}`),
 }
 
@@ -93,6 +106,38 @@ export const Races = {
   getRaces: (): Promise<Race[]> => requests.get('/races').then(racesBody),
   getRace: (id: number): Promise<Race> => requests.get(`/races/${id}`),
   create: (race: Race) => requests.post('/races', race),
-  update: (race: Race) => requests.put('/races', race),
+  update: (race: Race) => requests.put(`/races/${race.id}`, race),
   delete: (id: number) => requests.del(`/races/${id}`),
+}
+
+export const Institutions = {
+  getInstitutions: (): Promise<Institution[]> => requests.get('/institutions').then(institutionsBody),
+  getInstitution: (id: string): Promise<Institution> => requests.get(`/institutions/${id}`),
+  create: (institution: Institution) => requests.post('/institutions', institution),
+  update: (institution: Institution) => requests.put(`/institutions/${institution.id}`, institution),
+  delete: (id: string) => requests.del(`/institutions/${id}`),
+}
+
+export const ExaminationTypes = {
+  getExaminationTypes: (): Promise<ExaminationType[]> => requests.get('/examinationTypes').then(examinationTypesBody),
+  getExaminationType: (id: number): Promise<ExaminationType> => requests.get(`/examinationTypes/${id}`),
+  create: (examinationType: ExaminationType) => requests.post('/examinationTypes', examinationType),
+  update: (examinationType: ExaminationType) => requests.put(`/examinationTypes/${examinationType.id}`, examinationType),
+  delete: (id: number) => requests.del(`/examinationTypes/${id}`),
+}
+
+export const ExaminationParameters = {
+  getExaminationParameters: (): Promise<ExaminationParameter[]> => requests.get('/examinationParameters').then(examinationParameterBody),
+  getExaminationParameter: (id: number): Promise<ExaminationParameter> => requests.get(`/examinationParameters/${id}`),
+  create: (examinationParameter: ExaminationParameter) => requests.post('/examinationParameters', examinationParameter),
+  update: (examinationParameter: ExaminationParameter) => requests.put(`/examinationParameters/${examinationParameter.id}`, examinationParameter),
+  delete: (id: number) => requests.del(`/examinationParameters/${id}`),
+}
+
+export const AllSpecies = {
+  getAllSpecies: (): Promise<Species[]> => requests.get('/species').then(speciesBody),
+  getSpecies: (id: number): Promise<Species> => requests.get(`/species/${id}`),
+  create: (species: Species) => requests.post('/species', species),
+  update: (species: Species) => requests.put(`/species/${species.id}`, species),
+  delete: (id: number) => requests.del(`/species/${id}`),
 }

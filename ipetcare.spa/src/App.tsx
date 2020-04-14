@@ -9,18 +9,23 @@ import { NotLoggedNavbar } from './pageElements/containers/notLoggedNavbar'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from './state/user/userActions'
 import { getUserState } from './utils/localStorageHelper'
-import { Grid, Card, Typography } from '@material-ui/core'
+import { Grid, Typography } from '@material-ui/core'
 import { RootState } from './state/store'
 import PetsList from './features/pets/containers/petsList'
 import { AdminScreen } from './features/homePage/containers/adminScreen'
 import { OwnerScreen } from './features/homePage/containers/ownerScreen'
-import { RaceScreen } from './features/race/containers/raceScreen'
-import { SpeciesScreen } from './features/species/containers/speciesScreen'
+import { RacesPage } from './features/race/containers/racesPage'
+import { SpeciesPage } from './features/species/containers/speciesPage'
 import { EditProfilePage } from './features/profile/containers/editProfilePage'
 import { NotFoundPage } from './common/errorPages/notFoundPage'
 import { ForbiddenPage } from './common/errorPages/forbiddenPage'
 import { UnauthorizedPage } from './common/errorPages/unauthorizedPage'
 import { UserSearchPage } from './features/userSearch/containers/userSearchPage'
+import { InstitutionsPage } from './features/institutions/containers/institutionsPage';
+import { ExaminationTypesPage } from './features/examinations/containers/examinationTypesPage';
+import { ExaminationParametersPage } from './features/examinations/containers/examinationParametersPage'
+import { PetsPage } from './features/pets/containers/petsPage'
+import { PetPage } from './features/pets/containers/petPage'
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -70,13 +75,17 @@ const App: React.FC = () => {
                 <Route path="/login" component={LoginForm} />
                 <Route path="/admin" component={AdminScreen} />
                 <Route path="/owner" component={OwnerScreen} />
-                <Route path="/races" component={RaceScreen} />
-                <Route path="/species" component={SpeciesScreen} />
+                <Route path="/races" component={RacesPage} />
+                <Route path="/species" component={SpeciesPage} />
                 <Route path="/forbidden" component={ForbiddenPage} />
                 <Route path="/unauthorized" component={UnauthorizedPage} />
-                <Route path="/pets" exact component={PetsList} />
+                <Route path="/pets/details/:petId" component={PetPage} />
+                <Route path="/pets" component={PetsPage} />
                 <Route path="/profile/edit" component={EditProfilePage} />
                 <Route path="/users/search" component={UserSearchPage} />
+                <Route path='/institutions' component={InstitutionsPage} />
+                <Route path='/examination/types' component={ExaminationTypesPage} />
+                <Route path='/examination/parameters' component={ExaminationParametersPage} />
                 <Route path="*" component={NotFoundPage} />
               </Switch>
             )}

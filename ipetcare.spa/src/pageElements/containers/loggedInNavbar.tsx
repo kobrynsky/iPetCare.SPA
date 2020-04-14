@@ -22,8 +22,8 @@ interface Route {
 
 const ownerRoutes: Route[] = [
   {
-    caption: 'Zwierzęta',
-    path: '/',
+    caption: 'Moje Zwierzęta',
+    path: '/pets',
   },
   {
     caption: 'Weterynarze',
@@ -55,6 +55,18 @@ const adminRoutes: Route[] = [
   {
     caption: 'Badania',
     path: '/',
+  },
+  {
+    caption: 'Instytucje',
+    path: '/institutions',
+  },
+  {
+    caption: 'Typy badań',
+    path: '/examination/types',
+  },
+  {
+    caption: 'Parametry badań',
+    path: '/examination/parameters',
   },
 ]
 
