@@ -65,7 +65,7 @@ export function RegisterForm() {
           <TextField
             required
             margin="normal"
-            variant="outlined"
+            // variant="outlined"
             label="Imię"
             onChange={e => setFirstName(e.target.value)}
           />
@@ -73,7 +73,7 @@ export function RegisterForm() {
           <TextField
             required
             margin="normal"
-            variant="outlined"
+            // variant="outlined"
             label="Nazwisko"
             onChange={e => setLastName(e.target.value)}
           />
@@ -81,7 +81,7 @@ export function RegisterForm() {
           <TextField
             required
             margin="normal"
-            variant="outlined"
+            // variant="outlined"
             label="Nazwa użytkownika"
             onChange={e => setUserName(e.target.value)}
           />
@@ -89,7 +89,7 @@ export function RegisterForm() {
           <TextField
             required
             margin="normal"
-            variant="outlined"
+            // variant="outlined"
             label="Email"
             onChange={e => setEmail(e.target.value)}
           />
@@ -97,7 +97,7 @@ export function RegisterForm() {
           <TextField
             required
             margin="normal"
-            variant="outlined"
+            // variant="outlined"
             label="Hasło"
             type="password"
             onChange={e => setPassword(e.target.value)}
@@ -105,7 +105,7 @@ export function RegisterForm() {
           <TextField
             required
             margin="normal"
-            variant="outlined"
+            // variant="outlined"
             label="Powtórz hasło"
             type="password"
             error={password !== passwordRepeated}

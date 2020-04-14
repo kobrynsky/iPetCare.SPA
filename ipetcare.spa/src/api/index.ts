@@ -9,8 +9,8 @@ import { User } from '../state/user/userReducer'
 import {
   LoginProps,
   RegisterProps,
-  GetVetsSearchDto,
-  GetVetsSearchResponseDto,
+  GetSearchDto,
+  GetSearchResponseDto,
 } from './dto'
 
 axios.defaults.baseURL = BASE_URL
@@ -75,8 +75,10 @@ export const Users = {
     requests.post('/users/register', user),
   users: (): Promise<User[]> => requests.get('/users'),
   edit: (user: User): Promise<User> => requests.put('/users', user),
-  getVets: (searchDto: GetVetsSearchDto): Promise<GetVetsSearchResponseDto> =>
+  getVets: (searchDto: GetSearchDto): Promise<GetSearchResponseDto> =>
     requests.get('/vets', searchDto),
+  getOwners: (searchDto: GetSearchDto): Promise<GetSearchResponseDto> =>
+    requests.get('/owners', searchDto),
 }
 
 export const Pets = {

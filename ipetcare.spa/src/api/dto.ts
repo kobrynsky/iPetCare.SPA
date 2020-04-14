@@ -25,28 +25,36 @@ export interface Institution {
   address: string
 }
 
-export interface Vet {
+export interface UserBase {
+  id: string
   firstName: string
   lastName: string
   email: string
   role: string
+}
+
+export interface Vet extends UserBase {
   specialization: string
-  id: string
   institutions: Institution[]
 }
 
-export interface GetVetsSearchDto {
+export interface Owner extends UserBase {
+  placeOfResidence: string
+}
+
+export interface GetSearchDto {
   query: string
   page?: number
   pageSize?: number
   getVetsSortBy?: SortBy
 }
 
-export interface GetVetsSearchResponseDto {
+export interface GetSearchResponseDto {
   query: string
   page: number
   pageSize: number
   totalItems: number
   sortBy: SortBy
-  vets: Vet[]
+  vets?: Vet[]
+  owners?: Owner[]
 }

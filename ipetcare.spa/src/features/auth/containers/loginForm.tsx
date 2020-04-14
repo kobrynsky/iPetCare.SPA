@@ -49,7 +49,7 @@ export function LoginForm() {
           <TextField
             required
             margin="normal"
-            variant="outlined"
+            // variant="outlined"
             label="Email"
             error={error}
             onChange={e => setLogin(e.target.value)}
@@ -58,14 +58,14 @@ export function LoginForm() {
           <TextField
             required
             margin="normal"
-            variant="outlined"
+            // variant="outlined"
             type="password"
             label="Hasło"
             error={error}
             helperText={error ? 'Nieprawidłowy email lub hasło' : ''}
             onChange={e => setPassword(e.target.value)}
           />
-          {!userState.loading ? (
+          {userState.loading ? (
             <CircularProgress style={{ alignSelf: 'center' }} />
           ) : (
             <Button type="submit">Zaloguj</Button>

@@ -17,8 +17,8 @@ interface Props {
   lastName: string
   specialization?: string
   email: string
-  // placeOfResidence: string
-  institutions: Institution[]
+  placeOfResidence?: string
+  institutions?: Institution[]
   imageUrl: string
   title: string
 }
@@ -35,7 +35,7 @@ export const UserResult = ({
   firstName,
   imageUrl,
   lastName,
-  // placeOfResidence,
+  placeOfResidence,
   institutions,
   specialization,
   title,
@@ -55,18 +55,23 @@ export const UserResult = ({
           <Typography variant="h5" component="h2">
             {`${title} ${firstName} ${lastName}`}
           </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
-            {specialization}
-          </Typography>
-          {/* <Typography variant="body1">{placeOfResidence}</Typography> */}
-          {institutions.map(i => (
-            <>
-              <Typography variant="body1">{i.name}</Typography>
-              <Typography variant="subtitle1" color="textSecondary">
-                {i.address}
-              </Typography>
-            </>
-          ))}
+          {specialization && (
+            <Typography variant="subtitle1" color="textSecondary">
+              {specialization}
+            </Typography>
+          )}
+          {placeOfResidence && (
+            <Typography variant="body1">{placeOfResidence}</Typography>
+          )}
+          {institutions &&
+            institutions.map(i => (
+              <>
+                <Typography variant="body1">{i.name}</Typography>
+                <Typography variant="subtitle1" color="textSecondary">
+                  {i.address}
+                </Typography>
+              </>
+            ))}
         </CardContent>
       </CardActionArea>
       <CardActions>
