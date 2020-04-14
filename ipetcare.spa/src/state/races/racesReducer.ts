@@ -1,65 +1,69 @@
-import _ from 'lodash'
-import { RACES_ACTIONS, RacesActionTypes } from './racesActions'
-import { Reducer } from 'redux'
+import { RACES_ACTIONS, RacesActionParameters } from './racesActions'
 
 export interface Race {
-  id: number
+  id?: number
   name: string
   speciesId: number
 }
 
-export interface Races {
-  [id: number]: Race
-}
-
 export interface RacesState {
-  items: Races
+  items: Race[]
   loading: boolean
   error: String | null
 }
 
 const initialState = {
-  items: {},
+  items: [] as Race[],
   loading: false,
   error: null,
 }
 
-export const racesReducer: Reducer<RacesState, RACES_ACTIONS> = (
-  state = initialState,
-  action
+export const racesReducer = (
+  state: RacesState = initialState,
+  action: RACES_ACTIONS
 ) => {
   switch (action.type) {
-    case RacesActionTypes.GET_RACE:
-    case RacesActionTypes.GET_RACES:
-    case RacesActionTypes.CREATE_RACE:
-    case RacesActionTypes.UPDATE_RACE:
+    case RacesActionParameters.GET_RACES:
+    case RacesActionParameters.GET_RACE:
+    case RacesActionParameters.CREATE_RACE:
+    case RacesActionParameters.UPDATE_RACE:
+    case RacesActionParameters.DELETE_RACE:
       return { ...state, loading: true }
 
-    case RacesActionTypes.GET_RACE_FAIL:
-    case RacesActionTypes.GET_RACES_FAIL:
-    case RacesActionTypes.CREATE_RACE_FAIL:
+    case RacesActionParameters.GET_RACE_FAIL:
+    case RacesActionParameters.GET_RACES_FAIL:
+    case RacesActionParameters.CREATE_RACE_FAIL:
+    case RacesActionParameters.DELETE_RACE_FAIL:
+    case RacesActionParameters.UPDATE_RACE_FAIL:
       return { ...state, loading: false }
 
-    case RacesActionTypes.GET_RACE_SUCCESS:
-    case RacesActionTypes.CREATE_RACE_SUCCESS:
-      const { id } = action.payload
+    case RacesActionParameters.GET_RACE_SUCCESS:
+    case RacesActionParameters.CREATE_RACE_SUCCESS:
       return {
         ...state,
-        items: { ...state.items, [id]: action.payload },
+        items: [...state.items, action.payload],
         loading: false,
       }
 
-    case RacesActionTypes.GET_RACES_SUCCESS:
+    case RacesActionParameters.GET_RACES_SUCCESS:
       return {
         ...state,
-        items: { ...state.items, ..._.mapKeys(action.payload.races, 'id') },
+        items: [...action.payload],
         loading: false,
       }
 
-    case RacesActionTypes.DELETE_RACE_SUCCESS:
+    case RacesActionParameters.DELETE_RACE_SUCCESS:
       return {
         ...state,
-        items: { ..._.omit(state.items, action.payload) },
+        items: state.items.filter(x => x.id !== action.payload),
+        loading: false,
+      }
+
+    case RacesActionParameters.UPDATE_RACE_SUCCESS:
+      return {
+        ...state,
+        items: [...state.items.filter(x => x.id !== action.payload.id), action.payload],
+        loading: false,
       }
 
     default:

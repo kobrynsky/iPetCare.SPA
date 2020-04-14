@@ -3,11 +3,10 @@ import { Races as races } from '../../api'
 import { ThunkAction } from 'redux-thunk'
 import { Dispatch } from 'redux'
 import { RootState, RootActions } from '../store'
-import { Race, Races } from './racesReducer'
-import { AxiosResponse } from 'axios'
+import { Race } from './racesReducer'
 
 export type ThunkResult<R> = ThunkAction<R, RootState, undefined, RootActions>
-export enum RacesActionTypes {
+export enum RacesActionParameters {
   GET_RACES = 'GET_RACES',
   GET_RACES_SUCCESS = 'GET_RACES_SUCCESS',
   GET_RACES_FAIL = 'GET_RACES_FAIL',
@@ -27,16 +26,16 @@ export enum RacesActionTypes {
 
 // FETCH RACE LIST
 interface GetRaces {
-  type: RacesActionTypes.GET_RACES
+  type: RacesActionParameters.GET_RACES
 }
 
 interface GetRacesSuccess {
-  type: RacesActionTypes.GET_RACES_SUCCESS
+  type: RacesActionParameters.GET_RACES_SUCCESS
   payload: any
 }
 
 interface GetRacesFail {
-  type: RacesActionTypes.GET_RACES_FAIL
+  type: RacesActionParameters.GET_RACES_FAIL
 }
 
 export const getRaces = (): ThunkResult<void> => async dispatch => {
@@ -50,121 +49,121 @@ export const getRaces = (): ThunkResult<void> => async dispatch => {
 }
 
 export const handleGetRaces = (dispatch: Dispatch<GetRaces>) => {
-  dispatch({ type: RacesActionTypes.GET_RACES })
+  dispatch({ type: RacesActionParameters.GET_RACES })
 }
 
 export const handleGetRacesSuccess = (
   dispatch: Dispatch<GetRacesSuccess>,
-  response: Races
+  response: Race[]
 ) => {
   dispatch({
-    type: RacesActionTypes.GET_RACES_SUCCESS,
+    type: RacesActionParameters.GET_RACES_SUCCESS,
     payload: response,
   })
 }
 
 export const handleGetRacesFail = (dispatch: Dispatch<GetRacesFail>) => {
   dispatch({
-    type: RacesActionTypes.GET_RACES_FAIL,
+    type: RacesActionParameters.GET_RACES_FAIL,
   })
 }
 
 // FETCH SINGLE RACE
 interface GetRace {
-  type: RacesActionTypes.GET_RACE
+  type: RacesActionParameters.GET_RACE
 }
 
-interface GetRaceSuccess {
-  type: RacesActionTypes.GET_RACE_SUCCESS
+interface GetRacesuccess {
+  type: RacesActionParameters.GET_RACE_SUCCESS
   payload: Race
 }
 
 interface GetRaceFail {
-  type: RacesActionTypes.GET_RACE_FAIL
+  type: RacesActionParameters.GET_RACE_FAIL
 }
 
 export const getRace = (id: number): ThunkResult<void> => async dispatch => {
   handleGetRace(dispatch)
   try {
     const response: Race = await races.getRace(id)
-    handleGetRaceSuccess(dispatch, response)
+    handleGetRacesuccess(dispatch, response)
   } catch (e) {
     handleGetRaceFail(dispatch)
   }
 }
 
 export const handleGetRace = (dispatch: Dispatch<GetRace>) => {
-  dispatch({ type: RacesActionTypes.GET_RACE })
+  dispatch({ type: RacesActionParameters.GET_RACE })
 }
 
-const handleGetRaceSuccess = (
-  dispatch: Dispatch<GetRaceSuccess>,
+const handleGetRacesuccess = (
+  dispatch: Dispatch<GetRacesuccess>,
   response: Race
 ) => {
   dispatch({
-    type: RacesActionTypes.GET_RACE_SUCCESS,
+    type: RacesActionParameters.GET_RACE_SUCCESS,
     payload: response,
   })
 }
 
 const handleGetRaceFail = (dispatch: Dispatch<GetRaceFail>) => {
   dispatch({
-    type: RacesActionTypes.GET_RACE_FAIL,
+    type: RacesActionParameters.GET_RACE_FAIL,
   })
 }
 
 // ADD RACE
 interface CreateRace {
-  type: RacesActionTypes.CREATE_RACE
+  type: RacesActionParameters.CREATE_RACE
 }
 
 interface CreateRaceSuccess {
-  type: RacesActionTypes.CREATE_RACE_SUCCESS
+  type: RacesActionParameters.CREATE_RACE_SUCCESS
   payload: Race
 }
 
 interface CreateRaceFail {
-  type: RacesActionTypes.CREATE_RACE_FAIL
+  type: RacesActionParameters.CREATE_RACE_FAIL
 }
 
-export const createRace = (race: Race): ThunkResult<void> => async dispatch => {
+export const createRace = (examinationParameter: Race): ThunkResult<void> => async dispatch => {
   handleCreateRace(dispatch)
   try {
-    const response: AxiosResponse<Race> = await races.create(race)
-    handleCreateRaceSuccess(dispatch, response.data)
+    const response: Race = await races.create(examinationParameter)
+    handleCreateRaceSuccess(dispatch, response)
   } catch (e) {
     handleCreateRaceFail(dispatch)
   }
 }
 
 const handleCreateRace = (dispatch: Dispatch<CreateRace>) => {
-  dispatch({ type: RacesActionTypes.CREATE_RACE })
+  dispatch({ type: RacesActionParameters.CREATE_RACE })
 }
 
 const handleCreateRaceSuccess = (
   dispatch: Dispatch<CreateRaceSuccess>,
   response: Race
 ) => {
-  dispatch({ type: RacesActionTypes.CREATE_RACE_SUCCESS, payload: response })
-  history.push('/races')
+  dispatch({ type: RacesActionParameters.CREATE_RACE_SUCCESS, payload: response })
+  history.push('/Races')
 }
 
 const handleCreateRaceFail = (dispatch: Dispatch<CreateRaceFail>) => {
-  dispatch({ type: RacesActionTypes.CREATE_RACE_FAIL })
+  dispatch({ type: RacesActionParameters.CREATE_RACE_FAIL })
 }
 
 // EDIT RACE
 interface UpdateRace {
-  type: RacesActionTypes.UPDATE_RACE
+  type: RacesActionParameters.UPDATE_RACE
 }
 
 interface UpdateRaceSuccess {
-  type: RacesActionTypes.UPDATE_RACE_SUCCESS
+  type: RacesActionParameters.UPDATE_RACE_SUCCESS
   payload: Race
 }
 
 interface UpdateRaceFail {
-  type: RacesActionTypes.UPDATE_RACE_FAIL
+  type: RacesActionParameters.UPDATE_RACE_FAIL
 }
 
 export const updateRace = (
@@ -172,56 +171,54 @@ export const updateRace = (
 ): ThunkResult<void> => async dispatch => {
   handleUpdateRace(dispatch)
   try {
-    const response: AxiosResponse<Race> = await races.update(updatedRace)
-    handleUpdateRaceSuccess(dispatch, response.data)
+    const response: Race = await races.update(updatedRace)
+    handleUpdateRaceSuccess(dispatch, response)
   } catch (e) {
     handleUpdateRaceFail(dispatch)
   }
 }
 
 const handleUpdateRace = (dispatch: Dispatch<UpdateRace>): void => {
-  dispatch({ type: RacesActionTypes.UPDATE_RACE })
+  dispatch({ type: RacesActionParameters.UPDATE_RACE })
 }
 
 const handleUpdateRaceSuccess = (
   dispatch: Dispatch<UpdateRaceSuccess>,
   updatedRace: Race
 ) => {
-  dispatch({ type: RacesActionTypes.UPDATE_RACE_SUCCESS, payload: updatedRace })
-  history.push('/races')
+  dispatch({ type: RacesActionParameters.UPDATE_RACE_SUCCESS, payload: updatedRace })
 }
 
 const handleUpdateRaceFail = (dispatch: Dispatch<UpdateRaceFail>) => {
-  dispatch({ type: RacesActionTypes.UPDATE_RACE_FAIL })
+  dispatch({ type: RacesActionParameters.UPDATE_RACE_FAIL })
 }
 
 // DELETE RACE
 interface DeleteRace {
-  type: RacesActionTypes.DELETE_RACE
+  type: RacesActionParameters.DELETE_RACE
 }
 
 interface DeleteRaceSuccess {
-  type: RacesActionTypes.DELETE_RACE_SUCCESS
+  type: RacesActionParameters.DELETE_RACE_SUCCESS
   payload: number
 }
 
 interface DeleteRaceFail {
-  type: RacesActionTypes.DELETE_RACE_FAIL
+  type: RacesActionParameters.DELETE_RACE_FAIL
 }
 
 export const deleteRace = (
   deletedId: number
 ): ThunkResult<void> => async dispatch => {
-  dispatch({ type: RacesActionTypes.DELETE_RACE })
+  dispatch({ type: RacesActionParameters.DELETE_RACE })
   try {
     await races.delete(deletedId)
     dispatch({
-      type: RacesActionTypes.DELETE_RACE_SUCCESS,
+      type: RacesActionParameters.DELETE_RACE_SUCCESS,
       payload: deletedId,
     })
-    history.push('/races')
   } catch (e) {
-    dispatch({ type: RacesActionTypes.DELETE_RACE_FAIL })
+    dispatch({ type: RacesActionParameters.DELETE_RACE_FAIL })
   }
 }
 
@@ -230,7 +227,7 @@ export type RACES_ACTIONS =
   | GetRacesSuccess
   | GetRacesFail
   | GetRace
-  | GetRaceSuccess
+  | GetRacesuccess
   | GetRaceFail
   | CreateRace
   | CreateRaceSuccess

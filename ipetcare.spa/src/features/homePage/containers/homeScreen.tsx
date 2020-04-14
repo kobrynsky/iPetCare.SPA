@@ -79,7 +79,7 @@ export function HomeScreen() {
               </Grid>
             </Grid>
           </Grid>
-          <Grid xs={3} />
+          <Grid xs={3} item={true} />
         </Grid>
       </Grid>
     </div>

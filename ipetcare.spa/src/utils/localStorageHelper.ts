@@ -1,12 +1,12 @@
-import { UserState } from '../state/user/userReducer'
+import { User } from '../state/user/userReducer'
 
-export const saveUserState = (state: UserState) => {
+export const saveUserState = (state: User) => {
   localStorage.setItem('userState', JSON.stringify(state))
 }
 
-export const getUserState = (): UserState | null => {
+export const getUserState = (): User | null => {
   const user = localStorage.getItem('userState')
-  if (user) return JSON.parse(user)
+  if (user && user !== 'undefined') return JSON.parse(user)
 
   return null
 }

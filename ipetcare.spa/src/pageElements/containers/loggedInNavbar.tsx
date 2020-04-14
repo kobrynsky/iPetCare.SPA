@@ -7,14 +7,12 @@ import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
 import MenuIcon from '@material-ui/icons/Menu'
 import AccountCircle from '@material-ui/icons/AccountCircle'
-import { Button } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../state/store'
-import { initalState } from '../../state/user/userReducer'
-import { setUser } from '../../state/user/userActions'
+import { logout } from '../../state/user/userActions'
 import { deleteUserState } from '../../utils/localStorageHelper'
 import { deleteTokenInHeader } from '../../utils/api'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 import '../pageElements.css'
 
 interface Route {
@@ -24,8 +22,8 @@ interface Route {
 
 const ownerRoutes: Route[] = [
   {
-    caption: 'Zwierzęta',
-    path: '/',
+    caption: 'Moje Zwierzęta',
+    path: '/pets',
   },
   {
     caption: 'Weterynarze',
@@ -59,8 +57,16 @@ const adminRoutes: Route[] = [
     path: '/',
   },
   {
-    caption: 'Konto',
-    path: '/',
+    caption: 'Instytucje',
+    path: '/institutions',
+  },
+  {
+    caption: 'Typy badań',
+    path: '/examination/types',
+  },
+  {
+    caption: 'Parametry badań',
+    path: '/examination/parameters',
   },
 ]
 
@@ -133,7 +139,8 @@ const useStyles = makeStyles((theme: Theme) =>
 export function LoggedInNavbar() {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const user = useSelector((state: RootState) => state.user)
+  const history = useHistory()
+  const user = useSelector((state: RootState) => state.user.user)
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const [
     mobileMoreAnchorEl,
@@ -161,7 +168,7 @@ export function LoggedInNavbar() {
   }
 
   const handleLogout = () => {
-    dispatch(setUser(initalState))
+    dispatch(logout())
     deleteUserState()
     deleteTokenInHeader()
   }
@@ -178,7 +185,13 @@ export function LoggedInNavbar() {
       onClose={handleMenuClose}
     >
       <MenuItem>{user.email}</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Moje konto</MenuItem>
+      <MenuItem
+        onClick={() => {
+          history.push('/profile/edit')
+        }}
+      >
+        Moje konto
+      </MenuItem>
       <MenuItem onClick={handleLogout}>Wyloguj</MenuItem>
     </Menu>
   )
