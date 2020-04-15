@@ -25,6 +25,7 @@ import { ExaminationTypesPage } from './features/examinations/containers/examina
 import { ExaminationParametersPage } from './features/examinations/containers/examinationParametersPage'
 import { PetsPage } from './features/pets/containers/petsPage'
 import { PetPage } from './features/pets/containers/petPage'
+import { UsersPage } from './features/users/containers/usersPage'
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -91,6 +92,7 @@ const App: React.FC = () => {
                   path="/examination/parameters"
                   component={ExaminationParametersPage}
                 />
+                <Route path="/users" component={UsersPage} />
                 <Route path="*" component={NotFoundPage} />
               </Switch>
             )}

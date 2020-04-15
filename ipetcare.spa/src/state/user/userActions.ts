@@ -23,6 +23,9 @@ export enum UserActionTypes {
   EDIT_USER = 'EDIT_USER',
   EDIT_USER_SUCCESS = 'EDIT_USER_SUCCESS',
   EDIT_USER_FAIL = 'EDIT_USER_FAIL',
+  GET_ALL_USERS = 'GET_ALL_USERS',
+  GET_ALL_USERS_SUCCESS = 'GET_ALL_USERS_SUCCESS',
+  GET_ALL_USERS_FAIL = 'GET_ALL_USERS_FAIL',
 }
 
 type SET_USER = ReturnType<typeof setUser>
@@ -199,6 +202,48 @@ export const handleEditUserFail = (
   })
 }
 
+
+interface GetAllUsers {
+  type: UserActionTypes.GET_ALL_USERS
+}
+
+interface GetAllUsersSuccess {
+  type: UserActionTypes.GET_ALL_USERS_SUCCESS
+  payload: User[]
+}
+
+interface GetAllUsersFail {
+  type: UserActionTypes.GET_ALL_USERS_FAIL
+}
+
+type GET_ALL_USERS = GetAllUsersSuccess | GetAllUsers | GetAllUsersFail
+
+export const getAllUsers = (): ThunkResult<void> => async dispatch => {
+  handleGetAllUser(dispatch)
+  try {
+    const response: User[] = await Users.getAllUsers()
+    handleGetAllUsersSuccess(dispatch, response)
+  } catch (e) {
+    handleGetAllUsersFail(dispatch)
+  }
+}
+
+export const handleGetAllUser = (dispatch: Dispatch<GetAllUsers>) => {
+  dispatch({ type: UserActionTypes.GET_ALL_USERS })
+}
+
+export const handleGetAllUsersSuccess = (
+  dispatch: Dispatch<GetAllUsersSuccess>,
+  response: User[]
+) => {
+  dispatch({
+    type: UserActionTypes.GET_ALL_USERS_SUCCESS,
+    payload: response,
+  })
+}
+export const handleGetAllUsersFail = (dispatch: Dispatch<GetAllUsersFail>) => {
+  dispatch({type: UserActionTypes.GET_ALL_USERS_FAIL })
+}
 // export const updateProfile = (user: User) => (
 
 // )
@@ -209,3 +254,4 @@ export type USER_ACTIONS =
   | SET_USER
   | REGISTER_USER
   | EDIT_USER
+  | GET_ALL_USERS

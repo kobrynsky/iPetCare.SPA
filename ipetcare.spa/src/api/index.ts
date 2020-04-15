@@ -71,6 +71,7 @@ const examinationTypesBody = (response: any) => response.examinationTypes
 const speciesBody = (response: any) => response.species
 const examinationParameterBody = (response: any) => response.examinationParameters
 const petsBody = (response: any) => response.pets
+const usersBody = (response: any) => response.users
 
 const requests = {
   get: (url: string, body?: {}) =>
@@ -91,6 +92,7 @@ export const Users = {
     requests.post('users/vets', searchDto),
   getOwners: (searchDto: GetSearchDto): Promise<GetSearchResponseDto> =>
     requests.post('users/owners', searchDto),
+  getAllUsers: (): Promise<User[]> => requests.get('/users').then(usersBody),
 }
 
 export const Pets = {
