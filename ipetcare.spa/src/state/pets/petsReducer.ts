@@ -45,7 +45,6 @@ export const petsReducer: Reducer<PetsState, PETS_ACTIONS> = (
     case PetsActionTypes.DELETE_PET_FAIL:
       return { ...state, loading: false }
 
-    case PetsActionTypes.GET_PET_SUCCESS:
     case PetsActionTypes.CREATE_PET_SUCCESS:
       return {
         ...state,
@@ -68,10 +67,14 @@ export const petsReducer: Reducer<PetsState, PETS_ACTIONS> = (
         loading: false,
       }
 
+    case PetsActionTypes.GET_PET_SUCCESS:
     case PetsActionTypes.UPDATE_PET_SUCCESS:
       return {
         ...state,
-        items: [...state.items.filter(x => x.id !== action.payload.id), action.payload],
+        items: [
+          ...state.items.filter(x => x.id !== action.payload.id),
+          action.payload,
+        ],
         loading: false,
       }
 

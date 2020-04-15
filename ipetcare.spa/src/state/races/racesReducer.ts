@@ -37,7 +37,6 @@ export const racesReducer = (
     case RacesActionParameters.UPDATE_RACE_FAIL:
       return { ...state, loading: false }
 
-    case RacesActionParameters.GET_RACE_SUCCESS:
     case RacesActionParameters.CREATE_RACE_SUCCESS:
       return {
         ...state,
@@ -59,10 +58,14 @@ export const racesReducer = (
         loading: false,
       }
 
+    case RacesActionParameters.GET_RACE_SUCCESS:
     case RacesActionParameters.UPDATE_RACE_SUCCESS:
       return {
         ...state,
-        items: [...state.items.filter(x => x.id !== action.payload.id), action.payload],
+        items: [
+          ...state.items.filter(x => x.id !== action.payload.id),
+          action.payload,
+        ],
         loading: false,
       }
 
