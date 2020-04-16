@@ -6,6 +6,7 @@ import {
   CircularProgress,
   Select,
   MenuItem,
+  Button,
 } from '@material-ui/core'
 import { GetSearchResponseDto, SortBy, GetSearchDto } from '../../../api/dto'
 import { useSelector, useDispatch } from 'react-redux'
@@ -90,9 +91,7 @@ export const UserSearchPage = () => {
   const [sortBy, setSortBy] = useState('' as SortBy)
   const [timeout, setTimeoutState] = useState(0 as any)
 
-  const onInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const onInputChange = (e: any) => {
     setQuery(e.target.value)
     const request = {
       query,

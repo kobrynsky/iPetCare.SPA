@@ -48,3 +48,27 @@ label {
   margin: 5px;
   padding: 2px;
 }
+
+/* .hideScroll::-webkit-scrollbar {
+  display: none;
+} */
+
+.hideScroll::-webkit-scrollbar {
+  width: 10px;
+  overflow-x: none;
+}
+
+/* Track */
+.hideScroll::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+.hideScroll::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+.hideScroll::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

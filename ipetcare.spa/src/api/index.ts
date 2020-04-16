@@ -89,9 +89,9 @@ export const Users = {
   users: (): Promise<User[]> => requests.get('/users'),
   edit: (user: User): Promise<User> => requests.put('/users', user),
   getVets: (searchDto: GetSearchDto): Promise<GetSearchResponseDto> =>
-    requests.post('users/vets', searchDto),
+    requests.post('/users/vets', searchDto),
   getOwners: (searchDto: GetSearchDto): Promise<GetSearchResponseDto> =>
-    requests.post('users/owners', searchDto),
+    requests.post('/users/owners', searchDto),
 }
 
 export const Pets = {
