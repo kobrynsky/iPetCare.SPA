@@ -25,7 +25,7 @@ export function HomeScreen() {
                 Co to jest?
               </a>
               <a className="sideNav" href="#about">
-                O nas
+                Dla kogo
               </a>
               <a className="sideNav" href="#contact">
                 Kontakt
@@ -37,44 +37,30 @@ export function HomeScreen() {
             <Grid container direction="column">
               <Grid item id="whatItIs">
                 <ContentCard title="Co to jest?">
-                  orem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. It has survived not only five centuries, but
-                  also the leap into electronic typesetting, remaining
-                  essentially unchanged. It was popularised in the 1960s with
-                  the release of Letraset sheets containing Lorem Ipsum
-                  passages, and more recently with desktop publishing software
-                  like Aldus PageMaker including versions of Lorem Ipsum.
+                  iPetCare to internetowa książeczka zdrowia zwierząt, która jest kluczem 
+                  do uproszczenia procesu opieki nad zwierzętami. Skupia wszystkie konieczne
+                   informacjie dotyczące pupili w jednym miejscu. Pozwala prowadzić historię zdrowia zwierząt,
+                   gromadzić dokumentację medyczną, trzymać i aktualizować dane, tworzyć notatki, dodawać ważne wydarzenia 
+                   z życia zwierząt w kalendarzu, jak również wprowadzać daty przyszłych badań. Ponadto, elektroniczna 
+                   książeczka zdrowia zwierząt iPetCare umożliwa wyszukanie weterynarzy oraz zaproszenie danego 
+                   weterynarza do opieki nad wybranym pupilem. iPetCare jest świetną opcją do łatwego dostępu do 
+                   historii i danych zwierząt, jak również do łatwej diagnozy potencjalnych chorób przez weterynarza.
                 </ContentCard>
               </Grid>
               <Grid item id="about">
-                <ContentCard title="O nas">
-                  orem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. It has survived not only five centuries, but
-                  also the leap into electronic typesetting, remaining
-                  essentially unchanged. It was popularised in the 1960s with
-                  the release of Letraset sheets containing Lorem Ipsum
-                  passages, and more recently with desktop publishing software
-                  like Aldus PageMaker including versions of Lorem Ipsum."
+                <ContentCard title="Dla kogo">
+                  Główną grupę docelową systemu stanowią prywatni właściciele zwierząt oraz weterynarze. 
+                  Już dziś dołącz do naszej społeczności i stań się jej częścią. Jeśli jesteś weterynarzem, 
+                  pozwoli Ci to na dostęp do danych i historii zdrowia wszystkich zwierząt, które stanowią bazę 
+                  Twoich pacjentów. Jeśli jesteś właścicielem jednego bądź większej ilości zwierząt, zdobędziesz 
+                  sposobność do scentralizowania procesu opieki nad wszystkimi Twoimi pupilami, bo w iPetCare 
+                  wszystkie ważne informacje będą w jendym miejscu.
                 </ContentCard>
               </Grid>
               <Grid item id="contact">
                 <ContentCard title="Kontakt">
-                  orem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. It has survived not only five centuries, but
-                  also the leap into electronic typesetting, remaining
-                  essentially unchanged. It was popularised in the 1960s with
-                  the release of Letraset sheets containing Lorem Ipsum
-                  passages, and more recently with desktop publishing software
-                  like Aldus PageMaker including versions of Lorem Ipsum."
+                Jeśli potrzebujesz skontaktować się z nami w sprawie wszelkich kwestii zachęcamy do kontatku drogą e-mail. 
+                W tym celu należy wysłać wiadomość bezpośrednio na adres administracja@ipetcare.com.
                 </ContentCard>
               </Grid>
             </Grid>

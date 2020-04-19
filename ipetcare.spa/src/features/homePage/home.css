@@ -7,3 +7,7 @@
 .sideNav:hover {
   color: gray;
 }
+
+.MuiTypography-root {
+  padding-top: 30px;
+}

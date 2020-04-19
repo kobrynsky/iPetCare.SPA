@@ -48,3 +48,12 @@ label {
   margin: 5px;
   padding: 2px;
 }
+
+body .MuiTypography-root,
+.MuiCardContent-root {
+  font-family: 'Gill Sans', sans-serif;
+}
+
+body .MuiTypography-h1 {
+  padding-top: 12px;
+}
