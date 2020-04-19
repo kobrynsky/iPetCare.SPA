@@ -57,3 +57,7 @@ body .MuiTypography-root,
 body .MuiTypography-h2 {
   padding-top: 20px;
 }
+
+body .MuiTypography-caption {
+  padding: 10px;
+}
