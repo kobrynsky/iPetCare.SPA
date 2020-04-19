@@ -49,7 +49,6 @@ export const getPets = (): ThunkResult<void> => async dispatch => {
     handleGetPetsSuccess(dispatch, response)
   } catch (e) {
     handleGetPetsFail(dispatch)
-    toast.error("Bład: " + e.data)
   }
 }
 
@@ -94,7 +93,6 @@ export const getMyPets = (): ThunkResult<void> => async dispatch => {
     handleGetMyPetsSuccess(dispatch, response)
   } catch (e) {
     handleGetMyPetsFail(dispatch)
-    toast.error("Bład: " + e.data)
   }
 }
 
@@ -139,7 +137,6 @@ export const getPet = (id: string): ThunkResult<void> => async dispatch => {
     handleGetPetSuccess(dispatch, response)
   } catch (e) {
     handleGetPetFail(dispatch)
-    toast.error("Bład: " + e.data)
   }
 }
 
@@ -187,7 +184,6 @@ export const createPet = (pet: Pet): ThunkResult<void> => async dispatch => {
     toast.success("Sukces")
   } catch (e) {
     handleCreatePetFail(dispatch)
-    toast.error("Bład: " + e.data)
   }
 }
 
@@ -230,7 +226,6 @@ export const updatePet = (
     toast.success("Sukces")
   } catch (e) {
     handleUpdatePetFail(dispatch)
-    toast.error("Bład: " + e.data)
   }
 }
 
@@ -277,7 +272,6 @@ export const deletePet = (
     toast.success("Sukces")
   } catch (e) {
     dispatch({ type: PetsActionTypes.DELETE_PET_FAIL })
-    toast.error("Bład: " + e.data)
   }
 }
 

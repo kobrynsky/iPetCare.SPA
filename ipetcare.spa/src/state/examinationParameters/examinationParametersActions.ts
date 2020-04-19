@@ -46,7 +46,6 @@ export const getExaminationParameters = (): ThunkResult<void> => async dispatch 
         handleGetExaminationParametersSuccess(dispatch, response)
     } catch (e) {
         handleGetExaminationParametersFail(dispatch)
-        toast.error("Bład: " + e.data)
     }
 }
 
@@ -91,7 +90,6 @@ export const getExaminationParameter = (id: number): ThunkResult<void> => async 
         handleGetExaminationParametersuccess(dispatch, response)
     } catch (e) {
         handleGetExaminationParameterFail(dispatch)
-        toast.error("Bład: " + e.data)
     }
 }
 
@@ -137,7 +135,6 @@ export const createExaminationParameter = (examinationParameter: ExaminationPara
         toast.success("Sukces")
     } catch (e) {
         handleCreateExaminationParameterFail(dispatch)
-        toast.error("Bład: " + e.data)
     }
 }
 
@@ -181,7 +178,6 @@ export const updateExaminationParameter = (
         toast.success("Sukces")
     } catch (e) {
         handleUpdateExaminationParameterFail(dispatch)
-        toast.error("Bład: " + e.data)
     }
 }
 
@@ -227,7 +223,6 @@ export const deleteExaminationParameter = (
         toast.success("Sukces")
     } catch (e) {
         dispatch({ type: ExaminationParametersActionParameters.DELETE_EXAMINATION_PARAMETER_FAIL })
-        toast.error("Bład: " + e.data)
     }
 }
 

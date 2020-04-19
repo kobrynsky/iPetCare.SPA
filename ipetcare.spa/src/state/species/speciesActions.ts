@@ -46,7 +46,6 @@ export const getAllSpecies = (): ThunkResult<void> => async dispatch => {
     handleGetAllSpeciesSuccess(dispatch, response)
   } catch (e) {
     handleGetRacesFail(dispatch)
-    toast.error("Bład: " + e.data)
   }
 }
 
@@ -91,7 +90,6 @@ export const getSpecies = (id: number): ThunkResult<void> => async dispatch => {
     handleGetRaceSuccess(dispatch, response)
   } catch (e) {
     handleGetRaceFail(dispatch)
-    toast.error("Bład: " + e.data)
   }
 }
 
@@ -137,7 +135,6 @@ export const createSpecies = (speciesUnit: Species): ThunkResult<void> => async 
     toast.success("Sukces")
   } catch (e) {
     handleCreateSpeciesFail(dispatch)
-    toast.error("Bład: " + e.data)
   }
 }
 
@@ -180,7 +177,6 @@ export const updateSpecies = (
     toast.success("Sukces")
   } catch (e) {
     handleUpdateSpeciesFail(dispatch)
-    toast.error("Bład: " + e.data)
   }
 }
 
@@ -228,7 +224,6 @@ export const deleteSpecies = (
     toast.success("Sukces")
   } catch (e) {
     dispatch({ type: SpeciesActionTypes.DELETE_SPECIES_FAIL })
-    toast.error("Bład: " + e.data)
   }
 }
 

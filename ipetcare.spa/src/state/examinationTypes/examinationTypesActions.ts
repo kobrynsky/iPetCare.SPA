@@ -46,7 +46,6 @@ export const getExaminationTypes = (): ThunkResult<void> => async dispatch => {
         handleGetExaminationTypesSuccess(dispatch, response)
     } catch (e) {
         handleGetExaminationTypesFail(dispatch)
-        toast.error("Bład: " + e.data)
     }
 }
 
@@ -91,7 +90,6 @@ export const getExaminationType = (id: number): ThunkResult<void> => async dispa
         handleGetExaminationTypesuccess(dispatch, response)
     } catch (e) {
         handleGetExaminationTypeFail(dispatch)
-        toast.error("Bład: " + e.data)
     }
 }
 
@@ -137,7 +135,6 @@ export const createExaminationType = (examinationType: ExaminationType): ThunkRe
         toast.success("Sukces")
     } catch (e) {
         handleCreateExaminationTypeFail(dispatch)
-        toast.error("Bład: " + e.data)
     }
 }
 
@@ -181,7 +178,6 @@ export const updateExaminationType = (
         toast.success("Sukces")
     } catch (e) {
         handleUpdateExaminationTypeFail(dispatch)
-        toast.error("Bład: " + e.data)
     }
 }
 
@@ -227,7 +223,6 @@ export const deleteExaminationType = (
         toast.success("Sukces")
     } catch (e) {
         dispatch({ type: ExaminationTypesActionTypes.DELETE_EXAMINATION_TYPE_FAIL })
-        toast.error("Bład: " + e.data)
     }
 }
 

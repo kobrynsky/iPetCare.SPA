@@ -45,7 +45,6 @@ export const getRaces = (): ThunkResult<void> => async dispatch => {
     handleGetRacesSuccess(dispatch, response)
   } catch (e) {
     handleGetRacesFail(dispatch)
-    toast.error("Bład: " + e.data)
   }
 }
 
@@ -90,7 +89,6 @@ export const getRace = (id: number): ThunkResult<void> => async dispatch => {
     handleGetRacesuccess(dispatch, response)
   } catch (e) {
     handleGetRaceFail(dispatch)
-    toast.error("Bład: " + e.data)
   }
 }
 
@@ -138,7 +136,6 @@ export const createRace = (
     toast.success("Sukces")
   } catch (e) {
     handleCreateRaceFail(dispatch)
-    toast.error("Bład: " + e.data)
   }
 }
 
@@ -185,7 +182,6 @@ export const updateRace = (
     toast.success("Sukces")
   } catch (e) {
     handleUpdateRaceFail(dispatch)
-    toast.error("Bład: " + e.data)
   }
 }
 
@@ -234,7 +230,6 @@ export const deleteRace = (
     toast.success("Sukces")
   } catch (e) {
     dispatch({ type: RacesActionParameters.DELETE_RACE_FAIL })
-    toast.error("Bład: " + e.data)
   }
 }
 

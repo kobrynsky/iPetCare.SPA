@@ -37,32 +37,31 @@ axios.interceptors.response.use(undefined, error => {
   const { status, data, config } = error.response
   if (status === 404) {
     console.log(error.response)
-    toast.error("Bład: " + error.response)
+    toast.error("Błąd: " + error.response.data)
     history.push('/notfound')
   }
   if (status === 403) {
     console.log(error.response)
-    toast.error("Bład: " + error.response)
+    toast.error("Błąd: " + error.response.data)
     history.push('/forbidden')
   }
   if (status === 401) {
     console.log(error.response)
-    toast.error("Bład: " + error.response)
+    toast.error("Błąd: " + error.response.data)
     deleteUserState()
     history.push('/unauthorized')
     console.info('Twoja sesja wygasła, zaloguj się ponownie.')
   }
   if (
-    status === 400 &&
-    config.method === 'get' &&
-    data.errors.hasOwnProperty('id')
+    status === 400
   ) {
     history.push('/notfound')
-    toast.error("Bład: " + error.response)
+    toast.error("Błąd: " + error.response.data)
+    console.log(error.response)
   }
   if (status === 500) {
     console.log(error.response)
-    toast.error("Bład: " + "Błąd serwera - sprawdź konsolę, aby uzyskać więcej informacji!")
+    toast.error("Błąd: " + "Błąd serwera - sprawdź konsolę, aby uzyskać więcej informacji!")
     console.error(
       'Błąd serwera - sprawdź konsolę, aby uzyskać więcej informacji!'
     )

@@ -74,7 +74,6 @@ export const loginUser = (
     handleLoginUserSuccess(dispatch, response)
   } catch (e) {
     handleLoginUserFail(dispatch)
-    toast.error("Bład: " + e.data)
   }
 }
 
@@ -126,7 +125,6 @@ export const registerUser = (
     toast.success("Sukces")
   } catch (e) {
     handleRegisterUserFail(dispatch, e.data)
-    toast.error("Bład: " + e.data)
   }
 }
 
@@ -180,7 +178,6 @@ export const editUser = (user: User): ThunkResult<void> => async dispatch => {
     toast.success("Sukces")
   } catch (e) {
     handleRegisterUserFail(dispatch, e.data)
-    toast.error("Bład: " + e.data)
   }
 }
 
@@ -231,7 +228,6 @@ export const getAllUsers = (): ThunkResult<void> => async dispatch => {
     handleGetAllUsersSuccess(dispatch, response)
   } catch (e) {
     handleGetAllUsersFail(dispatch)
-    toast.error("Bład: " + e.data)
   }
 }
 

@@ -37,7 +37,6 @@ export const searchVets = (
     handleSearchVetsSuccess(dispatch, response)
   } catch (e) {
     handleSearchVetsFail(dispatch, e.data)
-    toast.error("Bład: " + e.data)
   }
 }
 
@@ -91,7 +90,6 @@ export const searchOwners = (
     handleSearchOwnersSuccess(dispatch, response)
   } catch (e) {
     handleSearchOwnersFail(dispatch, e.data)
-    toast.error("Bład: " + e.data)
   }
 }
 
