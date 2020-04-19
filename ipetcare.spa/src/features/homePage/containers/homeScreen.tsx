@@ -54,7 +54,7 @@ export function HomeScreen() {
                   pozwoli Ci to na dostęp do danych i historii zdrowia wszystkich zwierząt, które stanowią bazę 
                   Twoich pacjentów. Jeśli jesteś właścicielem jednego bądź większej ilości zwierząt, zdobędziesz 
                   sposobność do scentralizowania procesu opieki nad wszystkimi Twoimi pupilami, bo w iPetCare 
-                  wszystkie ważne informacje będą w jendym miejscu.
+                  wszystkie ważne informacje będą w jednym miejscu.
                 </ContentCard>
               </Grid>
               <Grid item id="contact">
