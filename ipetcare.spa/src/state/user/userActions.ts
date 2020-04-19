@@ -7,6 +7,7 @@ import { saveUserState, deleteUserState } from '../../utils/localStorageHelper'
 import { LoginProps, RegisterProps } from '../../api/dto'
 import { history } from '../../'
 import { ThunkResult } from '../store'
+import { toast } from 'react-toastify'
 
 export enum UserActionTypes {
   UPDATE_PROFILE = 'UPDATE_PROFILE',
@@ -73,6 +74,7 @@ export const loginUser = (
     handleLoginUserSuccess(dispatch, response)
   } catch (e) {
     handleLoginUserFail(dispatch)
+    toast.error("Bład: " + e.data)
   }
 }
 
@@ -121,8 +123,10 @@ export const registerUser = (
     saveUserState(response)
     response.token && setTokenInHeader(response.token)
     handleRegisterUserSuccess(dispatch, response)
+    toast.success("Sukces")
   } catch (e) {
     handleRegisterUserFail(dispatch, e.data)
+    toast.error("Bład: " + e.data)
   }
 }
 
@@ -173,8 +177,10 @@ export const editUser = (user: User): ThunkResult<void> => async dispatch => {
     saveUserState(response)
     response.token && setTokenInHeader(response.token)
     handleRegisterUserSuccess(dispatch, response)
+    toast.success("Sukces")
   } catch (e) {
     handleRegisterUserFail(dispatch, e.data)
+    toast.error("Bład: " + e.data)
   }
 }
 
@@ -225,6 +231,7 @@ export const getAllUsers = (): ThunkResult<void> => async dispatch => {
     handleGetAllUsersSuccess(dispatch, response)
   } catch (e) {
     handleGetAllUsersFail(dispatch)
+    toast.error("Bład: " + e.data)
   }
 }
 

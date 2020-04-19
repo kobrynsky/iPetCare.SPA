@@ -4,6 +4,7 @@ import { ThunkAction } from 'redux-thunk'
 import { Dispatch } from 'redux'
 import { RootState, RootActions } from '../store'
 import { Species } from './speciesReducer'
+import { toast } from 'react-toastify'
 
 export type ThunkResult<R> = ThunkAction<R, RootState, undefined, RootActions>
 export enum SpeciesActionTypes {
@@ -45,6 +46,7 @@ export const getAllSpecies = (): ThunkResult<void> => async dispatch => {
     handleGetAllSpeciesSuccess(dispatch, response)
   } catch (e) {
     handleGetRacesFail(dispatch)
+    toast.error("Bład: " + e.data)
   }
 }
 
@@ -89,6 +91,7 @@ export const getSpecies = (id: number): ThunkResult<void> => async dispatch => {
     handleGetRaceSuccess(dispatch, response)
   } catch (e) {
     handleGetRaceFail(dispatch)
+    toast.error("Bład: " + e.data)
   }
 }
 
@@ -131,8 +134,10 @@ export const createSpecies = (speciesUnit: Species): ThunkResult<void> => async 
   try {
     const response: Species = await species.create(speciesUnit)
     handleCreateSpeciesSuccess(dispatch, response)
+    toast.success("Sukces")
   } catch (e) {
     handleCreateSpeciesFail(dispatch)
+    toast.error("Bład: " + e.data)
   }
 }
 
@@ -172,8 +177,10 @@ export const updateSpecies = (
   try {
     const response: Species = await species.update(updatedSpecies)
     handleUpdateSpeciesSuccess(dispatch, response)
+    toast.success("Sukces")
   } catch (e) {
     handleUpdateSpeciesFail(dispatch)
+    toast.error("Bład: " + e.data)
   }
 }
 
@@ -218,8 +225,10 @@ export const deleteSpecies = (
       payload: deletedId,
     })
     history.push('/species')
+    toast.success("Sukces")
   } catch (e) {
     dispatch({ type: SpeciesActionTypes.DELETE_SPECIES_FAIL })
+    toast.error("Bład: " + e.data)
   }
 }
 

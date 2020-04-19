@@ -4,6 +4,7 @@ import { ThunkAction } from 'redux-thunk'
 import { Dispatch } from 'redux'
 import { RootState, RootActions } from '../store'
 import { ExaminationParameter } from './examinationParametersReducer'
+import { toast } from 'react-toastify'
 
 export type ThunkResult<R> = ThunkAction<R, RootState, undefined, RootActions>
 export enum ExaminationParametersActionParameters {
@@ -45,6 +46,7 @@ export const getExaminationParameters = (): ThunkResult<void> => async dispatch 
         handleGetExaminationParametersSuccess(dispatch, response)
     } catch (e) {
         handleGetExaminationParametersFail(dispatch)
+        toast.error("Bład: " + e.data)
     }
 }
 
@@ -89,6 +91,7 @@ export const getExaminationParameter = (id: number): ThunkResult<void> => async 
         handleGetExaminationParametersuccess(dispatch, response)
     } catch (e) {
         handleGetExaminationParameterFail(dispatch)
+        toast.error("Bład: " + e.data)
     }
 }
 
@@ -131,8 +134,10 @@ export const createExaminationParameter = (examinationParameter: ExaminationPara
     try {
         const response: ExaminationParameter = await examinationParameters.create(examinationParameter)
         handleCreateExaminationParameterSuccess(dispatch, response)
+        toast.success("Sukces")
     } catch (e) {
         handleCreateExaminationParameterFail(dispatch)
+        toast.error("Bład: " + e.data)
     }
 }
 
@@ -173,8 +178,10 @@ export const updateExaminationParameter = (
     try {
         const response: ExaminationParameter = await examinationParameters.update(updatedExaminationParameter)
         handleUpdateExaminationParameterSuccess(dispatch, response)
+        toast.success("Sukces")
     } catch (e) {
         handleUpdateExaminationParameterFail(dispatch)
+        toast.error("Bład: " + e.data)
     }
 }
 
@@ -217,8 +224,10 @@ export const deleteExaminationParameter = (
             type: ExaminationParametersActionParameters.DELETE_EXAMINATION_PARAMETER_SUCCESS,
             payload: deletedId,
         })
+        toast.success("Sukces")
     } catch (e) {
         dispatch({ type: ExaminationParametersActionParameters.DELETE_EXAMINATION_PARAMETER_FAIL })
+        toast.error("Bład: " + e.data)
     }
 }
 

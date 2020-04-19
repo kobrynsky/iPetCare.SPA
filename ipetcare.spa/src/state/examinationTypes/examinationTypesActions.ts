@@ -4,6 +4,7 @@ import { ThunkAction } from 'redux-thunk'
 import { Dispatch } from 'redux'
 import { RootState, RootActions } from '../store'
 import { ExaminationType } from './examinationTypesReducer'
+import { toast } from 'react-toastify'
 
 export type ThunkResult<R> = ThunkAction<R, RootState, undefined, RootActions>
 export enum ExaminationTypesActionTypes {
@@ -45,6 +46,7 @@ export const getExaminationTypes = (): ThunkResult<void> => async dispatch => {
         handleGetExaminationTypesSuccess(dispatch, response)
     } catch (e) {
         handleGetExaminationTypesFail(dispatch)
+        toast.error("Bład: " + e.data)
     }
 }
 
@@ -89,6 +91,7 @@ export const getExaminationType = (id: number): ThunkResult<void> => async dispa
         handleGetExaminationTypesuccess(dispatch, response)
     } catch (e) {
         handleGetExaminationTypeFail(dispatch)
+        toast.error("Bład: " + e.data)
     }
 }
 
@@ -131,8 +134,10 @@ export const createExaminationType = (examinationType: ExaminationType): ThunkRe
     try {
         const response: ExaminationType = await examinationTypes.create(examinationType)
         handleCreateExaminationTypeSuccess(dispatch, response)
+        toast.success("Sukces")
     } catch (e) {
         handleCreateExaminationTypeFail(dispatch)
+        toast.error("Bład: " + e.data)
     }
 }
 
@@ -173,8 +178,10 @@ export const updateExaminationType = (
     try {
         const response: ExaminationType = await examinationTypes.update(updatedExaminationType)
         handleUpdateExaminationTypeSuccess(dispatch, response)
+        toast.success("Sukces")
     } catch (e) {
         handleUpdateExaminationTypeFail(dispatch)
+        toast.error("Bład: " + e.data)
     }
 }
 
@@ -217,8 +224,10 @@ export const deleteExaminationType = (
             type: ExaminationTypesActionTypes.DELETE_EXAMINATION_TYPE_SUCCESS,
             payload: deletedId,
         })
+        toast.success("Sukces")
     } catch (e) {
         dispatch({ type: ExaminationTypesActionTypes.DELETE_EXAMINATION_TYPE_FAIL })
+        toast.error("Bład: " + e.data)
     }
 }
 

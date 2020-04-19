@@ -5,6 +5,7 @@ import { ThunkResult } from '../store'
 import { Pet } from './petsReducer'
 import { RootState, RootActions } from '../store'
 import { AxiosResponse } from 'axios'
+import { toast } from 'react-toastify';
 
 export enum PetsActionTypes {
   GET_PETS = 'GET_PETS',
@@ -48,6 +49,7 @@ export const getPets = (): ThunkResult<void> => async dispatch => {
     handleGetPetsSuccess(dispatch, response)
   } catch (e) {
     handleGetPetsFail(dispatch)
+    toast.error("Bład: " + e.data)
   }
 }
 
@@ -92,6 +94,7 @@ export const getMyPets = (): ThunkResult<void> => async dispatch => {
     handleGetMyPetsSuccess(dispatch, response)
   } catch (e) {
     handleGetMyPetsFail(dispatch)
+    toast.error("Bład: " + e.data)
   }
 }
 
@@ -136,6 +139,7 @@ export const getPet = (id: string): ThunkResult<void> => async dispatch => {
     handleGetPetSuccess(dispatch, response)
   } catch (e) {
     handleGetPetFail(dispatch)
+    toast.error("Bład: " + e.data)
   }
 }
 
@@ -180,8 +184,10 @@ export const createPet = (pet: Pet): ThunkResult<void> => async dispatch => {
     const response: Pet = await pets.create(pet)
     console.log(response)
     handleCreatePetSuccess(dispatch, response)
+    toast.success("Sukces")
   } catch (e) {
     handleCreatePetFail(dispatch)
+    toast.error("Bład: " + e.data)
   }
 }
 
@@ -221,8 +227,10 @@ export const updatePet = (
   try {
     const response: AxiosResponse<Pet> = await pets.update(updatedPet)
     handleUpdatePetSuccess(dispatch, response.data)
+    toast.success("Sukces")
   } catch (e) {
     handleUpdatePetFail(dispatch)
+    toast.error("Bład: " + e.data)
   }
 }
 
@@ -266,8 +274,10 @@ export const deletePet = (
       payload: deletedId,
     })
     history.push('/pets')
+    toast.success("Sukces")
   } catch (e) {
     dispatch({ type: PetsActionTypes.DELETE_PET_FAIL })
+    toast.error("Bład: " + e.data)
   }
 }
 

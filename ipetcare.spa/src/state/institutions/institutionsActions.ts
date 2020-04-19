@@ -4,6 +4,7 @@ import { ThunkAction } from 'redux-thunk'
 import { Dispatch } from 'redux'
 import { RootState, RootActions } from '../store'
 import { Institution } from './institutionsReducer'
+import { toast } from 'react-toastify'
 
 export type ThunkResult<R> = ThunkAction<R, RootState, undefined, RootActions>
 export enum InstitutionsActionTypes {
@@ -46,6 +47,7 @@ export const getInstitutions = (): ThunkResult<void> => async dispatch => {
     } catch (e) {
         console.log(e)
         handleGetInstitutionsFail(dispatch)
+        toast.error("Bład: " + e.data)
     }
 }
 
@@ -90,6 +92,7 @@ export const getInstitution = (id: string): ThunkResult<void> => async dispatch 
         handleGetInstitutionsuccess(dispatch, response)
     } catch (e) {
         handleGetInstitutionFail(dispatch)
+        toast.error("Bład: " + e.data)
     }
 }
 
@@ -132,8 +135,10 @@ export const createInstitution = (institution: Institution): ThunkResult<void> =
     try {
         const response: Institution = await institutions.create(institution)
         handleCreateInstitutionSuccess(dispatch, response)
+        toast.success("Sukces")
     } catch (e) {
         handleCreateInstitutionFail(dispatch)
+        toast.error("Bład: " + e.data)
     }
 }
 
@@ -173,8 +178,10 @@ export const updateInstitution = (
     try {
         const response: Institution = await institutions.update(updatedInstitution)
         handleUpdateInstitutionSuccess(dispatch, response)
+        toast.success("Sukces")
     } catch (e) {
         handleUpdateInstitutionFail(dispatch)
+        toast.error("Bład: " + e.data)
     }
 }
 
@@ -219,8 +226,10 @@ export const deleteInstitution = (
             payload: deletedId,
         })
         history.push('/Institutions')
+        toast.success("Sukces")
     } catch (e) {
         dispatch({ type: InstitutionsActionTypes.DELETE_INSTITUTION_FAIL })
+        toast.error("Bład: " + e.data)
     }
 }
 
