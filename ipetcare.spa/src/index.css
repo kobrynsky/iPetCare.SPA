@@ -54,6 +54,6 @@ body .MuiTypography-root,
   font-family: 'Gill Sans', sans-serif;
 }
 
-body .MuiTypography-h1 {
-  padding-top: 12px;
+body .MuiTypography-h2 {
+  padding-top: 20px;
 }

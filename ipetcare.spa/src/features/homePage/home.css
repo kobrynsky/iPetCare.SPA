@@ -5,7 +5,7 @@
 }
 
 .sideNav:hover {
-  color: gray;
+  color: peru;
 }
 
 .MuiTypography-root {
@@ -21,4 +21,19 @@ body .titleContainerNotLogged .MuiTypography-h5 {
 body .titleContainerNotLogged .MuiSvgIcon-root {
   padding-top: 11px;
   color: peru;
+}
+
+body .MuiTypography-colorTextSecondary {
+  color: peru;
+}
+
+body .MuiButtonGroup-root {
+  margin-top: 20px;
+  margin-right: 20px;
+  height: 40px;
+}
+
+body .MuiButton-label {
+  font-family: Trebuchet MS, sans-serif;
+  letter-spacing: 1px;
 }

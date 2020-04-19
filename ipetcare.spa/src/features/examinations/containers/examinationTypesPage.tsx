@@ -23,7 +23,7 @@ export function ExaminationTypesPage() {
         <div>
             <Grid container direction="column">
                 <Grid item>
-                    <Typography variant="h1" className="title">
+                    <Typography variant="h2" className="title">
                         Typy badań
           </Typography>
                 </Grid>

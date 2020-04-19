@@ -10,7 +10,7 @@ export function HomeScreen() {
       <Grid container direction="column">
         <Grid item>
           <NavLink className="title" to="/">
-            <Typography variant="h1" className="title">
+            <Typography variant="h2" className="title">
               iPetCare
             </Typography>
           </NavLink>

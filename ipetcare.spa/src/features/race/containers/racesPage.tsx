@@ -25,7 +25,7 @@ export function RacesPage() {
     <div>
       <Grid container direction="column">
         <Grid item>
-          <Typography variant="h1" className="title">
+          <Typography variant="h2" className="title">
             Rasy
           </Typography>
         </Grid>
