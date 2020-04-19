@@ -26,6 +26,8 @@ import { ExaminationTypesPage } from './features/examinations/containers/examina
 import { ExaminationParametersPage } from './features/examinations/containers/examinationParametersPage'
 import { PetsPage } from './features/pets/containers/petsPage'
 import { PetPage } from './features/pets/containers/petPage'
+import PetsIcon from '@material-ui/icons/Pets';
+
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -51,7 +53,7 @@ const App: React.FC = () => {
       <>
         <NavLink className="titleContainerNotLogged" to="/">
           <Typography className="title" variant="h5">
-            iPetCare
+            <PetsIcon fontSize="large" />iPetCare
           </Typography>
         </NavLink>
         <NotLoggedNavbar />

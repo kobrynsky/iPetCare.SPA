@@ -11,3 +11,14 @@
 .MuiTypography-root {
   padding-top: 30px;
 }
+
+body .titleContainerNotLogged .MuiTypography-h5 {
+  padding: 10px;
+  color: peru;
+  font-family: Jazz LET, fantasy;
+}
+
+body .titleContainerNotLogged .MuiSvgIcon-root {
+  padding-top: 11px;
+  color: peru;
+}
