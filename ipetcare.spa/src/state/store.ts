@@ -26,6 +26,8 @@ import {
   ExaminationParametersState,
 } from './examinationParameters/examinationParametersReducer'
 import { EXAMINATION_PARAMETERS_ACTIONS } from './examinationParameters/examinationParametersActions'
+import { NotesState, notesReducer } from './notes/notesReducer'
+import { NOTES_ACTIONS } from './notes/notesActions'
 
 export type ThunkResult<R> = ThunkAction<R, RootState, undefined, RootActions>
 
@@ -38,6 +40,7 @@ export interface RootState {
   readonly examinationTypes: ExaminationTypesState
   readonly examinationParameters: ExaminationParametersState
   readonly species: SpeciesState
+  readonly notes: NotesState
 }
 
 const rootReducer = combineReducers<RootState>({
@@ -49,6 +52,7 @@ const rootReducer = combineReducers<RootState>({
   examinationTypes: examinationTypesReducer,
   examinationParameters: examinationParametersReducer,
   species: speciesReducer,
+  notes: notesReducer,
 })
 
 export type RootActions =
@@ -59,6 +63,7 @@ export type RootActions =
   | EXAMINATION_TYPES_ACTIONS
   | SPECIES_ACTIONS
   | EXAMINATION_PARAMETERS_ACTIONS
+  | NOTES_ACTIONS
 
 export const store = createStore(
   rootReducer,

@@ -15,6 +15,7 @@ import {
 import { Institution } from '../state/institutions/institutionsReducer'
 import { ExaminationType } from '../state/examinationTypes/examinationTypesReducer'
 import { ExaminationParameter } from '../state/examinationParameters/examinationParametersReducer'
+import { Note } from '../state/notes/notesReducer'
 
 axios.defaults.baseURL = BASE_URL
 
@@ -72,6 +73,7 @@ const speciesBody = (response: any) => response.species
 const examinationParameterBody = (response: any) =>
   response.examinationParameters
 const petsBody = (response: any) => response.pets
+const notesBody = (response: any) => response.notes
 
 const requests = {
   get: (url: string, body?: {}) =>
@@ -157,4 +159,18 @@ export const AllSpecies = {
   create: (species: Species) => requests.post('/species', species),
   update: (species: Species) => requests.put(`/species/${species.id}`, species),
   delete: (id: number) => requests.del(`/species/${id}`),
+}
+
+export const Notes = {
+  getAllNotes: (): Promise<Note[]> =>
+    requests.get('/notes').then(notesBody),
+  getNotes: (petId: string): Promise<Note[]> =>
+    requests.get(`/notes/${petId}`).then(notesBody),
+  getNote: (petId: string, noteId: string): Promise<Note> =>
+    requests.get(`/notes/${petId}/${noteId}`),
+  create: (note: Note) =>
+    requests.post('/notes', note),
+  update: (note: Note, petId: string) =>
+    requests.put(`/notes/${note.id}/${petId}`, note),
+  delete: (id: string, petId: string) => requests.del(`/notes/${id}/${petId}`),
 }
