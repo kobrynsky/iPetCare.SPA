@@ -28,6 +28,7 @@ import { PetPage } from './features/pets/containers/petPage'
 import { AddNotePage } from './features/notes/containers/addNotePage'
 import { PetNotesPage } from './features/notes/containers/petNotesPage'
 import { EditNotePage } from './features/notes/containers/editNotePage'
+import { AddExaminationPage } from './features/examinations/containers/addExaminationPage'
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -82,6 +83,8 @@ const App: React.FC = () => {
                 <Route path="/pets/:petId/notes/add" component={AddNotePage} />
                 <Route path="/pets/:petId/notes/edit/:noteId" component={EditNotePage} />
                 <Route path="/pets/:petId/notes" component={PetNotesPage} />
+
+                <Route path="/pets/:petId/examinations/add" component={AddExaminationPage} />
 
                 <Route path="/pets/details/:petId" component={PetPage} />
                 <Route path="/pets" component={PetsPage} />
