@@ -10,6 +10,9 @@ export enum ExaminationTypesActionTypes {
     GET_EXAMINATION_TYPES = 'GET_EXAMINATION_TYPES',
     GET_EXAMINATION_TYPES_SUCCESS = 'GET_EXAMINATION_TYPES_SUCCESS',
     GET_EXAMINATION_TYPES_FAIL = 'GET_EXAMINATION_TYPES_FAIL',
+    GET_EXAMINATION_TYPES_BY_PET_ID = 'GET_EXAMINATION_TYPES_BY_PET_ID',
+    GET_EXAMINATION_TYPES__BY_PET_ID_SUCCESS = 'GET_EXAMINATION_TYPES__BY_PET_ID_SUCCESS',
+    GET_EXAMINATION_TYPES_BY_PET_ID_FAIL = 'GET_EXAMINATION_TYPES_BY_PET_ID_FAIL',
     GET_EXAMINATION_TYPE = 'GET_EXAMINATION_TYPE',
     GET_EXAMINATION_TYPE_SUCCESS = 'GET_EXAMINATION_TYPE_SUCCESS',
     GET_EXAMINATION_TYPE_FAIL = 'GET_EXAMINATION_TYPE_FAIL',
@@ -67,6 +70,52 @@ export const handleGetExaminationTypesFail = (dispatch: Dispatch<GetExaminationT
         type: ExaminationTypesActionTypes.GET_EXAMINATION_TYPES_FAIL,
     })
 }
+
+
+// FETCH EXAMINATION_TYPE LIST BY PET ID
+interface GetExaminationTypesByPetId {
+    type: ExaminationTypesActionTypes.GET_EXAMINATION_TYPES_BY_PET_ID
+}
+
+interface GetExaminationTypesByPetIdSuccess {
+    type: ExaminationTypesActionTypes.GET_EXAMINATION_TYPES__BY_PET_ID_SUCCESS
+    payload: any
+}
+
+interface GetExaminationTypesByPetIdFail {
+    type: ExaminationTypesActionTypes.GET_EXAMINATION_TYPES_BY_PET_ID_FAIL
+}
+
+export const getExaminationTypesByPetId = (petId: string): ThunkResult<void> => async dispatch => {
+    handleGetExaminationTypesByPetId(dispatch)
+    try {
+        const response: ExaminationType[] = await examinationTypes.getByPetId(petId)
+        handleGetExaminationTypesByPetIdSuccess(dispatch, response)
+    } catch (e) {
+        handleGetExaminationTypesByPetIdFail(dispatch)
+    }
+}
+
+export const handleGetExaminationTypesByPetId = (dispatch: Dispatch<GetExaminationTypes>) => {
+    dispatch({ type: ExaminationTypesActionTypes.GET_EXAMINATION_TYPES })
+}
+
+export const handleGetExaminationTypesByPetIdSuccess = (
+    dispatch: Dispatch<GetExaminationTypesByPetIdSuccess>,
+    response: ExaminationType[]
+) => {
+    dispatch({
+        type: ExaminationTypesActionTypes.GET_EXAMINATION_TYPES__BY_PET_ID_SUCCESS,
+        payload: response,
+    })
+}
+
+export const handleGetExaminationTypesByPetIdFail = (dispatch: Dispatch<GetExaminationTypesByPetIdFail>) => {
+    dispatch({
+        type: ExaminationTypesActionTypes.GET_EXAMINATION_TYPES_BY_PET_ID_FAIL,
+    })
+}
+
 
 // FETCH SINGLE EXAMINATION_TYPE
 interface GetExaminationType {
@@ -226,6 +275,9 @@ export type EXAMINATION_TYPES_ACTIONS =
     | GetExaminationTypes
     | GetExaminationTypesSuccess
     | GetExaminationTypesFail
+    | GetExaminationTypesByPetId
+    | GetExaminationTypesByPetIdSuccess
+    | GetExaminationTypesByPetIdFail
     | GetExaminationType
     | GetExaminationTypesuccess
     | GetExaminationTypeFail
