@@ -25,6 +25,8 @@ import { ExaminationTypesPage } from './features/examinations/containers/examina
 import { ExaminationParametersPage } from './features/examinations/containers/examinationParametersPage'
 import { PetsPage } from './features/pets/containers/petsPage'
 import { PetPage } from './features/pets/containers/petPage'
+import { AddNotePage } from './features/notes/containers/addNotePage'
+import { PetNotesPage } from './features/notes/containers/petNotesPage'
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -47,15 +49,15 @@ const App: React.FC = () => {
     user.userName && user.userName.length > 0 ? (
       <LoggedInNavbar />
     ) : (
-      <>
-        <NavLink className="titleContainerNotLogged" to="/">
-          <Typography className="title" variant="h5">
-            iPetCare
+        <>
+          <NavLink className="titleContainerNotLogged" to="/">
+            <Typography className="title" variant="h5">
+              iPetCare
           </Typography>
-        </NavLink>
-        <NotLoggedNavbar />
-      </>
-    )
+          </NavLink>
+          <NotLoggedNavbar />
+        </>
+      )
 
   return (
     <div className="app">
@@ -76,10 +78,12 @@ const App: React.FC = () => {
                 <Route path="/owner" component={OwnerScreen} />
                 <Route path="/races" component={RacesPage} />
                 <Route path="/species" component={SpeciesPage} />
-                <Route path="/forbidden" component={ForbiddenPage} />
-                <Route path="/unauthorized" component={UnauthorizedPage} />
+                <Route path="/pets/:petId/notes/add" component={AddNotePage} />
+                <Route path="/pets/:petId/notes" component={PetNotesPage} />
+
                 <Route path="/pets/details/:petId" component={PetPage} />
                 <Route path="/pets" component={PetsPage} />
+
                 <Route path="/profile/edit" component={EditProfilePage} />
                 <Route path="/users/search" component={UserSearchPage} />
                 <Route path="/institutions" component={InstitutionsPage} />
@@ -91,6 +95,9 @@ const App: React.FC = () => {
                   path="/examination/parameters"
                   component={ExaminationParametersPage}
                 />
+
+                <Route path="/forbidden" component={ForbiddenPage} />
+                <Route path="/unauthorized" component={UnauthorizedPage} />
                 <Route path="*" component={NotFoundPage} />
               </Switch>
             )}
