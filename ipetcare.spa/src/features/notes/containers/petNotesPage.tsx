@@ -1,13 +1,13 @@
 import React, { useEffect } from "react"
 import { RouteComponentProps, Link } from "react-router-dom"
-import { Card, Typography, Grid, CircularProgress } from "@material-ui/core"
+import { Card, Typography, Grid, CircularProgress, Button, CardActions, CardContent, IconButton, CssBaseline } from "@material-ui/core"
 import { RootState } from "../../../state/store"
 import { useDispatch, useSelector } from "react-redux"
-import { getNotes } from "../../../state/notes/notesActions"
+import { getNotes, deleteNote } from "../../../state/notes/notesActions"
 import Moment from 'react-moment';
 import { getPet } from "../../../state/pets/petsActions"
-
-
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 interface PetNotesPageParams {
     petId: string;
 }
@@ -51,12 +51,24 @@ export const PetNotesPage = (props: RouteComponentProps<PetNotesPageParams>) => 
                     <Grid item xs={12} sm={8}>
                         {notesState.items.map((item) =>
                             <Card className="formCard">
-                                <Typography color="textSecondary" gutterBottom>
-                                    <Moment format="DD.MM.YYYY HH:mm">
-                                        {item.createdAt}
-                                    </Moment>
-                                </Typography>
-                                {item.payload}
+                                <CardContent>
+                                    <Typography color="textSecondary" gutterBottom>
+                                        <Moment format="DD.MM.YYYY HH:mm">
+                                            {item.createdAt}
+                                        </Moment>
+                                    </Typography>
+                                    {item.payload}
+                                </CardContent>
+                                <CardActions>
+                                    <IconButton aria-label="delete" onClick={() => { dispatch(deleteNote(item.id as string, petId)) }}>
+                                        <DeleteIcon />
+                                    </IconButton>
+                                    <IconButton aria-label="edit">
+                                        <Link to={`/pets/${petId}/notes/edit/${item.id}`}>
+                                            <EditIcon />
+                                        </Link>
+                                    </IconButton>
+                                </CardActions>
                             </Card>)
                         }
                     </Grid >

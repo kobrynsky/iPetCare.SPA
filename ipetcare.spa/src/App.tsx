@@ -27,6 +27,7 @@ import { PetsPage } from './features/pets/containers/petsPage'
 import { PetPage } from './features/pets/containers/petPage'
 import { AddNotePage } from './features/notes/containers/addNotePage'
 import { PetNotesPage } from './features/notes/containers/petNotesPage'
+import { EditNotePage } from './features/notes/containers/editNotePage'
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -79,6 +80,7 @@ const App: React.FC = () => {
                 <Route path="/races" component={RacesPage} />
                 <Route path="/species" component={SpeciesPage} />
                 <Route path="/pets/:petId/notes/add" component={AddNotePage} />
+                <Route path="/pets/:petId/notes/edit/:noteId" component={EditNotePage} />
                 <Route path="/pets/:petId/notes" component={PetNotesPage} />
 
                 <Route path="/pets/details/:petId" component={PetPage} />

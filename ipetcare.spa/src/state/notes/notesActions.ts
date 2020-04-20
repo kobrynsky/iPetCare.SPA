@@ -169,11 +169,11 @@ interface UpdateNoteFail {
 
 export const updateNote = (
     updatedNote: Note,
-    petId: string
 ): ThunkResult<void> => async dispatch => {
     handleUpdateNote(dispatch)
     try {
-        const response: Note = await notes.update(updatedNote, petId)
+        console.log(updatedNote)
+        const response: Note = await notes.update(updatedNote)
         handleUpdateNoteSuccess(dispatch, response)
     } catch (e) {
         handleUpdateNoteFail(dispatch)

@@ -170,7 +170,7 @@ export const Notes = {
     requests.get(`/notes/${petId}/${noteId}`),
   create: (note: Note) =>
     requests.post('/notes', note),
-  update: (note: Note, petId: string) =>
-    requests.put(`/notes/${note.id}/${petId}`, note),
-  delete: (id: string, petId: string) => requests.del(`/notes/${id}/${petId}`),
+  update: (note: Note) =>
+    requests.put(`/notes/${note.petId}/${note.id}`, note),
+  delete: (id: string, petId: string) => requests.del(`/notes/${petId}/${id}`),
 }
