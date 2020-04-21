@@ -20,7 +20,7 @@ interface Props {
   placeOfResidence?: string
   institutions?: Institution[]
   imageUrl: string
-  title: string
+  title?: string
 }
 
 const useStyles = makeStyles({
@@ -47,7 +47,7 @@ export const UserResult = ({
   placeOfResidence,
   institutions,
   specialization,
-  title,
+  title = '',
 }: Props) => {
   const classes = useStyles()
 
