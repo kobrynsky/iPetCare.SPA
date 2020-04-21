@@ -42,7 +42,7 @@ const adminRoutes: Route[] = [
   },
   {
     caption: 'Użytkownicy',
-    path: '/',
+    path: '/users',
   },
   {
     caption: 'Rasy',

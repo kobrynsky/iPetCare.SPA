@@ -15,6 +15,7 @@ import {
 import { Institution } from '../state/institutions/institutionsReducer'
 import { ExaminationType } from '../state/examinationTypes/examinationTypesReducer'
 import { ExaminationParameter } from '../state/examinationParameters/examinationParametersReducer'
+import { toast } from 'react-toastify'
 
 axios.defaults.baseURL = BASE_URL
 
@@ -36,27 +37,31 @@ axios.interceptors.response.use(undefined, error => {
   const { status, data, config } = error.response
   if (status === 404) {
     console.log(error.response)
-    history.replace('/notfound')
+    toast.error("Błąd: " + error.response.data)
+    history.push('/notfound')
   }
   if (status === 403) {
     console.log(error.response)
-    history.replace('/forbidden')
+    toast.error("Błąd: " + error.response.data)
+    history.push('/forbidden')
   }
   if (status === 401) {
     console.log(error.response)
+    toast.error("Błąd: " + error.response.data)
     deleteUserState()
     history.replace('/unauthorized')
     console.info('Twoja sesja wygasła, zaloguj się ponownie.')
   }
   if (
-    status === 400 &&
-    config.method === 'get' &&
-    data.errors.hasOwnProperty('id')
+    status === 400
   ) {
-    history.replace('/notfound')
+    history.push('/notfound')
+    toast.error("Błąd: " + error.response.data)
+    console.log(error.response)
   }
   if (status === 500) {
     console.log(error.response)
+    toast.error("Błąd: " + "Błąd serwera - sprawdź konsolę, aby uzyskać więcej informacji!")
     console.error(
       'Błąd serwera - sprawdź konsolę, aby uzyskać więcej informacji!'
     )
@@ -72,6 +77,7 @@ const speciesBody = (response: any) => response.species
 const examinationParameterBody = (response: any) =>
   response.examinationParameters
 const petsBody = (response: any) => response.pets
+const usersBody = (response: any) => response.users
 
 const requests = {
   get: (url: string, body?: {}) =>
@@ -92,6 +98,7 @@ export const Users = {
     requests.post('users/vets', searchDto),
   getOwners: (searchDto: GetSearchDto): Promise<GetSearchResponseDto> =>
     requests.post('users/owners', searchDto),
+  getAllUsers: (): Promise<User[]> => requests.get('/users').then(usersBody),
 }
 
 export const Pets = {
