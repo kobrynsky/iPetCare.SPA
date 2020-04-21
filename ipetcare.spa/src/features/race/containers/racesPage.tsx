@@ -3,7 +3,12 @@ import { Grid, Typography } from '@material-ui/core'
 import { TableCommon } from '../../../common/components/tableCommon'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../state/store'
-import { getRaces, createRace, updateRace, deleteRace } from '../../../state/races/racesActions'
+import {
+  getRaces,
+  createRace,
+  updateRace,
+  deleteRace,
+} from '../../../state/races/racesActions'
 import { getAllSpecies } from '../../../state/species/speciesActions'
 
 export function RacesPage() {
@@ -13,9 +18,6 @@ export function RacesPage() {
 
   useEffect(() => {
     dispatch(getRaces())
-  }, [])
-
-  useEffect(() => {
     dispatch(getAllSpecies())
   }, [])
 
@@ -36,7 +38,10 @@ export function RacesPage() {
               {
                 title: 'Gatunek',
                 field: 'speciesId',
-                lookup: speciesState.items.reduce((a, x) => ({ ...a, [x.id as number]: x.name }), {})
+                lookup: speciesState.items.reduce(
+                  (a, x) => ({ ...a, [x.id as number]: x.name }),
+                  {}
+                ),
               },
             ]}
             rows={racesState.items}
@@ -47,7 +52,7 @@ export function RacesPage() {
               dispatch(
                 createRace({
                   name: data.name,
-                  speciesId: parseInt(data.speciesId)
+                  speciesId: parseInt(data.speciesId),
                 })
               )
             }}
@@ -56,7 +61,7 @@ export function RacesPage() {
                 updateRace({
                   id: data.id,
                   name: data.name,
-                  speciesId: parseInt(data.speciesId)
+                  speciesId: parseInt(data.speciesId),
                 })
               )
             }}

@@ -49,7 +49,7 @@ axios.interceptors.response.use(undefined, error => {
     console.log(error.response)
     toast.error("Błąd: " + error.response.data)
     deleteUserState()
-    history.push('/unauthorized')
+    history.replace('/unauthorized')
     console.info('Twoja sesja wygasła, zaloguj się ponownie.')
   }
   if (
@@ -74,7 +74,8 @@ const racesBody = (response: any) => response.races
 const institutionsBody = (response: any) => response.institutions
 const examinationTypesBody = (response: any) => response.examinationTypes
 const speciesBody = (response: any) => response.species
-const examinationParameterBody = (response: any) => response.examinationParameters
+const examinationParameterBody = (response: any) =>
+  response.examinationParameters
 const petsBody = (response: any) => response.pets
 const usersBody = (response: any) => response.users
 
@@ -118,31 +119,47 @@ export const Races = {
 }
 
 export const Institutions = {
-  getInstitutions: (): Promise<Institution[]> => requests.get('/institutions').then(institutionsBody),
-  getInstitution: (id: string): Promise<Institution> => requests.get(`/institutions/${id}`),
-  create: (institution: Institution) => requests.post('/institutions', institution),
-  update: (institution: Institution) => requests.put(`/institutions/${institution.id}`, institution),
+  getInstitutions: (): Promise<Institution[]> =>
+    requests.get('/institutions').then(institutionsBody),
+  getInstitution: (id: string): Promise<Institution> =>
+    requests.get(`/institutions/${id}`),
+  create: (institution: Institution) =>
+    requests.post('/institutions', institution),
+  update: (institution: Institution) =>
+    requests.put(`/institutions/${institution.id}`, institution),
   delete: (id: string) => requests.del(`/institutions/${id}`),
 }
 
 export const ExaminationTypes = {
-  getExaminationTypes: (): Promise<ExaminationType[]> => requests.get('/examinationTypes').then(examinationTypesBody),
-  getExaminationType: (id: number): Promise<ExaminationType> => requests.get(`/examinationTypes/${id}`),
-  create: (examinationType: ExaminationType) => requests.post('/examinationTypes', examinationType),
-  update: (examinationType: ExaminationType) => requests.put(`/examinationTypes/${examinationType.id}`, examinationType),
+  getExaminationTypes: (): Promise<ExaminationType[]> =>
+    requests.get('/examinationTypes').then(examinationTypesBody),
+  getExaminationType: (id: number): Promise<ExaminationType> =>
+    requests.get(`/examinationTypes/${id}`),
+  create: (examinationType: ExaminationType) =>
+    requests.post('/examinationTypes', examinationType),
+  update: (examinationType: ExaminationType) =>
+    requests.put(`/examinationTypes/${examinationType.id}`, examinationType),
   delete: (id: number) => requests.del(`/examinationTypes/${id}`),
 }
 
 export const ExaminationParameters = {
-  getExaminationParameters: (): Promise<ExaminationParameter[]> => requests.get('/examinationParameters').then(examinationParameterBody),
-  getExaminationParameter: (id: number): Promise<ExaminationParameter> => requests.get(`/examinationParameters/${id}`),
-  create: (examinationParameter: ExaminationParameter) => requests.post('/examinationParameters', examinationParameter),
-  update: (examinationParameter: ExaminationParameter) => requests.put(`/examinationParameters/${examinationParameter.id}`, examinationParameter),
+  getExaminationParameters: (): Promise<ExaminationParameter[]> =>
+    requests.get('/examinationParameters').then(examinationParameterBody),
+  getExaminationParameter: (id: number): Promise<ExaminationParameter> =>
+    requests.get(`/examinationParameters/${id}`),
+  create: (examinationParameter: ExaminationParameter) =>
+    requests.post('/examinationParameters', examinationParameter),
+  update: (examinationParameter: ExaminationParameter) =>
+    requests.put(
+      `/examinationParameters/${examinationParameter.id}`,
+      examinationParameter
+    ),
   delete: (id: number) => requests.del(`/examinationParameters/${id}`),
 }
 
 export const AllSpecies = {
-  getAllSpecies: (): Promise<Species[]> => requests.get('/species').then(speciesBody),
+  getAllSpecies: (): Promise<Species[]> =>
+    requests.get('/species').then(speciesBody),
   getSpecies: (id: number): Promise<Species> => requests.get(`/species/${id}`),
   create: (species: Species) => requests.post('/species', species),
   update: (species: Species) => requests.put(`/species/${species.id}`, species),

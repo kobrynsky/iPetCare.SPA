@@ -36,7 +36,6 @@ export const speciesReducer = (
     case SpeciesActionTypes.UPDATE_SPECIES_FAIL:
       return { ...state, loading: false }
 
-    case SpeciesActionTypes.GET_SPECIES_SUCCESS:
     case SpeciesActionTypes.CREATE_SPECIES_SUCCESS:
       return {
         ...state,
@@ -58,10 +57,14 @@ export const speciesReducer = (
         loading: false,
       }
 
+    case SpeciesActionTypes.GET_SPECIES_SUCCESS:
     case SpeciesActionTypes.UPDATE_SPECIES_SUCCESS:
       return {
         ...state,
-        items: [...state.items.filter(x => x.id !== action.payload.id), action.payload],
+        items: [
+          ...state.items.filter(x => x.id !== action.payload.id),
+          action.payload,
+        ],
         loading: false,
       }
 
