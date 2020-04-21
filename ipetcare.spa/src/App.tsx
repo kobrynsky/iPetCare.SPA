@@ -24,7 +24,9 @@ import { InstitutionsPage } from './features/institutions/containers/institution
 import { ExaminationTypesPage } from './features/examinations/containers/examinationTypesPage'
 import { ExaminationParametersPage } from './features/examinations/containers/examinationParametersPage'
 import { PetsPage } from './features/pets/containers/petsPage'
+import { PetList } from './features/pets/containers/petList'
 import { PetPage } from './features/pets/containers/petPage'
+import { PetCreatePage } from './features/pets/containers/petCreatePage'
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -79,7 +81,13 @@ const App: React.FC = () => {
                 <Route path="/forbidden" component={ForbiddenPage} />
                 <Route path="/unauthorized" component={UnauthorizedPage} />
                 <Route path="/pets/details/:petId" component={PetPage} />
-                <Route path="/pets" component={PetsPage} />
+                <Route exact path="/pets" component={PetList} />
+                <Route
+                  exact
+                  path="/pets/:petId/edit"
+                  component={PetCreatePage}
+                />
+                <Route exact path="/pets/create" component={PetCreatePage} />
                 <Route path="/profile/edit" component={EditProfilePage} />
                 <Route path="/users/search" component={UserSearchPage} />
                 <Route path="/institutions" component={InstitutionsPage} />

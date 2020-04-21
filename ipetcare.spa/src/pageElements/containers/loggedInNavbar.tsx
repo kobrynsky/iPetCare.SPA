@@ -38,7 +38,7 @@ const ownerRoutes: Route[] = [
 const adminRoutes: Route[] = [
   {
     caption: 'Zwierzęta',
-    path: '/',
+    path: '/pets',
   },
   {
     caption: 'Użytkownicy',
