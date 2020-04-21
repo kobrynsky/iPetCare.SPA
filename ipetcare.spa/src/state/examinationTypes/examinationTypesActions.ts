@@ -4,6 +4,7 @@ import { ThunkAction } from 'redux-thunk'
 import { Dispatch } from 'redux'
 import { RootState, RootActions } from '../store'
 import { ExaminationType } from './examinationTypesReducer'
+import { toast } from 'react-toastify'
 
 export type ThunkResult<R> = ThunkAction<R, RootState, undefined, RootActions>
 export enum ExaminationTypesActionTypes {
@@ -131,6 +132,7 @@ export const createExaminationType = (examinationType: ExaminationType): ThunkRe
     try {
         const response: ExaminationType = await examinationTypes.create(examinationType)
         handleCreateExaminationTypeSuccess(dispatch, response)
+        toast.success("Sukces")
     } catch (e) {
         handleCreateExaminationTypeFail(dispatch)
     }
@@ -173,6 +175,7 @@ export const updateExaminationType = (
     try {
         const response: ExaminationType = await examinationTypes.update(updatedExaminationType)
         handleUpdateExaminationTypeSuccess(dispatch, response)
+        toast.success("Sukces")
     } catch (e) {
         handleUpdateExaminationTypeFail(dispatch)
     }
@@ -217,6 +220,7 @@ export const deleteExaminationType = (
             type: ExaminationTypesActionTypes.DELETE_EXAMINATION_TYPE_SUCCESS,
             payload: deletedId,
         })
+        toast.success("Sukces")
     } catch (e) {
         dispatch({ type: ExaminationTypesActionTypes.DELETE_EXAMINATION_TYPE_FAIL })
     }
