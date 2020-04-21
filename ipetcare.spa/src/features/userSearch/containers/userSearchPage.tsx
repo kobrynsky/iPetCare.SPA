@@ -55,6 +55,8 @@ const useStyles = makeStyles({
   },
   select: {
     width: 200,
+    paddingLeft: 10,
+    marginRight: 10,
   },
   resultTitle: {
     justifyContent: 'center',
