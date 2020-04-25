@@ -7,6 +7,7 @@ export interface Note {
     id?: string
     payload: string
     createdAt: string
+    importantDate?: string
     petId: string
 }
 

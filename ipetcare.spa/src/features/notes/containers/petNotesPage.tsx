@@ -69,6 +69,23 @@ export const PetNotesPage = (props: RouteComponentProps<PetNotesPageParams>) => 
                                         </Link>
                                     </IconButton>
                                 </CardActions>
+                                <Grid
+                                    container
+                                    direction="row"
+                                    justify="flex-end"
+                                    alignItems="flex-end"
+                                >
+                                    <Typography color="textSecondary">
+                                        {item.importantDate &&
+                                            <div>
+                                                Ważna data:
+                                                <Moment format=" DD.MM.YYYY HH:mm">
+                                                    {item.importantDate}
+                                                </Moment>
+                                            </div>
+                                        }
+                                    </Typography>
+                                </Grid>
                             </Card>)
                         }
                     </Grid >
