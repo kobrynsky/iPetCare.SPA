@@ -30,7 +30,7 @@ export function PetsPage() {
         <div>
             <Grid container direction="column">
                 <Grid item>
-                    <Typography variant="h1" className="title">
+                    <Typography variant="h2" className="title">
                         Moje Zwierzęta
           </Typography>
                 </Grid>

@@ -13,6 +13,7 @@ import { Grid, Typography } from '@material-ui/core'
 import { RootState } from './state/store'
 import { AdminScreen } from './features/homePage/containers/adminScreen'
 import { OwnerScreen } from './features/homePage/containers/ownerScreen'
+import { VetScreen } from './features/homePage/containers/vetScreen'
 import { RacesPage } from './features/race/containers/racesPage'
 import { SpeciesPage } from './features/species/containers/speciesPage'
 import { EditProfilePage } from './features/profile/containers/editProfilePage'
@@ -25,9 +26,11 @@ import { ExaminationTypesPage } from './features/examinations/containers/examina
 import { ExaminationParametersPage } from './features/examinations/containers/examinationParametersPage'
 import { PetsPage } from './features/pets/containers/petsPage'
 import { PetPage } from './features/pets/containers/petPage'
+import PetsIcon from '@material-ui/icons/Pets';
 import { UsersPage } from './features/users/containers/usersPage'
 import { ToastContainer } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css";
+
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -52,7 +55,7 @@ const App: React.FC = () => {
       <>
         <NavLink className="titleContainerNotLogged" to="/">
           <Typography className="title" variant="h5">
-            iPetCare
+            <PetsIcon fontSize="large" />iPetCare
           </Typography>
         </NavLink>
         <NotLoggedNavbar />
@@ -76,6 +79,7 @@ const App: React.FC = () => {
                 <Route path="/login" component={LoginForm} />
                 <Route path="/admin" component={AdminScreen} />
                 <Route path="/owner" component={OwnerScreen} />
+                <Route path="/vet" component={VetScreen} />
                 <Route path="/races" component={RacesPage} />
                 <Route path="/species" component={SpeciesPage} />
                 <Route path="/forbidden" component={ForbiddenPage} />
