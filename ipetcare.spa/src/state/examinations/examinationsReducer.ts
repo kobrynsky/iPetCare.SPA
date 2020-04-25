@@ -29,6 +29,7 @@ export const examinationsReducer = (
 ) => {
     switch (action.type) {
         case ExaminationsActionTypes.GET_EXAMINATIONS:
+        case ExaminationsActionTypes.GET_EXAMINATIONS_BY_PET_ID:
         case ExaminationsActionTypes.GET_EXAMINATION:
         case ExaminationsActionTypes.CREATE_EXAMINATION:
         case ExaminationsActionTypes.UPDATE_EXAMINATION:
@@ -37,6 +38,7 @@ export const examinationsReducer = (
 
         case ExaminationsActionTypes.GET_EXAMINATION_FAIL:
         case ExaminationsActionTypes.GET_EXAMINATIONS_FAIL:
+        case ExaminationsActionTypes.GET_EXAMINATIONS_BY_PET_ID_FAIL:
         case ExaminationsActionTypes.CREATE_EXAMINATION_FAIL:
         case ExaminationsActionTypes.DELETE_EXAMINATION_FAIL:
         case ExaminationsActionTypes.UPDATE_EXAMINATION_FAIL:
@@ -50,6 +52,7 @@ export const examinationsReducer = (
             }
 
         case ExaminationsActionTypes.GET_EXAMINATIONS_SUCCESS:
+        case ExaminationsActionTypes.GET_EXAMINATIONS_BY_PET_ID_SUCCESS:
             return {
                 ...state,
                 items: [...action.payload],

@@ -29,6 +29,7 @@ export const examinationParameterValuesReducer = (
     switch (action.type) {
         case ExaminationParameterValuesActionTypes.GET_EXAMINATION_PARAMETER_VALUES:
         case ExaminationParameterValuesActionTypes.GET_EXAMINATION_PARAMETER_VALUE:
+        case ExaminationParameterValuesActionTypes.GET_EXAMINATION_PARAMETER_VALUES_BY_EXAMINATION_ID:
         case ExaminationParameterValuesActionTypes.CREATE_EXAMINATION_PARAMETER_VALUE:
         case ExaminationParameterValuesActionTypes.UPDATE_EXAMINATION_PARAMETER_VALUE:
         case ExaminationParameterValuesActionTypes.DELETE_EXAMINATION_PARAMETER_VALUE:
@@ -39,6 +40,7 @@ export const examinationParameterValuesReducer = (
         case ExaminationParameterValuesActionTypes.CREATE_EXAMINATION_PARAMETER_VALUE_FAIL:
         case ExaminationParameterValuesActionTypes.DELETE_EXAMINATION_PARAMETER_VALUE_FAIL:
         case ExaminationParameterValuesActionTypes.UPDATE_EXAMINATION_PARAMETER_VALUE_FAIL:
+        case ExaminationParameterValuesActionTypes.GET_EXAMINATION_PARAMETER_VALUES_BY_EXAMINATION_ID_FAIL:
             return { ...state, loading: false }
 
         case ExaminationParameterValuesActionTypes.CREATE_EXAMINATION_PARAMETER_VALUE_SUCCESS:
@@ -49,6 +51,7 @@ export const examinationParameterValuesReducer = (
             }
 
         case ExaminationParameterValuesActionTypes.GET_EXAMINATION_PARAMETER_VALUES_SUCCESS:
+        case ExaminationParameterValuesActionTypes.GET_EXAMINATION_PARAMETER_VALUES_BY_EXAMINATION_ID_SUCCESS:
             return {
                 ...state,
                 items: [...action.payload],

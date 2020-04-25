@@ -46,7 +46,7 @@ export const AddExaminationPage = (props: RouteComponentProps<AddExaminationPage
 
         let paramsValues = document.getElementsByClassName('parameter-value');
 
-        for (let i = 0; i < examinationTypesState.items.length; i++) {
+        for (let i = 0; i < paramsValues.length; i++) {
             let parameterValue = {
                 examinationId: examinationId,
                 value: +paramsValues[i].innerHTML,

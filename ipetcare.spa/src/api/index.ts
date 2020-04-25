@@ -184,15 +184,18 @@ export const Notes = {
 export const Examinations = {
   getExaminations: (): Promise<Examination[]> =>
     requests.get('/examinations').then(examinationsBody),
+  getExaminationsByPetId: (petId: string): Promise<Examination[]> =>
+    requests.get(`/examinations/${petId}`).then(examinationsBody),
   getExamination: (id: string): Promise<Examination> => requests.get(`/examinations/${id}`),
   create: (examination: Examination) => requests.post('/examinations', examination),
   update: (examination: Examination) => requests.put(`/examinations/${examination.id}`, examination),
-  delete: (id: string) => requests.del(`/examinations/${id}`),
+  delete: (id: string, petId: string) => requests.del(`/examinations/${petId}/${id}`),
 }
-
 export const ExaminationParametersValues = {
   getExaminationParameterValues: (): Promise<ExaminationParameterValue[]> =>
     requests.get('/examinationParameterValues').then(examinationParameterValuesBody),
+  getByExaminationId: (examinationId: string): Promise<ExaminationParameterValue[]> =>
+    requests.get(`/examinationParameterValues/getByExaminationId/${examinationId}`).then(examinationParameterValuesBody),
   getExaminationParameterValue: (id: string): Promise<ExaminationParameterValue> => requests.get(`/examinationParameterValues/${id}`),
   create: (examinationParameterValue: ExaminationParameterValue) => requests.post('/examinationParameterValues', examinationParameterValue),
   update: (examinationParameterValue: ExaminationParameterValue) => requests.put(`/examinationParameterValues/${examinationParameterValue.id}`, examinationParameterValue),

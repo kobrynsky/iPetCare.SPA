@@ -10,6 +10,9 @@ export enum ExaminationsActionTypes {
     GET_EXAMINATIONS = 'GET_EXAMINATIONS',
     GET_EXAMINATIONS_SUCCESS = 'GET_EXAMINATIONS_SUCCESS',
     GET_EXAMINATIONS_FAIL = 'GET_EXAMINATIONS_FAIL',
+    GET_EXAMINATIONS_BY_PET_ID = 'GET_EXAMINATIONS_BY_PET_ID',
+    GET_EXAMINATIONS_BY_PET_ID_SUCCESS = 'GET_EXAMINATIONS_BY_PET_ID_SUCCESS',
+    GET_EXAMINATIONS_BY_PET_ID_FAIL = 'GET_EXAMINATIONS_BY_PET_ID_FAIL',
     GET_EXAMINATION = 'GET_EXAMINATION',
     GET_EXAMINATION_SUCCESS = 'GET_EXAMINATION_SUCCESS',
     GET_EXAMINATION_FAIL = 'GET_EXAMINATION_FAIL',
@@ -66,6 +69,51 @@ export const handleGetExaminationsSuccess = (
 export const handleGetExaminationsFail = (dispatch: Dispatch<GetExaminationsFail>) => {
     dispatch({
         type: ExaminationsActionTypes.GET_EXAMINATIONS_FAIL,
+    })
+}
+
+// FETCH EXAMINATION LIST BY PET ID
+interface GetExaminationsByPetId {
+    type: ExaminationsActionTypes.GET_EXAMINATIONS_BY_PET_ID
+}
+
+interface GetExaminationsByPetIdSuccess {
+    type: ExaminationsActionTypes.GET_EXAMINATIONS_BY_PET_ID_SUCCESS
+    payload: any
+}
+
+interface GetExaminationsByPetIdFail {
+    type: ExaminationsActionTypes.GET_EXAMINATIONS_BY_PET_ID_FAIL
+}
+
+export const getExaminationsByPetId = (petId: string): ThunkResult<void> => async dispatch => {
+    handleGetExaminationsByPetId(dispatch)
+    try {
+        const response: Examination[] = await examinations.getExaminationsByPetId(petId)
+        handleGetExaminationsByPetIdSuccess(dispatch, response)
+    } catch (e) {
+        console.log(e)
+        handleGetExaminationsByPetIdFail(dispatch)
+    }
+}
+
+export const handleGetExaminationsByPetId = (dispatch: Dispatch<GetExaminationsByPetId>) => {
+    dispatch({ type: ExaminationsActionTypes.GET_EXAMINATIONS_BY_PET_ID })
+}
+
+export const handleGetExaminationsByPetIdSuccess = (
+    dispatch: Dispatch<GetExaminationsByPetIdSuccess>,
+    response: Examination[]
+) => {
+    dispatch({
+        type: ExaminationsActionTypes.GET_EXAMINATIONS_BY_PET_ID_SUCCESS,
+        payload: response,
+    })
+}
+
+export const handleGetExaminationsByPetIdFail = (dispatch: Dispatch<GetExaminationsByPetIdFail>) => {
+    dispatch({
+        type: ExaminationsActionTypes.GET_EXAMINATIONS_BY_PET_ID_FAIL,
     })
 }
 
@@ -208,11 +256,12 @@ interface DeleteExaminationFail {
 }
 
 export const deleteExamination = (
-    deletedId: string
+    deletedId: string,
+    petId: string
 ): ThunkResult<void> => async dispatch => {
     dispatch({ type: ExaminationsActionTypes.DELETE_EXAMINATION })
     try {
-        await examinations.delete(deletedId)
+        await examinations.delete(deletedId, petId)
         console.log("id: " + deletedId)
         dispatch({
             type: ExaminationsActionTypes.DELETE_EXAMINATION_SUCCESS,
@@ -228,6 +277,9 @@ export type EXAMINATIONS_ACTIONS =
     | GetExaminations
     | GetExaminationsSuccess
     | GetExaminationsFail
+    | GetExaminationsByPetId
+    | GetExaminationsByPetIdSuccess
+    | GetExaminationsByPetIdFail
     | GetExamination
     | GetExaminationsuccess
     | GetExaminationFail

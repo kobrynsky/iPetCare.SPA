@@ -21,7 +21,6 @@ import { ForbiddenPage } from './common/errorPages/forbiddenPage'
 import { UnauthorizedPage } from './common/errorPages/unauthorizedPage'
 import { UserSearchPage } from './features/userSearch/containers/userSearchPage'
 import { InstitutionsPage } from './features/institutions/containers/institutionsPage'
-import { ExaminationsPage } from './features/examinations/containers/examinationsPage'
 import { ExaminationTypesPage } from './features/examinations/containers/examinationTypesPage'
 import { ExaminationParametersPage } from './features/examinations/containers/examinationParametersPage'
 import { PetsPage } from './features/pets/containers/petsPage'
@@ -30,6 +29,8 @@ import { AddNotePage } from './features/notes/containers/addNotePage'
 import { PetNotesPage } from './features/notes/containers/petNotesPage'
 import { EditNotePage } from './features/notes/containers/editNotePage'
 import { AddExaminationPage } from './features/examinations/containers/addExaminationPage'
+import { PetExaminationsPage } from './features/examinations/containers/petExaminationsPage'
+import { PetExaminationPage } from './features/examinations/containers/petExaminationPage'
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -52,15 +53,15 @@ const App: React.FC = () => {
     user.userName && user.userName.length > 0 ? (
       <LoggedInNavbar />
     ) : (
-      <>
-        <NavLink className="titleContainerNotLogged" to="/">
-          <Typography className="title" variant="h5">
-            iPetCare
+        <>
+          <NavLink className="titleContainerNotLogged" to="/">
+            <Typography className="title" variant="h5">
+              iPetCare
           </Typography>
-        </NavLink>
-        <NotLoggedNavbar />
-      </>
-    )
+          </NavLink>
+          <NotLoggedNavbar />
+        </>
+      )
 
   return (
     <div className="app">
@@ -87,19 +88,17 @@ const App: React.FC = () => {
                   component={EditNotePage}
                 />
                 <Route path="/pets/:petId/notes" component={PetNotesPage} />
-
                 <Route
                   path="/pets/:petId/examinations/add"
                   component={AddExaminationPage}
                 />
-
+                <Route path="/pets/:petId/examinations/:examinationId" component={PetExaminationPage} />
+                <Route path="/pets/:petId/examinations" component={PetExaminationsPage} />
                 <Route path="/pets/details/:petId" component={PetPage} />
                 <Route path="/pets" component={PetsPage} />
-
                 <Route path="/profile/edit" component={EditProfilePage} />
                 <Route path="/users/search" component={UserSearchPage} />
                 <Route path="/institutions" component={InstitutionsPage} />
-                <Route path="/examinations" component={ExaminationsPage} />
                 <Route
                   path="/examination/types"
                   component={ExaminationTypesPage}

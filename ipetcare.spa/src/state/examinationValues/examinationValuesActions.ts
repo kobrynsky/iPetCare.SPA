@@ -10,6 +10,9 @@ export enum ExaminationParameterValuesActionTypes {
     GET_EXAMINATION_PARAMETER_VALUES = 'GET_EXAMINATION_PARAMETER_VALUES',
     GET_EXAMINATION_PARAMETER_VALUES_SUCCESS = 'GET_EXAMINATION_PARAMETER_VALUES_SUCCESS',
     GET_EXAMINATION_PARAMETER_VALUES_FAIL = 'GET_EXAMINATION_PARAMETER_VALUES_FAIL',
+    GET_EXAMINATION_PARAMETER_VALUES_BY_EXAMINATION_ID = 'GET_EXAMINATION_PARAMETER_VALUES_BY_EXAMINATION_ID',
+    GET_EXAMINATION_PARAMETER_VALUES_BY_EXAMINATION_ID_SUCCESS = 'GET_EXAMINATION_PARAMETER_VALUES_BY_EXAMINATION_ID_SUCCESS',
+    GET_EXAMINATION_PARAMETER_VALUES_BY_EXAMINATION_ID_FAIL = 'GET_EXAMINATION_PARAMETER_VALUES_BY_EXAMINATION_ID_FAIL',
     GET_EXAMINATION_PARAMETER_VALUE = 'GET_EXAMINATION_PARAMETER_VALUE',
     GET_EXAMINATION_PARAMETER_VALUE_SUCCESS = 'GET_EXAMINATION_PARAMETER_VALUE_SUCCESS',
     GET_EXAMINATION_PARAMETER_VALUE_FAIL = 'GET_EXAMINATION_PARAMETER_VALUE_FAIL',
@@ -66,6 +69,51 @@ export const handleGetExaminationParameterValuesSuccess = (
 export const handleGetExaminationParameterValuesFail = (dispatch: Dispatch<GetExaminationParameterValuesFail>) => {
     dispatch({
         type: ExaminationParameterValuesActionTypes.GET_EXAMINATION_PARAMETER_VALUES_FAIL,
+    })
+}
+
+// FETCH EXAMINATION_PARAMETER_VALUE LIST BY EXAMINATION ID
+interface GetExaminationParameterValuesByExaminationId {
+    type: ExaminationParameterValuesActionTypes.GET_EXAMINATION_PARAMETER_VALUES_BY_EXAMINATION_ID
+}
+
+interface GetExaminationParameterValuesByExaminationIdSuccess {
+    type: ExaminationParameterValuesActionTypes.GET_EXAMINATION_PARAMETER_VALUES_BY_EXAMINATION_ID_SUCCESS
+    payload: any
+}
+
+interface GetExaminationParameterValuesByExaminationIdFail {
+    type: ExaminationParameterValuesActionTypes.GET_EXAMINATION_PARAMETER_VALUES_BY_EXAMINATION_ID_FAIL
+}
+
+export const getExaminationParameterValuesByExaminationId = (examinationId: string): ThunkResult<void> => async dispatch => {
+    handleGetExaminationParameterValues(dispatch)
+    try {
+        const response: ExaminationParameterValue[] = await examinationParameterValues.getByExaminationId(examinationId)
+        handleGetExaminationParameterValuesByExaminationIdSuccess(dispatch, response)
+    } catch (e) {
+        console.log(e)
+        handleGetExaminationParameterValuesByExaminationIdFail(dispatch)
+    }
+}
+
+export const handleGetExaminationParameterValuesByExaminationId = (dispatch: Dispatch<GetExaminationParameterValuesByExaminationId>) => {
+    dispatch({ type: ExaminationParameterValuesActionTypes.GET_EXAMINATION_PARAMETER_VALUES_BY_EXAMINATION_ID })
+}
+
+export const handleGetExaminationParameterValuesByExaminationIdSuccess = (
+    dispatch: Dispatch<GetExaminationParameterValuesByExaminationIdSuccess>,
+    response: ExaminationParameterValue[]
+) => {
+    dispatch({
+        type: ExaminationParameterValuesActionTypes.GET_EXAMINATION_PARAMETER_VALUES_BY_EXAMINATION_ID_SUCCESS,
+        payload: response,
+    })
+}
+
+export const handleGetExaminationParameterValuesByExaminationIdFail = (dispatch: Dispatch<GetExaminationParameterValuesByExaminationIdFail>) => {
+    dispatch({
+        type: ExaminationParameterValuesActionTypes.GET_EXAMINATION_PARAMETER_VALUES_BY_EXAMINATION_ID_FAIL,
     })
 }
 
@@ -228,6 +276,9 @@ export type EXAMINATION_PARAMETER_VALUES_ACTIONS =
     | GetExaminationParameterValues
     | GetExaminationParameterValuesSuccess
     | GetExaminationParameterValuesFail
+    | GetExaminationParameterValuesByExaminationId
+    | GetExaminationParameterValuesByExaminationIdSuccess
+    | GetExaminationParameterValuesByExaminationIdFail
     | GetExaminationParameterValue
     | GetExaminationParameterValuesuccess
     | GetExaminationParameterValueFail
