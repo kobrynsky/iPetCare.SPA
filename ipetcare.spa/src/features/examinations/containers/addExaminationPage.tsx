@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { RouteComponentProps, useHistory } from "react-router-dom"
-import { Card, CircularProgress, Button, MenuItem, Select, Grid, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Typography, TextareaAutosize } from "@material-ui/core"
+import { Card, CircularProgress, Button, MenuItem, Select, Grid, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Typography, TextareaAutosize, InputLabel } from "@material-ui/core"
 import { RootState } from "../../../state/store"
 import { useDispatch, useSelector } from "react-redux"
 import { getExaminationTypesByPetId } from "../../../state/examinationTypes/examinationTypesActions"
@@ -58,7 +58,7 @@ export const AddExaminationPage = (props: RouteComponentProps<AddExaminationPage
     }
 
     return (
-        examinationTypesState.loading ?
+        examinationTypesState.loading || examinationParametersState.loading ?
             <div>
                 <Grid
                     container
@@ -83,17 +83,24 @@ export const AddExaminationPage = (props: RouteComponentProps<AddExaminationPage
                         alignItems="center"
                         direction="column"
                         style={{ alignSelf: 'center', paddingTop: 20 }}>
-                        <Select
-                            value={examinationTypeId}
-                            onChange={handleChange}
-                            label="Typ badania"
-                        >
-                            {examinationTypesState.items.map((type) =>
-                                <MenuItem value={type.id}>{type.name}</MenuItem>
-                            )
-                            }
-                        </Select>
                         <Card className="formCard">
+                            <Grid
+                                container
+                                justify="center"
+                                alignItems="center"
+                                direction="column"
+                                style={{ alignSelf: 'center', paddingBottom: 10 }}>
+                                <InputLabel style={{ paddingBottom: 10 }}>Typ badania</InputLabel>
+                                <Select
+                                    onChange={handleChange}
+                                    value={examinationTypeId}
+                                >
+                                    {examinationTypesState.items.map((type) =>
+                                        <MenuItem value={type.id}>{type.name}</MenuItem>
+                                    )
+                                    }
+                                </Select>
+                            </Grid>
                             <TableContainer component={Paper}>
                                 <Table size="small" aria-label="a dense table">
                                     <TableHead>
