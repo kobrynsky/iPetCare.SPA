@@ -12,12 +12,21 @@ export interface RegisterProps {
   role: 'Owner' | 'Vet' | 'Admin'
 }
 
-export type SortBy =
+export type SortBy = SortByVets | SortByOwners
+
+export type SortByVets =
   | ''
   | 'SortByLastNameAsc'
   | 'SortByLastNameDesc'
   | 'SortBySpecializationAsc'
   | 'SortBySpecializationDesc'
+
+export type SortByOwners =
+  | ''
+  | 'SortByLastNameAsc'
+  | 'SortByLastNameDesc'
+  | 'SortByPlaceOfResidenceAsc'
+  | 'SortByPlaceOfResidenceDesc'
 
 export interface Institution {
   id: string
@@ -46,7 +55,7 @@ export interface GetSearchDto {
   query: string
   page?: number
   pageSize?: number
-  getVetsSortBy?: SortBy
+  sortBy?: SortByVets | SortByOwners
 }
 
 export interface GetSearchResponseDto {
@@ -54,7 +63,7 @@ export interface GetSearchResponseDto {
   page: number
   pageSize: number
   totalItems: number
-  sortBy: SortBy
+  sortBy: SortByVets | SortByOwners
   vets?: Vet[]
   owners?: Owner[]
 }

@@ -27,13 +27,15 @@ import { ExaminationParametersPage } from './features/examinations/containers/ex
 import { PetsPage } from './features/pets/containers/petsPage'
 import { PetPage } from './features/pets/containers/petPage'
 import PetsIcon from '@material-ui/icons/Pets';
+import { UsersPage } from './features/users/containers/usersPage'
+import { ToastContainer } from 'react-toastify'
+import "react-toastify/dist/ReactToastify.css";
 
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
   const user = useSelector((state: RootState) => state.user.user)
   const [loaded, setLoaded] = useState(false)
-
   useEffect(() => {
     setLoaded(false)
     if (user.token === '') {
@@ -95,12 +97,14 @@ const App: React.FC = () => {
                   path="/examination/parameters"
                   component={ExaminationParametersPage}
                 />
+                <Route path="/users" component={UsersPage} />
                 <Route path="*" component={NotFoundPage} />
               </Switch>
             )}
           </Grid>
         </Grid>
       </BrowserRouter>
+      <ToastContainer autoClose={8000} />
     </div>
   )
 }

@@ -20,13 +20,22 @@ interface Props {
   placeOfResidence?: string
   institutions?: Institution[]
   imageUrl: string
-  title: string
+  title?: string
 }
 
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
     margin: 10,
+    height: 450,
+  },
+  content: {
+    height: 220,
+    scrollBehavior: 'auto',
+    overflow: 'scroll',
+    overflowX: 'hidden',
+    msOverflowStyle: 'none',
+    scrollbarColor: 'transparent',
   },
 })
 
@@ -38,7 +47,7 @@ export const UserResult = ({
   placeOfResidence,
   institutions,
   specialization,
-  title,
+  title = '',
 }: Props) => {
   const classes = useStyles()
 
@@ -51,18 +60,27 @@ export const UserResult = ({
           height="180"
           image={imageUrl}
         />
-        <CardContent>
+        <CardContent className={'hideScroll ' + classes.content}>
           <Typography variant="h5" component="h2">
             {`${title} ${firstName} ${lastName}`}
           </Typography>
           {specialization && (
             <Typography variant="subtitle1" color="textSecondary">
-              {specialization}
+              Specjalizacja: {specialization}
             </Typography>
           )}
           {placeOfResidence && (
             <Typography variant="body1">{placeOfResidence}</Typography>
           )}
+          {institutions &&
+            institutions.map(i => (
+              <>
+                <Typography variant="body1">{i.name}</Typography>
+                <Typography variant="subtitle1" color="textSecondary">
+                  {i.address}
+                </Typography>
+              </>
+            ))}
           {institutions &&
             institutions.map(i => (
               <>

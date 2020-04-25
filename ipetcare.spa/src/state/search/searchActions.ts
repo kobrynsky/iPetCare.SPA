@@ -2,6 +2,7 @@ import { GetSearchResponseDto, GetSearchDto } from '../../api/dto'
 import { ThunkResult } from '../store'
 import { Dispatch } from 'redux'
 import { Users } from '../../api'
+import { toast } from 'react-toastify'
 
 export enum SearchActionTypes {
   SEARCH_VETS = 'SEARCH_VETS',
