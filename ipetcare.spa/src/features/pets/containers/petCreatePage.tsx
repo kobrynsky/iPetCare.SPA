@@ -19,11 +19,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../state/store'
 import { getPet, createPet, updatePet } from '../../../state/pets/petsActions'
 import { RouteComponentProps } from 'react-router-dom'
-import { Pet, PetForm } from '../../../state/pets/petsReducer'
+import { Pet } from '../../../state/pets/petsReducer'
 import { getRaces } from '../../../state/races/racesActions'
 import { getAllSpecies } from '../../../state/species/speciesActions'
 import { Race } from '../../../state/races/racesReducer'
 import { BASE_URL_IMG, DEFAULT_PET_IMG } from '../../../utils/constants'
+import { v4 as uuid } from 'uuid'
 
 interface PetFormParams {
   petId: string
@@ -39,8 +40,9 @@ export const PetCreatePage = (props: RouteComponentProps<PetFormParams>) => {
   const [creationForm, setCreationForm] = useState(true)
   const [canShowRaces, setCanShowRaces] = useState(false)
   const [petSpeciesId, setPetSpeciesId] = useState<number>(1)
+  const [petRaceId, setPetRaceId] = useState<number>(1)
   const [partialRaces, setPartialRaces] = useState<Race[]>([])
-  const [petForm, setPetForm] = useState<Pet>({
+  const [initialPet, setInitialPet] = useState<Pet>({
     id: '',
     birthDate: new Date().toISOString(),
     gender: 'Male',
@@ -65,7 +67,7 @@ export const PetCreatePage = (props: RouteComponentProps<PetFormParams>) => {
         )
         if (currentPet) {
           setCreationForm(false)
-          setPetForm(currentPet)
+          setInitialPet(currentPet)
           const race = racesState.items.find(r => r.id === currentPet?.raceId)
           if (race) {
             setPartialRaces(
@@ -90,21 +92,11 @@ export const PetCreatePage = (props: RouteComponentProps<PetFormParams>) => {
     setCanShowRaces(true)
   }
 
-  const handleSubmitForm = (e: any) => {
-    let tempPet: PetForm = {
-      birthDate: petForm.birthDate,
-      name: petForm.name,
-      height: 10,
-      weight: 10,
-      id: petForm.id,
-      raceId: petForm.raceId,
-      gender: petForm.gender,
-      image: file,
-    }
+  const handleSubmitForm = (values: Pet, actions: any) => {
     if (creationForm) {
-      dispatch(createPet(tempPet))
+      dispatch(createPet({ ...values, image: file, id: uuid() }))
     } else {
-      dispatch(updatePet(tempPet))
+      dispatch(updatePet({ ...values, image: file }))
     }
   }
 
@@ -117,7 +109,7 @@ export const PetCreatePage = (props: RouteComponentProps<PetFormParams>) => {
               <CardContent>
                 {!petsState.loading && !speciesState.loading && (
                   <Formik
-                    enableReinitialize={true}
+                    enableReinitialize={false}
                     validationSchema={object({
                       name: string()
                         .required()
@@ -130,10 +122,10 @@ export const PetCreatePage = (props: RouteComponentProps<PetFormParams>) => {
                         .required(),
                       birthDate: date().required(),
                     })}
-                    initialValues={{ ...petForm, petSpeciesId }}
+                    initialValues={{ ...initialPet, petSpeciesId, petRaceId }}
                     onSubmit={handleSubmitForm}
                   >
-                    {({ values, errors, isSubmitting }) => (
+                    {({ values, errors, isSubmitting, handleChange }) => (
                       <Form>
                         <Grid container spacing={3}>
                           <Grid item xs={6} container alignItems="stretch">
@@ -141,8 +133,8 @@ export const PetCreatePage = (props: RouteComponentProps<PetFormParams>) => {
                               <img
                                 style={{ height: '100%', width: '100%' }}
                                 src={
-                                  petForm.imageUrl
-                                    ? `${BASE_URL_IMG + petForm.imageUrl}`
+                                  values.imageUrl
+                                    ? `${BASE_URL_IMG + values.imageUrl}`
                                     : DEFAULT_PET_IMG
                                 }
                               />
@@ -159,6 +151,7 @@ export const PetCreatePage = (props: RouteComponentProps<PetFormParams>) => {
                                 name="file"
                                 type="file"
                                 onChange={(event: any) => {
+                                  console.log(event.currentTarget.files[0])
                                   setFile(event.currentTarget.files[0])
                                 }}
                               />
@@ -183,6 +176,7 @@ export const PetCreatePage = (props: RouteComponentProps<PetFormParams>) => {
                                   as={TextField}
                                   label="Imię zwierzaka"
                                   variant="outlined"
+                                  value={values.name}
                                 />
                                 <ErrorMessage name="name" />
                               </FormGroup>
@@ -193,7 +187,10 @@ export const PetCreatePage = (props: RouteComponentProps<PetFormParams>) => {
                                 <Field
                                   label="Gatunek"
                                   name="petSpeciesId"
-                                  onChange={handleSpeciesChange}
+                                  onChange={(e: any) => {
+                                    handleSpeciesChange(e)
+                                    handleChange(e)
+                                  }}
                                   as={TextField}
                                   select
                                   variant="outlined"
@@ -215,14 +212,14 @@ export const PetCreatePage = (props: RouteComponentProps<PetFormParams>) => {
                                 <Field
                                   disabled={!canShowRaces || racesState.loading}
                                   label="Rasa"
-                                  name="raceId"
+                                  name="petRaceId"
                                   as={TextField}
                                   select
                                   variant="outlined"
                                 >
                                   {partialRaces.map(race => (
                                     <MenuItem
-                                      selected={petForm.raceId === petSpeciesId}
+                                      selected={values.raceId === petSpeciesId}
                                       key={race.id}
                                       value={race.id}
                                     >
