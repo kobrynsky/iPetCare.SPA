@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { RouteComponentProps, useHistory } from "react-router-dom"
-import { Card, CircularProgress, Button, MenuItem, Select, Grid, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from "@material-ui/core"
+import { Card, CircularProgress, Button, MenuItem, Select, Grid, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Typography, TextareaAutosize } from "@material-ui/core"
 import { RootState } from "../../../state/store"
 import { useDispatch, useSelector } from "react-redux"
 import { getExaminationTypesByPetId } from "../../../state/examinationTypes/examinationTypesActions"
@@ -23,6 +23,7 @@ export const AddExaminationPage = (props: RouteComponentProps<AddExaminationPage
 
     const [examinationTypeId, setExaminationTypeId] = useState(0);
     const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+    const [content, setContent] = useState('')
     const petId = props.match.params.petId
 
     useEffect(() => {
@@ -41,7 +42,7 @@ export const AddExaminationPage = (props: RouteComponentProps<AddExaminationPage
     const onSumbit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const examinationId: string = uuid();
-        await dispatch(createExamination({ petId: petId, examinationTypeId: examinationTypeId, id: examinationId, date: selectedDate as Date }))
+        await dispatch(createExamination({ petId: petId, examinationTypeId: examinationTypeId, id: examinationId, date: selectedDate as Date, content: content }))
 
         let paramsValues = document.getElementsByClassName('parameter-value');
 
@@ -70,6 +71,11 @@ export const AddExaminationPage = (props: RouteComponentProps<AddExaminationPage
             </div>
             :
             <div>
+                < Grid item>
+                    <Typography variant="h2" className="title">
+                        Dodawanie badania
+                    </Typography>
+                </Grid>
                 <form onSubmit={onSumbit}>
                     <Grid
                         container
@@ -78,8 +84,6 @@ export const AddExaminationPage = (props: RouteComponentProps<AddExaminationPage
                         direction="column"
                         style={{ alignSelf: 'center', paddingTop: 20 }}>
                         <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
                             value={examinationTypeId}
                             onChange={handleChange}
                             label="Typ badania"
@@ -114,30 +118,48 @@ export const AddExaminationPage = (props: RouteComponentProps<AddExaminationPage
                                     </TableBody>
                                 </Table>
                             </TableContainer>
-                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                <KeyboardDatePicker
-                                    disableToolbar
-                                    variant="inline"
-                                    format="dd.MM.yyyy"
-                                    margin="normal"
-                                    id="date-picker-inline"
-                                    label="Data badania"
-                                    value={selectedDate}
-                                    onChange={handleDateChange}
-                                    KeyboardButtonProps={{
-                                        'aria-label': 'change date',
-                                    }}
+                            <Grid container item xs={12} style={{ paddingTop: 20 }}>
+                                <TextareaAutosize
+                                    placeholder="Opis badania"
+                                    rowsMin={10}
+                                    onChange={e => setContent(e.target.value)}
                                 />
-                            </MuiPickersUtilsProvider>
+                            </Grid>
+
+                            <Grid item xs={6}>
+                                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                    <KeyboardDatePicker
+                                        disableToolbar
+                                        variant="inline"
+                                        format="dd.MM.yyyy"
+                                        margin="normal"
+                                        id="date-picker-inline"
+                                        label="Data badania"
+                                        value={selectedDate}
+                                        onChange={handleDateChange}
+                                        KeyboardButtonProps={{
+                                            'aria-label': 'change date',
+                                        }}
+                                    />
+                                </MuiPickersUtilsProvider>
+                            </Grid>
+                            <Grid
+                                container
+                                direction="row"
+                                justify="flex-end"
+                                alignItems="flex-end"
+                            >
+                                {examinationParametersState.loading ?
+                                    (
+                                        <CircularProgress style={{ alignSelf: 'center' }} />
+                                    )
+                                    :
+                                    (
+                                        <Button type="submit">Dodaj</Button>
+                                    )}
+                            </Grid>
                         </Card >
-                        {examinationParametersState.loading ?
-                            (
-                                <CircularProgress style={{ alignSelf: 'center' }} />
-                            )
-                            :
-                            (
-                                <Button variant="contained" type="submit">Dodaj badanie</Button>
-                            )}
+
                     </Grid>
                 </form >
             </div >

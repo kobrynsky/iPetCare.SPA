@@ -7,8 +7,8 @@ export interface Examination {
     id?: string
     date: Date
     examinationTypeId: number
-    noteId?: string
     petId: string
+    content?: string
 }
 
 export interface ExaminationsState {
