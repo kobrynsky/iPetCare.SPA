@@ -100,12 +100,14 @@ export const Pets = {
   getPets: (): Promise<Pet[]> => requests.get('/pets').then(petsBody),
   getMyPets: (): Promise<Pet[]> => requests.get('/pets/my').then(petsBody),
   getPet: (id: string): Promise<Pet> => requests.get(`/pets/${id}`),
-  create: (pet: PetForm) =>
-    requests.post('/pets', pet, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    }),
+  create: (pet: PetForm | any) => {
+    let formData = new FormData()
+
+    Object.keys(pet).forEach(key => formData.append(key, pet[key]))
+    return requests.post(`/pets`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
+  },
   update: (pet: PetForm | any) => {
     let formData = new FormData()
 

@@ -1,19 +1,9 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import {
-  Formik,
-  Form,
-  Field,
-  ErrorMessage,
-  useField,
-  FormikProps,
-  FieldAttributes,
-  FieldInputProps,
-} from 'formik'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { object, string, number, date } from 'yup'
 import {
   Card,
   CardContent,
-  Typography,
   Container,
   TextField,
   MenuItem,
@@ -24,17 +14,16 @@ import {
   Select,
   FormControl,
   Box,
-  IconButton,
 } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../state/store'
 import { getPet, createPet, updatePet } from '../../../state/pets/petsActions'
 import { RouteComponentProps } from 'react-router-dom'
-import { Pet } from '../../../state/pets/petsReducer'
+import { Pet, PetForm } from '../../../state/pets/petsReducer'
 import { getRaces } from '../../../state/races/racesActions'
 import { getAllSpecies } from '../../../state/species/speciesActions'
 import { Race } from '../../../state/races/racesReducer'
-import classes from '*.module.css'
+import { BASE_URL_IMG, DEFAULT_PET_IMG } from '../../../utils/constants'
 
 interface PetFormParams {
   petId: string
@@ -53,7 +42,7 @@ export const PetCreatePage = (props: RouteComponentProps<PetFormParams>) => {
   const [partialRaces, setPartialRaces] = useState<Race[]>([])
   const [petForm, setPetForm] = useState<Pet>({
     id: '',
-    birthDate: '',
+    birthDate: new Date().toISOString(),
     gender: 'Male',
     height: 0,
     weight: 0,
@@ -68,6 +57,8 @@ export const PetCreatePage = (props: RouteComponentProps<PetFormParams>) => {
       await dispatch(getAllSpecies())
 
       if (props.match.params.petId) {
+        setCreationForm(false)
+        console.log('ISTNIEJE - EDIT')
         await dispatch(getPet(props.match.params.petId))
         let currentPet = petsState.items.find(
           p => p.id === props.match.params.petId
@@ -84,6 +75,8 @@ export const PetCreatePage = (props: RouteComponentProps<PetFormParams>) => {
             setCanShowRaces(true)
           }
         }
+      } else {
+        setCreationForm(true)
       }
     }
     run()
@@ -98,20 +91,21 @@ export const PetCreatePage = (props: RouteComponentProps<PetFormParams>) => {
   }
 
   const handleSubmitForm = (e: any) => {
-    console.log(e)
-    console.log(file)
-    dispatch(
-      updatePet({
-        birthDate: petForm.birthDate,
-        name: petForm.name,
-        height: petForm.height,
-        weight: petForm.weight,
-        id: petForm.id,
-        raceId: petForm.raceId,
-        gender: petForm.gender,
-        image: file,
-      })
-    )
+    let tempPet: PetForm = {
+      birthDate: petForm.birthDate,
+      name: petForm.name,
+      height: 10,
+      weight: 10,
+      id: petForm.id,
+      raceId: petForm.raceId,
+      gender: petForm.gender,
+      image: file,
+    }
+    if (creationForm) {
+      dispatch(createPet(tempPet))
+    } else {
+      dispatch(updatePet(tempPet))
+    }
   }
 
   return (
@@ -148,8 +142,8 @@ export const PetCreatePage = (props: RouteComponentProps<PetFormParams>) => {
                                 style={{ height: '100%', width: '100%' }}
                                 src={
                                   petForm.imageUrl
-                                    ? petForm.imageUrl
-                                    : 'data:image/png;base64,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'
+                                    ? `${BASE_URL_IMG + petForm.imageUrl}`
+                                    : DEFAULT_PET_IMG
                                 }
                               />
                             </Grid>

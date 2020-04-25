@@ -1,9 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../state/store'
-import { getPets, getMyPets, getPet } from '../../../state/pets/petsActions'
+import {
+  getPets,
+  getMyPets,
+  getPet,
+  deletePet,
+} from '../../../state/pets/petsActions'
 import { getUserState } from '../../../utils/localStorageHelper'
-import { ADMIN } from '../../../utils/constants'
+import { ADMIN, BASE_URL_IMG, DEFAULT_PET_IMG } from '../../../utils/constants'
 import { Pet } from '../../../state/pets/petsReducer'
 import AddIcon from '@material-ui/icons/Add'
 
@@ -18,11 +23,17 @@ import {
   makeStyles,
   Grid,
   Box,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
 } from '@material-ui/core'
-import classes from '*.module.css'
 import { Link } from 'react-router-dom'
 
 export const PetList = () => {
+  const [openDeletePrompt, setOpenDeletePrompt] = useState(false)
+  const [modalPetId, setModalPetId] = useState<string | undefined>('')
   const dispatch = useDispatch()
   const petsState = useSelector((state: RootState) => state.pets)
 
@@ -70,7 +81,11 @@ export const PetList = () => {
                 <CardActionArea>
                   <CardMedia
                     className={classes.media}
-                    image="https://i.ytimg.com/vi/FElFrWPFrxk/hqdefault.jpg"
+                    image={
+                      pet.imageUrl
+                        ? `${BASE_URL_IMG + pet.imageUrl}`
+                        : DEFAULT_PET_IMG
+                    }
                     title={pet.name}
                   />
                   <CardContent>
@@ -94,7 +109,7 @@ export const PetList = () => {
                 </CardActionArea>
                 <CardActions>
                   <Button size="small" color="primary">
-                    Udostępnij [todo]
+                    Szczegóły [todo]
                   </Button>
                   <Button
                     size="small"
@@ -102,7 +117,17 @@ export const PetList = () => {
                     component={Link}
                     to={`/pets/${pet.id}/edit`}
                   >
-                    Szczegóły [todo]
+                    Edycja
+                  </Button>
+                  <Button
+                    size="small"
+                    color="primary"
+                    onClick={() => {
+                      setOpenDeletePrompt(true)
+                      setModalPetId(pet.id)
+                    }}
+                  >
+                    Usuń
                   </Button>
                 </CardActions>
               </Card>
@@ -110,6 +135,38 @@ export const PetList = () => {
           )
         })}
       </Grid>
+
+      <Dialog
+        open={openDeletePrompt}
+        onClose={() => setOpenDeletePrompt(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{'Potwierdź'}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Czy na pewno chcesz usunąć zwierzaka{' '}
+            {petsState.items.find(p => p.id === modalPetId)?.name}?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenDeletePrompt(false)} color="primary">
+            Nie
+          </Button>
+          <Button
+            onClick={() => {
+              if (modalPetId) {
+                dispatch(deletePet(modalPetId))
+              }
+              setOpenDeletePrompt(false)
+            }}
+            color="primary"
+            autoFocus
+          >
+            Tak
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   )
 }

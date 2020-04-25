@@ -174,8 +174,7 @@ interface CreatePetFail {
 }
 
 export const createPet = (
-  pet: Pet,
-  file: File
+  pet: PetForm
 ): ThunkResult<void> => async dispatch => {
   handleCreatePet(dispatch)
   try {
