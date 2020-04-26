@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom'
 import { RootState } from '../../../state/store'
 import { useSelector } from 'react-redux'
 
-export function AdminScreen() {
+export function VetScreen() {
   const user = useSelector((state: RootState) => state.user.user)
 
   return (
@@ -26,9 +26,12 @@ export function AdminScreen() {
             <Grid container direction="column">
               <Grid item>
                 <ContentCard title={`Witaj ${user.firstName}`}>
-                  Właśnie zalogowałeś się do panelu administratora systemu iPetCare. 
-                  Jako administrator możesz przeglądać listę użytkowników oraz zwierząt, dodawać i modyfikować 
-                  rasy oraz gatunki, jak również tworzyć nowe typy badań wraz z ich parametrami oraz dodawać instytucje.
+                  Właśnie zalogowałeś się do panelu weterynarza w systemie iPetCare. 
+                  Sprawdź co zmieniło się od ostatniego logowania. Przeglądaj listę 
+                  podopiecznych, sprawdź nowe aktulaności u każdego z nich. Podczas 
+                  wizyt weterynaryjnych dodawaj wyniki badań oraz dokumentuj historię 
+                  choroby i przebieg wizyt zwierząt, a także planuj przyszłe badania 
+                  i wizyty.
                 </ContentCard>
               </Grid>
             </Grid>

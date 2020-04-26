@@ -25,6 +25,7 @@ export interface User {
 
 export interface UserState {
   user: User
+  items: User[]
   loading: boolean
   error: string | null
 }
@@ -52,6 +53,7 @@ export const initialUserProfile: UserState = {
     id: '',
     imageUrl: '',
   },
+  items: [] as User[],
   loading: false,
   error: null,
 }
@@ -64,6 +66,8 @@ export const userReducer = (
     case UserActionTypes.LOGIN_USER:
     case UserActionTypes.REGISTER_USER:
     case UserActionTypes.EDIT_USER:
+    case UserActionTypes.GET_ALL_USERS:
+    case UserActionTypes.GET_ALL_USERS_FAIL:
       return { ...state, loading: true }
 
     case UserActionTypes.REGISTER_USER_FAIL:
@@ -96,6 +100,14 @@ export const userReducer = (
         ...state,
         user: {} as User,
       }
+
+    case UserActionTypes.GET_ALL_USERS_SUCCESS:
+      return {
+        ...state,
+        items: [...action.payload],
+        loading: false,
+      }
+
     default:
       return state
   }

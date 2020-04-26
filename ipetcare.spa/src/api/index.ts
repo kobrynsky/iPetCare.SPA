@@ -1,7 +1,7 @@
-import axios, { AxiosResponse } from 'axios'
+import axios, { AxiosResponse, AxiosRequestConfig } from 'axios'
 import { BASE_URL } from '../utils/constants'
 import { getUserState, deleteUserState } from '../utils/localStorageHelper'
-import { Pet } from '../state/pets/petsReducer'
+import { Pet, PetForm } from '../state/pets/petsReducer'
 import { Race } from '../state/races/racesReducer'
 import { Species } from '../state/species/speciesReducer'
 import { history } from '../index'
@@ -18,6 +18,7 @@ import { ExaminationParameter } from '../state/examinationParameters/examination
 import { Note } from '../state/notes/notesReducer'
 import { Examination, ExaminationDetails } from '../state/examinations/examinationsReducer'
 import { ExaminationParameterValue } from '../state/examinationValues/examinationValuesReducer'
+import { toast } from 'react-toastify'
 
 axios.defaults.baseURL = BASE_URL
 
@@ -39,27 +40,31 @@ axios.interceptors.response.use(undefined, error => {
   const { status, data, config } = error.response
   if (status === 404) {
     console.log(error.response)
-    history.replace('/notfound')
+    toast.error("Błąd: " + error.response.data)
+    history.push('/notfound')
   }
   if (status === 403) {
     console.log(error.response)
-    history.replace('/forbidden')
+    toast.error("Błąd: " + error.response.data)
+    history.push('/forbidden')
   }
   if (status === 401) {
     console.log(error.response)
+    toast.error("Błąd: " + error.response.data)
     deleteUserState()
     history.replace('/unauthorized')
     console.info('Twoja sesja wygasła, zaloguj się ponownie.')
   }
   if (
-    status === 400 &&
-    config.method === 'get' &&
-    data.errors.hasOwnProperty('id')
+    status === 400
   ) {
-    history.replace('/notfound')
+    history.push('/notfound')
+    toast.error("Błąd: " + error.response.data)
+    console.log(error.response)
   }
   if (status === 500) {
     console.log(error.response)
+    toast.error("Błąd: " + "Błąd serwera - sprawdź konsolę, aby uzyskać więcej informacji!")
     console.error(
       'Błąd serwera - sprawdź konsolę, aby uzyskać więcej informacji!'
     )
@@ -78,12 +83,15 @@ const petsBody = (response: any) => response.pets
 const notesBody = (response: any) => response.notes
 const examinationsBody = (response: any) => response.examinations
 const examinationParameterValuesBody = (response: any) => response.examinationParametersValues
+const usersBody = (response: any) => response.users
 
 const requests = {
   get: (url: string, body?: {}) =>
     axios.get(url, { data: body }).then(responseBody),
-  post: (url: string, body: {}) => axios.post(url, body).then(responseBody),
-  put: (url: string, body: {}) => axios.put(url, body).then(responseBody),
+  post: (url: string, body: {}, config?: AxiosRequestConfig | undefined) =>
+    axios.post(url, body, config).then(responseBody),
+  put: (url: string, body: {}, config?: AxiosRequestConfig | undefined) =>
+    axios.put(url, body, config).then(responseBody),
   del: (url: string) => axios.delete(url).then(responseBody),
 }
 
@@ -95,17 +103,35 @@ export const Users = {
   users: (): Promise<User[]> => requests.get('/users'),
   edit: (user: User): Promise<User> => requests.put('/users', user),
   getVets: (searchDto: GetSearchDto): Promise<GetSearchResponseDto> =>
-    requests.post('users/vets', searchDto),
+    requests.post('/users/vets', searchDto),
   getOwners: (searchDto: GetSearchDto): Promise<GetSearchResponseDto> =>
-    requests.post('users/owners', searchDto),
+    requests.post('/users/owners', searchDto),
 }
 
 export const Pets = {
   getPets: (): Promise<Pet[]> => requests.get('/pets').then(petsBody),
   getMyPets: (): Promise<Pet[]> => requests.get('/pets/my').then(petsBody),
   getPet: (id: string): Promise<Pet> => requests.get(`/pets/${id}`),
-  create: (pet: Pet) => requests.post('/pets', pet),
-  update: (pet: Pet) => requests.put(`/pets/${pet.id}`, pet),
+  create: (pet: PetForm | any) => {
+    let formData = new FormData()
+
+    Object.keys(pet).forEach(key => formData.append(key, pet[key]))
+    return requests.post(`/pets`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
+  },
+  update: (pet: PetForm | any) => {
+    let formData = new FormData()
+
+    console.log(pet)
+    // Convert pet to formdata.
+    // Since file can not be converted to json, convert json to form-data
+    // ̿̿ ̿̿ ̿̿ ̿'̿'\̵͇̿̿\з= ( ▀ ͜͞ʖ▀) =ε/̵͇̿̿/’̿’̿ ̿ ̿̿ ̿̿ ̿̿
+    Object.keys(pet).forEach(key => formData.append(key, pet[key]))
+    return requests.put(`/pets/${pet.id}`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
+  },
   delete: (id: string) => requests.del(`/pets/${id}`),
 }
 

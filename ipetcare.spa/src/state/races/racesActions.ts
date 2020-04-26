@@ -4,6 +4,7 @@ import { ThunkAction } from 'redux-thunk'
 import { Dispatch } from 'redux'
 import { ThunkResult } from '../store'
 import { Race } from './racesReducer'
+import { toast } from 'react-toastify';
 
 export enum RacesActionParameters {
   GET_RACES = 'GET_RACES',
@@ -132,6 +133,7 @@ export const createRace = (
   try {
     const response: Race = await races.create(examinationParameter)
     handleCreateRaceSuccess(dispatch, response)
+    toast.success("Sukces")
   } catch (e) {
     handleCreateRaceFail(dispatch)
   }
@@ -177,6 +179,7 @@ export const updateRace = (
   try {
     const response: Race = await races.update(updatedRace)
     handleUpdateRaceSuccess(dispatch, response)
+    toast.success("Sukces")
   } catch (e) {
     handleUpdateRaceFail(dispatch)
   }
@@ -224,6 +227,7 @@ export const deleteRace = (
       type: RacesActionParameters.DELETE_RACE_SUCCESS,
       payload: deletedId,
     })
+    toast.success("Sukces")
   } catch (e) {
     dispatch({ type: RacesActionParameters.DELETE_RACE_FAIL })
   }
