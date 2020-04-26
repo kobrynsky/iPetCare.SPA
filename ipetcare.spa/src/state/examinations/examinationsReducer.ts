@@ -11,8 +11,42 @@ export interface Examination {
     content?: string
 }
 
+export interface ExaminationDetails {
+    id: string;
+    date: string;
+    examinationType: ExaminationType;
+    content: string;
+    pet: Pet;
+    examinationParameterValues: ExaminationParameterValue[];
+}
+
+export interface ExaminationParameterValue {
+    id: string;
+    value: number;
+    examinationParameter: ExaminationParameter;
+}
+
+export interface ExaminationParameter {
+    id: number;
+    name: string;
+    upperLimit: number;
+    lowerLimit: number;
+}
+
+export interface ExaminationType {
+    id: number;
+    name: string;
+}
+
+export interface Pet {
+    id: string;
+    name: string;
+}
+
+
 export interface ExaminationsState {
     items: Examination[]
+    itemDetails?: ExaminationDetails
     loading: boolean
     error: String | null
 }
@@ -67,6 +101,11 @@ export const examinationsReducer = (
             }
 
         case ExaminationsActionTypes.GET_EXAMINATION_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                itemDetails: action.payload
+            }
         case ExaminationsActionTypes.UPDATE_EXAMINATION_SUCCESS:
             return {
                 ...state,

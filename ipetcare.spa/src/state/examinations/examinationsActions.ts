@@ -3,7 +3,7 @@ import { Examinations as examinations } from '../../api'
 import { ThunkAction } from 'redux-thunk'
 import { Dispatch } from 'redux'
 import { RootState, RootActions } from '../store'
-import { Examination } from './examinationsReducer'
+import { Examination, ExaminationDetails } from './examinationsReducer'
 
 export type ThunkResult<R> = ThunkAction<R, RootState, undefined, RootActions>
 export enum ExaminationsActionTypes {
@@ -124,7 +124,7 @@ interface GetExamination {
 
 interface GetExaminationsuccess {
     type: ExaminationsActionTypes.GET_EXAMINATION_SUCCESS
-    payload: Examination
+    payload: ExaminationDetails
 }
 
 interface GetExaminationFail {
@@ -134,7 +134,7 @@ interface GetExaminationFail {
 export const getExamination = (id: string): ThunkResult<void> => async dispatch => {
     handleGetExamination(dispatch)
     try {
-        const response: Examination = await examinations.getExamination(id)
+        const response: ExaminationDetails = await examinations.getExamination(id)
         handleGetExaminationsuccess(dispatch, response)
     } catch (e) {
         handleGetExaminationFail(dispatch)
@@ -147,7 +147,7 @@ export const handleGetExamination = (dispatch: Dispatch<GetExamination>) => {
 
 const handleGetExaminationsuccess = (
     dispatch: Dispatch<GetExaminationsuccess>,
-    response: Examination
+    response: ExaminationDetails
 ) => {
     dispatch({
         type: ExaminationsActionTypes.GET_EXAMINATION_SUCCESS,

@@ -16,7 +16,7 @@ import { Institution } from '../state/institutions/institutionsReducer'
 import { ExaminationType } from '../state/examinationTypes/examinationTypesReducer'
 import { ExaminationParameter } from '../state/examinationParameters/examinationParametersReducer'
 import { Note } from '../state/notes/notesReducer'
-import { Examination } from '../state/examinations/examinationsReducer'
+import { Examination, ExaminationDetails } from '../state/examinations/examinationsReducer'
 import { ExaminationParameterValue } from '../state/examinationValues/examinationValuesReducer'
 
 axios.defaults.baseURL = BASE_URL
@@ -185,8 +185,8 @@ export const Examinations = {
   getExaminations: (): Promise<Examination[]> =>
     requests.get('/examinations').then(examinationsBody),
   getExaminationsByPetId: (petId: string): Promise<Examination[]> =>
-    requests.get(`/examinations/${petId}`).then(examinationsBody),
-  getExamination: (id: string): Promise<Examination> => requests.get(`/examinations/${id}`),
+    requests.get(`/examinations/pet/${petId}`).then(examinationsBody),
+  getExamination: (id: string): Promise<ExaminationDetails> => requests.get(`/examinations/${id}`),
   create: (examination: Examination) => requests.post('/examinations', examination),
   update: (examination: Examination) => requests.put(`/examinations/${examination.id}`, examination),
   delete: (id: string, petId: string) => requests.del(`/examinations/${petId}/${id}`),
