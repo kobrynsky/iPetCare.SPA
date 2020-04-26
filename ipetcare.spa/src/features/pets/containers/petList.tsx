@@ -128,6 +128,24 @@ export const PetList = () => {
                     size="small"
                     color="primary"
                     component={Link}
+                    to={`/pets/${pet.id}/examinations`}
+                  >
+                    Badania
+                  </Button>
+                  <Button
+                    size="small"
+                    color="primary"
+                    component={Link}
+                    to={`/pets/${pet.id}/notes`}
+                  >
+                    Notatki
+                  </Button>
+                </CardActions>
+                <CardActions>
+                  <Button
+                    size="small"
+                    color="primary"
+                    component={Link}
                     to={`/pets/${pet.id}`}
                   >
                     Szczegóły

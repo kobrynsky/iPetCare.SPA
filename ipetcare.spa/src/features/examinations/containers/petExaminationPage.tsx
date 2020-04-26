@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { RouteComponentProps } from "react-router-dom"
-import { Card, Typography, Grid, CircularProgress, CardContent, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, makeStyles } from "@material-ui/core"
+import { Card, Typography, Grid, CircularProgress, CardContent, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, makeStyles, Box } from "@material-ui/core"
 import { RootState } from "../../../state/store"
 import { useDispatch, useSelector } from "react-redux"
 import Moment from 'react-moment';
@@ -52,9 +52,9 @@ export const PetExaminationPage = (props: RouteComponentProps<PetExaminationPage
             </div>
             :
             <div>
-                <Typography variant="h2" className="title">
-                    Szczegóły badania
-                </Typography>
+                <Box marginY={2}>
+                    <Typography variant="h2" className="title">Szczegóły badania</Typography>
+                </Box>
                 <Grid
                     container
                     direction="row"
