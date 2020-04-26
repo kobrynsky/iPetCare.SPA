@@ -45,10 +45,12 @@ const useStyles = makeStyles({
   inputContainer: {
     display: 'flex',
     marginTop: 20,
-    minWidth: 600,
+    padding: 10,
+    minWidth: 300,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    flexWrap: 'wrap',
     backgroundColor: 'rgba(244, 244, 244, 0.85)',
     borderRadius: 10,
     boxShadow: '3px 3px 10px #AAAAAA',
@@ -79,7 +81,7 @@ const renderVets = (results: GetSearchResponseDto) => {
       />
     ))
   } else {
-    return <h3>Nie znaleziono, spróbuj wpisać inną frazę</h3>
+    return <h3>Wpisz frazę, aby wyszukać</h3>
   }
 }
 
@@ -96,7 +98,7 @@ const renderOwners = (results: GetSearchResponseDto) => {
       />
     ))
   } else {
-    return <h3>Nie znaleziono, spróbuj wpisać inną frazę</h3>
+    return <h3>Wpisz frazę, aby wyszukać</h3>
   }
 }
 
