@@ -111,6 +111,7 @@ export const Pets = {
   update: (pet: PetForm | any) => {
     let formData = new FormData()
 
+    console.log(pet)
     // Convert pet to formdata.
     // Since file can not be converted to json, convert json to form-data
     // ̿̿ ̿̿ ̿̿ ̿'̿'\̵͇̿̿\з= ( ▀ ͜͞ʖ▀) =ε/̵͇̿̿/’̿’̿ ̿ ̿̿ ̿̿ ̿̿

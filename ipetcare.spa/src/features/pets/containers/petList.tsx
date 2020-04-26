@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../state/store'
-import {
-  getPets,
-  getMyPets,
-  getPet,
-  deletePet,
-} from '../../../state/pets/petsActions'
+import { getPets, getMyPets, deletePet } from '../../../state/pets/petsActions'
 import { getUserState } from '../../../utils/localStorageHelper'
 import { ADMIN, BASE_URL_IMG, DEFAULT_PET_IMG } from '../../../utils/constants'
 import { Pet } from '../../../state/pets/petsReducer'
@@ -30,15 +25,22 @@ import {
   DialogActions,
 } from '@material-ui/core'
 import { Link } from 'react-router-dom'
+import moment from 'moment'
+import { getRaces } from '../../../state/races/racesActions'
+import { getAllSpecies } from '../../../state/species/speciesActions'
 
 export const PetList = () => {
   const [openDeletePrompt, setOpenDeletePrompt] = useState(false)
   const [modalPetId, setModalPetId] = useState<string | undefined>('')
   const dispatch = useDispatch()
   const petsState = useSelector((state: RootState) => state.pets)
+  const racesState = useSelector((state: RootState) => state.races)
+  const speciesState = useSelector((state: RootState) => state.species)
 
   const user = getUserState()
   useEffect(() => {
+    dispatch(getAllSpecies())
+    dispatch(getRaces())
     if (user) {
       if (user.role === ADMIN) {
         dispatch(getPets())
@@ -92,24 +94,43 @@ export const PetList = () => {
                     <Typography gutterBottom variant="h5" component="h2">
                       {pet.name}
                     </Typography>
-                    <Typography color="textSecondary">{pet.raceId}</Typography>
+
                     <Typography color="textSecondary">
-                      Wzrost: {pet.height}
+                      {
+                        speciesState.items.find(
+                          s =>
+                            s.id ===
+                            racesState.items.find(r => r.id === pet.raceId)
+                              ?.speciesId
+                        )?.name
+                      }
                     </Typography>
                     <Typography color="textSecondary">
-                      Waga: {pet.weight}
+                      {racesState.items.find(r => r.id === pet.raceId)?.name}
                     </Typography>
                     <Typography color="textSecondary">
-                      Płeć: {pet.gender}
+                      Wzrost: {pet.height} cm
                     </Typography>
                     <Typography color="textSecondary">
-                      Data urodzenia: {new Date(pet.birthDate).toDateString()}
+                      Waga: {pet.weight} kg
+                    </Typography>
+                    <Typography color="textSecondary">
+                      Płeć: {pet.gender === 'Male' ? 'Samiec' : 'Samica'}
+                    </Typography>
+                    <Typography color="textSecondary">
+                      Data urodzenia:{' '}
+                      {moment(pet.birthDate).format('YYYY-MM-DD')}
                     </Typography>
                   </CardContent>
                 </CardActionArea>
                 <CardActions>
-                  <Button size="small" color="primary">
-                    Szczegóły [todo]
+                  <Button
+                    size="small"
+                    color="primary"
+                    component={Link}
+                    to={`/pets/${pet.id}`}
+                  >
+                    Szczegóły
                   </Button>
                   <Button
                     size="small"

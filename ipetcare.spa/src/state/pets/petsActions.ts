@@ -3,7 +3,6 @@ import { Pets as pets } from '../../api'
 import { Dispatch } from 'redux'
 import { ThunkResult } from '../store'
 import { Pet, PetForm } from './petsReducer'
-import { RootState, RootActions } from '../store'
 import { AxiosResponse } from 'axios'
 
 export enum PetsActionTypes {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { object, string, number, date } from 'yup'
 import {
@@ -32,19 +32,18 @@ interface PetFormParams {
   petId: string
 }
 
-export const PetCreatePage = (props: RouteComponentProps<PetFormParams>) => {
+export const PetFormPage = (props: RouteComponentProps<PetFormParams>) => {
   const dispatch = useDispatch()
   const petsState = useSelector((state: RootState) => state.pets)
   const racesState = useSelector((state: RootState) => state.races)
   const speciesState = useSelector((state: RootState) => state.species)
 
+  const [submitting, setSubmitting] = useState(false)
   const [file, setFile] = useState<any>()
   const [creationForm, setCreationForm] = useState(true)
   const [canShowRaces, setCanShowRaces] = useState(false)
   const [petSpeciesId, setPetSpeciesId] = useState<number>(1)
-  const [petRaceId, setPetRaceId] = useState<number>(1)
   const [partialRaces, setPartialRaces] = useState<Race[]>([])
-  const [birthDate, setBirthDate] = useState<Date>()
   const [initialPet, setInitialPet] = useState<Pet>({
     id: '',
     birthDate: moment().format('YYYY-MM-DD'),
@@ -58,40 +57,56 @@ export const PetCreatePage = (props: RouteComponentProps<PetFormParams>) => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    console.log('halo1')
     const run = async () => {
+      console.log('halo2')
+
       setIsLoading(true)
       await dispatch(getRaces())
+      console.log('halo3')
+
       await dispatch(getAllSpecies())
+      console.log('halo4')
 
       if (props.match.params.petId) {
+        console.log('halo5')
+
+        // pet exists - edit
         setCreationForm(false)
         console.log('ISTNIEJE - EDIT')
         await dispatch(getPet(props.match.params.petId))
-        let currentPet = petsState.items.find(
-          p => p.id === props.match.params.petId
-        )
-        if (currentPet) {
-          setCreationForm(false)
-          setInitialPet({
-            ...currentPet,
-            birthDate: moment(currentPet.birthDate).format('YYYY-MM-DD'),
-          })
-          const race = racesState.items.find(r => r.id === currentPet?.raceId)
-          if (race) {
-            setPartialRaces(
-              racesState.items.filter(r => r.speciesId === race?.speciesId)
-            )
-            setPetSpeciesId(race?.speciesId)
-            setCanShowRaces(true)
-          }
-        }
       } else {
+        console.log('halo6')
+
+        // pet does not exist - create
         setCreationForm(true)
       }
       setIsLoading(false)
     }
     run()
-  }, [])
+  }, [submitting])
+
+  useEffect(() => {
+    let currentPet = petsState.items.find(
+      p => p.id === props.match.params.petId
+    )
+    console.log(currentPet)
+    if (currentPet) {
+      setCreationForm(false)
+      setInitialPet({
+        ...currentPet,
+        birthDate: moment(currentPet.birthDate).format('YYYY-MM-DD'),
+      })
+      const race = racesState.items.find(r => r.id === currentPet?.raceId)
+      if (race) {
+        setPartialRaces(
+          racesState.items.filter(r => r.speciesId === race?.speciesId)
+        )
+        setPetSpeciesId(race?.speciesId)
+        setCanShowRaces(true)
+      }
+    }
+  }, [petsState.loading])
 
   const handleSpeciesChange = (e: any) => {
     setPetSpeciesId(e.target.value)
@@ -102,11 +117,13 @@ export const PetCreatePage = (props: RouteComponentProps<PetFormParams>) => {
   }
 
   const handleSubmitForm = (values: Pet, actions: any) => {
+    console.log('haslko)')
     if (creationForm) {
       dispatch(createPet({ ...values, image: file, id: uuid() }))
     } else {
       dispatch(updatePet({ ...values, image: file }))
     }
+    setSubmitting(!submitting)
   }
 
   return (
@@ -135,7 +152,7 @@ export const PetCreatePage = (props: RouteComponentProps<PetFormParams>) => {
                         .required(),
                       birthDate: date().required(),
                     })}
-                    initialValues={{ ...initialPet, petSpeciesId, petRaceId }}
+                    initialValues={{ ...initialPet, petSpeciesId }}
                     onSubmit={handleSubmitForm}
                   >
                     {({ values, errors, isSubmitting, handleChange }) => (
@@ -168,7 +185,6 @@ export const PetCreatePage = (props: RouteComponentProps<PetFormParams>) => {
                                   setFile(event.currentTarget.files[0])
                                 }}
                               />
-                              <pre>{JSON.stringify(values, null, 4)} </pre>
                               <FormControl fullWidth margin="normal">
                                 <Button
                                   variant="contained"
@@ -224,7 +240,7 @@ export const PetCreatePage = (props: RouteComponentProps<PetFormParams>) => {
                                 <Field
                                   disabled={!canShowRaces || racesState.loading}
                                   label="Rasa"
-                                  name="petRaceId"
+                                  name="raceId"
                                   as={TextField}
                                   select
                                   variant="outlined"
@@ -311,17 +327,6 @@ export const PetCreatePage = (props: RouteComponentProps<PetFormParams>) => {
                                 />
                                 <ErrorMessage name="birthDate" />
                               </FormGroup>
-                            </FormControl>
-
-                            <FormControl fullWidth margin="normal">
-                              <Button
-                                variant="contained"
-                                color="primary"
-                                type="submit"
-                                disabled={isSubmitting}
-                              >
-                                Usuń [TODO]
-                              </Button>
                             </FormControl>
                           </Grid>
                         </Grid>
