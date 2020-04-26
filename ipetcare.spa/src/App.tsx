@@ -24,8 +24,9 @@ import { UserSearchPage } from './features/userSearch/containers/userSearchPage'
 import { InstitutionsPage } from './features/institutions/containers/institutionsPage'
 import { ExaminationTypesPage } from './features/examinations/containers/examinationTypesPage'
 import { ExaminationParametersPage } from './features/examinations/containers/examinationParametersPage'
-import { PetsPage } from './features/pets/containers/petsPage'
+import { PetList } from './features/pets/containers/petList'
 import { PetPage } from './features/pets/containers/petPage'
+import { PetFormPage } from './features/pets/containers/petFormPage'
 import PetsIcon from '@material-ui/icons/Pets';
 import { UsersPage } from './features/users/containers/usersPage'
 import { ToastContainer } from 'react-toastify'
@@ -84,8 +85,10 @@ const App: React.FC = () => {
                 <Route path="/species" component={SpeciesPage} />
                 <Route path="/forbidden" component={ForbiddenPage} />
                 <Route path="/unauthorized" component={UnauthorizedPage} />
-                <Route path="/pets/details/:petId" component={PetPage} />
-                <Route path="/pets" component={PetsPage} />
+                <Route exact path="/pets/create" component={PetFormPage} />
+                <Route exact path="/pets/:petId/edit" component={PetFormPage} />
+                <Route exact path="/pets/:petId" component={PetPage} />
+                <Route exact path="/pets" component={PetList} />
                 <Route path="/profile/edit" component={EditProfilePage} />
                 <Route path="/users/search" component={UserSearchPage} />
                 <Route path="/institutions" component={InstitutionsPage} />

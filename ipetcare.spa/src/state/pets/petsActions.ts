@@ -2,8 +2,7 @@ import { history } from './../../index'
 import { Pets as pets } from '../../api'
 import { Dispatch } from 'redux'
 import { ThunkResult } from '../store'
-import { Pet } from './petsReducer'
-import { RootState, RootActions } from '../store'
+import { Pet, PetForm } from './petsReducer'
 import { AxiosResponse } from 'axios'
 import { toast } from 'react-toastify';
 
@@ -174,7 +173,9 @@ interface CreatePetFail {
   type: PetsActionTypes.CREATE_PET_FAIL
 }
 
-export const createPet = (pet: Pet): ThunkResult<void> => async dispatch => {
+export const createPet = (
+  pet: PetForm
+): ThunkResult<void> => async dispatch => {
   handleCreatePet(dispatch)
   try {
     console.log(pet)
@@ -217,7 +218,7 @@ interface UpdatePetFail {
 }
 
 export const updatePet = (
-  updatedPet: Pet
+  updatedPet: PetForm
 ): ThunkResult<void> => async dispatch => {
   handleUpdatePet(dispatch)
   try {

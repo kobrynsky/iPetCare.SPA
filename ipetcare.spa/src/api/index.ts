@@ -1,7 +1,7 @@
-import axios, { AxiosResponse } from 'axios'
+import axios, { AxiosResponse, AxiosRequestConfig } from 'axios'
 import { BASE_URL } from '../utils/constants'
 import { getUserState, deleteUserState } from '../utils/localStorageHelper'
-import { Pet } from '../state/pets/petsReducer'
+import { Pet, PetForm } from '../state/pets/petsReducer'
 import { Race } from '../state/races/racesReducer'
 import { Species } from '../state/species/speciesReducer'
 import { history } from '../index'
@@ -82,8 +82,10 @@ const usersBody = (response: any) => response.users
 const requests = {
   get: (url: string, body?: {}) =>
     axios.get(url, { data: body }).then(responseBody),
-  post: (url: string, body: {}) => axios.post(url, body).then(responseBody),
-  put: (url: string, body: {}) => axios.put(url, body).then(responseBody),
+  post: (url: string, body: {}, config?: AxiosRequestConfig | undefined) =>
+    axios.post(url, body, config).then(responseBody),
+  put: (url: string, body: {}, config?: AxiosRequestConfig | undefined) =>
+    axios.put(url, body, config).then(responseBody),
   del: (url: string) => axios.delete(url).then(responseBody),
 }
 
@@ -104,8 +106,26 @@ export const Pets = {
   getPets: (): Promise<Pet[]> => requests.get('/pets').then(petsBody),
   getMyPets: (): Promise<Pet[]> => requests.get('/pets/my').then(petsBody),
   getPet: (id: string): Promise<Pet> => requests.get(`/pets/${id}`),
-  create: (pet: Pet) => requests.post('/pets', pet),
-  update: (pet: Pet) => requests.put(`/pets/${pet.id}`, pet),
+  create: (pet: PetForm | any) => {
+    let formData = new FormData()
+
+    Object.keys(pet).forEach(key => formData.append(key, pet[key]))
+    return requests.post(`/pets`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
+  },
+  update: (pet: PetForm | any) => {
+    let formData = new FormData()
+
+    console.log(pet)
+    // Convert pet to formdata.
+    // Since file can not be converted to json, convert json to form-data
+    // ̿̿ ̿̿ ̿̿ ̿'̿'\̵͇̿̿\з= ( ▀ ͜͞ʖ▀) =ε/̵͇̿̿/’̿’̿ ̿ ̿̿ ̿̿ ̿̿
+    Object.keys(pet).forEach(key => formData.append(key, pet[key]))
+    return requests.put(`/pets/${pet.id}`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
+  },
   delete: (id: string) => requests.del(`/pets/${id}`),
 }
 

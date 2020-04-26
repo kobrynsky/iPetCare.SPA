@@ -12,6 +12,17 @@ export interface Pet {
   gender: string
 }
 
+export interface PetForm {
+  id?: string
+  image?: any
+  name: string
+  weight: number
+  height: number
+  birthDate: string
+  raceId: number
+  gender: string
+}
+
 export interface PetsState {
   items: Pet[]
   loading: boolean
