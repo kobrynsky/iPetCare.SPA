@@ -1,19 +1,10 @@
 import React, { useEffect } from "react"
-import { RouteComponentProps, Link } from "react-router-dom"
-import { Card, Typography, Grid, CircularProgress, Button, CardActions, CardContent, IconButton, CssBaseline, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, makeStyles } from "@material-ui/core"
+import { RouteComponentProps } from "react-router-dom"
+import { Card, Typography, Grid, CircularProgress, CardContent, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, makeStyles } from "@material-ui/core"
 import { RootState } from "../../../state/store"
 import { useDispatch, useSelector } from "react-redux"
-import { getNotes, deleteNote } from "../../../state/notes/notesActions"
 import Moment from 'react-moment';
-import { getPet } from "../../../state/pets/petsActions"
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import { getExaminationsByPetId, getExamination, getExaminations } from "../../../state/examinations/examinationsActions"
-import { getExaminationTypesByPetId } from "../../../state/examinationTypes/examinationTypesActions"
-import FormatAlignJustifyIcon from '@material-ui/icons/FormatAlignJustify';
-import { getExaminationParameterValuesByExaminationId } from "../../../state/examinationValues/examinationValuesActions"
-import red from '@material-ui/core/colors/red';
-import green from '@material-ui/core/colors/green';
+import { getExamination } from "../../../state/examinations/examinationsActions"
 
 interface PetExaminationPageParams {
     petId: string;
@@ -40,7 +31,6 @@ export const PetExaminationPage = (props: RouteComponentProps<PetExaminationPage
     const examinationsState = useSelector((state: RootState) => state.examinations)
     const examination = useSelector((state: RootState) => state.examinations.itemDetails)
 
-    const petId = props.match.params.petId
     const examinationId = props.match.params.examinationId
 
     useEffect(() => {

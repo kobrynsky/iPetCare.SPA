@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { RouteComponentProps, Link } from "react-router-dom"
-import { Card, Typography, Grid, CircularProgress, Button, CardActions, CardContent, IconButton, CssBaseline } from "@material-ui/core"
+import { Card, Typography, Grid, CircularProgress, CardActions, CardContent, IconButton } from "@material-ui/core"
 import { RootState } from "../../../state/store"
 import { useDispatch, useSelector } from "react-redux"
 import { getNotes, deleteNote } from "../../../state/notes/notesActions"

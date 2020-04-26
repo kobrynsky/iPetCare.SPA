@@ -1,13 +1,10 @@
 import React, { useEffect } from "react"
 import { RouteComponentProps, Link } from "react-router-dom"
-import { Card, Typography, Grid, CircularProgress, Button, CardActions, CardContent, IconButton, CssBaseline, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from "@material-ui/core"
+import { Card, Typography, Grid, CircularProgress, IconButton, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from "@material-ui/core"
 import { RootState } from "../../../state/store"
 import { useDispatch, useSelector } from "react-redux"
-import { getNotes, deleteNote } from "../../../state/notes/notesActions"
 import Moment from 'react-moment';
-import { getPet } from "../../../state/pets/petsActions"
 import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
 import { getExaminationsByPetId, deleteExamination } from "../../../state/examinations/examinationsActions"
 import { getExaminationTypesByPetId } from "../../../state/examinationTypes/examinationTypesActions"
 import FormatAlignJustifyIcon from '@material-ui/icons/FormatAlignJustify';
