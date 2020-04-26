@@ -1,9 +1,9 @@
-import { history } from './../../index'
 import { Examinations as examinations } from '../../api'
 import { ThunkAction } from 'redux-thunk'
 import { Dispatch } from 'redux'
 import { RootState, RootActions } from '../store'
 import { Examination, ExaminationDetails } from './examinationsReducer'
+import { toast } from 'react-toastify'
 
 export type ThunkResult<R> = ThunkAction<R, RootState, undefined, RootActions>
 export enum ExaminationsActionTypes {
@@ -180,6 +180,7 @@ export const createExamination = (examination: Examination): ThunkResult<void> =
     try {
         const response: Examination = await examinations.create(examination)
         handleCreateExaminationSuccess(dispatch, response)
+        toast.success("Dodano badanie")
     } catch (e) {
         handleCreateExaminationFail(dispatch)
     }
@@ -221,6 +222,7 @@ export const updateExamination = (
     try {
         const response: Examination = await examinations.update(updatedExamination)
         handleUpdateExaminationSuccess(dispatch, response)
+        toast.success("Edytowano badanie")
     } catch (e) {
         handleUpdateExaminationFail(dispatch)
     }
@@ -262,12 +264,11 @@ export const deleteExamination = (
     dispatch({ type: ExaminationsActionTypes.DELETE_EXAMINATION })
     try {
         await examinations.delete(deletedId, petId)
-        console.log("id: " + deletedId)
         dispatch({
             type: ExaminationsActionTypes.DELETE_EXAMINATION_SUCCESS,
             payload: deletedId,
         })
-        history.push('/Examinations')
+        toast.success("Usunięto badanie")
     } catch (e) {
         dispatch({ type: ExaminationsActionTypes.DELETE_EXAMINATION_FAIL })
     }

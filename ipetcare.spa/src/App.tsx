@@ -35,7 +35,7 @@ import { PetExaminationPage } from './features/examinations/containers/petExamin
 import { PetFormPage } from './features/pets/containers/petFormPage'
 import PetsIcon from '@material-ui/icons/Pets';
 import { UsersPage } from './features/users/containers/usersPage'
-import { ToastContainer } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css";
 
 
@@ -127,7 +127,7 @@ const App: React.FC = () => {
           </Grid>
         </Grid>
       </BrowserRouter>
-      <ToastContainer autoClose={8000} />
+      <ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_RIGHT} />
     </div>
   )
 }

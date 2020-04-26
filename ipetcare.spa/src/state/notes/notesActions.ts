@@ -4,6 +4,7 @@ import { ThunkAction } from 'redux-thunk'
 import { Dispatch } from 'redux'
 import { RootState, RootActions } from '../store'
 import { Note } from './notesReducer'
+import { toast } from 'react-toastify'
 
 export type ThunkResult<R> = ThunkAction<R, RootState, undefined, RootActions>
 export enum NotesActionTypes {
@@ -133,6 +134,7 @@ export const createNote = (note: Note): ThunkResult<void> => async dispatch => {
         console.log(note)
         const response: Note = await notes.create(note)
         handleCreateNoteSuccess(dispatch, response)
+        toast.success("Dodano notatkę")
     } catch (e) {
         handleCreateNoteFail(dispatch)
     }
@@ -175,6 +177,7 @@ export const updateNote = (
         console.log(updatedNote)
         const response: Note = await notes.update(updatedNote)
         handleUpdateNoteSuccess(dispatch, response)
+        toast.success("Zaktualizowano notatkę")
     } catch (e) {
         handleUpdateNoteFail(dispatch)
     }
@@ -216,11 +219,11 @@ export const deleteNote = (
     dispatch({ type: NotesActionTypes.DELETE_NOTE })
     try {
         await notes.delete(deletedId, petId)
-        console.log("id: " + deletedId)
         dispatch({
             type: NotesActionTypes.DELETE_NOTE_SUCCESS,
             payload: deletedId,
         })
+        toast.success("Usunięto notkę")
     } catch (e) {
         dispatch({ type: NotesActionTypes.DELETE_NOTE_FAIL })
     }
