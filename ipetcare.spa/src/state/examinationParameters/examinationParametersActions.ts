@@ -4,6 +4,7 @@ import { ThunkAction } from 'redux-thunk'
 import { Dispatch } from 'redux'
 import { RootState, RootActions } from '../store'
 import { ExaminationParameter } from './examinationParametersReducer'
+import { toast } from 'react-toastify'
 
 export type ThunkResult<R> = ThunkAction<R, RootState, undefined, RootActions>
 export enum ExaminationParametersActionParameters {
@@ -131,6 +132,7 @@ export const createExaminationParameter = (examinationParameter: ExaminationPara
     try {
         const response: ExaminationParameter = await examinationParameters.create(examinationParameter)
         handleCreateExaminationParameterSuccess(dispatch, response)
+        toast.success("Sukces")
     } catch (e) {
         handleCreateExaminationParameterFail(dispatch)
     }
@@ -173,6 +175,7 @@ export const updateExaminationParameter = (
     try {
         const response: ExaminationParameter = await examinationParameters.update(updatedExaminationParameter)
         handleUpdateExaminationParameterSuccess(dispatch, response)
+        toast.success("Sukces")
     } catch (e) {
         handleUpdateExaminationParameterFail(dispatch)
     }
@@ -217,6 +220,7 @@ export const deleteExaminationParameter = (
             type: ExaminationParametersActionParameters.DELETE_EXAMINATION_PARAMETER_SUCCESS,
             payload: deletedId,
         })
+        toast.success("Sukces")
     } catch (e) {
         dispatch({ type: ExaminationParametersActionParameters.DELETE_EXAMINATION_PARAMETER_FAIL })
     }

@@ -13,6 +13,7 @@ import { Grid, Typography } from '@material-ui/core'
 import { RootState } from './state/store'
 import { AdminScreen } from './features/homePage/containers/adminScreen'
 import { OwnerScreen } from './features/homePage/containers/ownerScreen'
+import { VetScreen } from './features/homePage/containers/vetScreen'
 import { RacesPage } from './features/race/containers/racesPage'
 import { SpeciesPage } from './features/species/containers/speciesPage'
 import { EditProfilePage } from './features/profile/containers/editProfilePage'
@@ -26,12 +27,16 @@ import { ExaminationParametersPage } from './features/examinations/containers/ex
 import { PetList } from './features/pets/containers/petList'
 import { PetPage } from './features/pets/containers/petPage'
 import { PetFormPage } from './features/pets/containers/petFormPage'
+import PetsIcon from '@material-ui/icons/Pets';
+import { UsersPage } from './features/users/containers/usersPage'
+import { ToastContainer } from 'react-toastify'
+import "react-toastify/dist/ReactToastify.css";
+
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
   const user = useSelector((state: RootState) => state.user.user)
   const [loaded, setLoaded] = useState(false)
-
   useEffect(() => {
     setLoaded(false)
     if (user.token === '') {
@@ -51,7 +56,7 @@ const App: React.FC = () => {
       <>
         <NavLink className="titleContainerNotLogged" to="/">
           <Typography className="title" variant="h5">
-            iPetCare
+            <PetsIcon fontSize="large" />iPetCare
           </Typography>
         </NavLink>
         <NotLoggedNavbar />
@@ -75,6 +80,7 @@ const App: React.FC = () => {
                 <Route path="/login" component={LoginForm} />
                 <Route path="/admin" component={AdminScreen} />
                 <Route path="/owner" component={OwnerScreen} />
+                <Route path="/vet" component={VetScreen} />
                 <Route path="/races" component={RacesPage} />
                 <Route path="/species" component={SpeciesPage} />
                 <Route path="/forbidden" component={ForbiddenPage} />
@@ -94,12 +100,14 @@ const App: React.FC = () => {
                   path="/examination/parameters"
                   component={ExaminationParametersPage}
                 />
+                <Route path="/users" component={UsersPage} />
                 <Route path="*" component={NotFoundPage} />
               </Switch>
             )}
           </Grid>
         </Grid>
       </BrowserRouter>
+      <ToastContainer autoClose={8000} />
     </div>
   )
 }

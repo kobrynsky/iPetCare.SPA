@@ -4,6 +4,7 @@ import { ThunkAction } from 'redux-thunk'
 import { Dispatch } from 'redux'
 import { RootState, RootActions } from '../store'
 import { Institution } from './institutionsReducer'
+import { toast } from 'react-toastify'
 
 export type ThunkResult<R> = ThunkAction<R, RootState, undefined, RootActions>
 export enum InstitutionsActionTypes {
@@ -132,6 +133,7 @@ export const createInstitution = (institution: Institution): ThunkResult<void> =
     try {
         const response: Institution = await institutions.create(institution)
         handleCreateInstitutionSuccess(dispatch, response)
+        toast.success("Sukces")
     } catch (e) {
         handleCreateInstitutionFail(dispatch)
     }
@@ -173,6 +175,7 @@ export const updateInstitution = (
     try {
         const response: Institution = await institutions.update(updatedInstitution)
         handleUpdateInstitutionSuccess(dispatch, response)
+        toast.success("Sukces")
     } catch (e) {
         handleUpdateInstitutionFail(dispatch)
     }
@@ -219,6 +222,7 @@ export const deleteInstitution = (
             payload: deletedId,
         })
         history.push('/Institutions')
+        toast.success("Sukces")
     } catch (e) {
         dispatch({ type: InstitutionsActionTypes.DELETE_INSTITUTION_FAIL })
     }

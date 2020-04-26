@@ -49,6 +49,19 @@ label {
   padding: 2px;
 }
 
+body .MuiTypography-root,
+.MuiCardContent-root {
+  font-family: 'Gill Sans', sans-serif;
+}
+
+body .MuiTypography-h2 {
+  padding-top: 20px;
+}
+
+body .MuiTypography-caption {
+  padding: 10px;
+}
+
 /* .hideScroll::-webkit-scrollbar {
   display: none;
 } */
@@ -71,4 +84,8 @@ label {
 /* Handle on hover */
 .hideScroll::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+.MuiPagination-ul {
+  justify-content: center;
 }

@@ -43,6 +43,7 @@ export function PetsPage() {
         <Grid item>
           <Typography variant="h1" className="title">
             Moje Zwierzęta
+
           </Typography>
         </Grid>
         <Grid item>
