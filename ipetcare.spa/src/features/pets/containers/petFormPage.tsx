@@ -57,27 +57,16 @@ export const PetFormPage = (props: RouteComponentProps<PetFormParams>) => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    console.log('halo1')
     const run = async () => {
-      console.log('halo2')
-
       setIsLoading(true)
       await dispatch(getRaces())
-      console.log('halo3')
-
       await dispatch(getAllSpecies())
-      console.log('halo4')
 
       if (props.match.params.petId) {
-        console.log('halo5')
-
         // pet exists - edit
         setCreationForm(false)
-        console.log('ISTNIEJE - EDIT')
         await dispatch(getPet(props.match.params.petId))
       } else {
-        console.log('halo6')
-
         // pet does not exist - create
         setCreationForm(true)
       }
@@ -90,7 +79,7 @@ export const PetFormPage = (props: RouteComponentProps<PetFormParams>) => {
     let currentPet = petsState.items.find(
       p => p.id === props.match.params.petId
     )
-    console.log(currentPet)
+
     if (currentPet) {
       setCreationForm(false)
       setInitialPet({
@@ -117,7 +106,6 @@ export const PetFormPage = (props: RouteComponentProps<PetFormParams>) => {
   }
 
   const handleSubmitForm = (values: Pet, actions: any) => {
-    console.log('haslko)')
     if (creationForm) {
       dispatch(createPet({ ...values, image: file, id: uuid() }))
     } else {
@@ -181,7 +169,6 @@ export const PetFormPage = (props: RouteComponentProps<PetFormParams>) => {
                                 name="file"
                                 type="file"
                                 onChange={(event: any) => {
-                                  console.log(event.currentTarget.files[0])
                                   setFile(event.currentTarget.files[0])
                                 }}
                               />
