@@ -224,7 +224,7 @@ type GET_ALL_USERS = GetAllUsersSuccess | GetAllUsers | GetAllUsersFail
 export const getAllUsers = (): ThunkResult<void> => async dispatch => {
   handleGetAllUser(dispatch)
   try {
-    const response: User[] = await Users.getAllUsers()
+    const response: User[] = await Users.users()
     handleGetAllUsersSuccess(dispatch, response)
   } catch (e) {
     handleGetAllUsersFail(dispatch)
@@ -245,7 +245,7 @@ export const handleGetAllUsersSuccess = (
   })
 }
 export const handleGetAllUsersFail = (dispatch: Dispatch<GetAllUsersFail>) => {
-  dispatch({type: UserActionTypes.GET_ALL_USERS_FAIL })
+  dispatch({ type: UserActionTypes.GET_ALL_USERS_FAIL })
 }
 // export const updateProfile = (user: User) => (
 
