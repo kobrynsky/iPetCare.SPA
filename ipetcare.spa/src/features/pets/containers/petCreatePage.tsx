@@ -14,6 +14,7 @@ import {
   Select,
   FormControl,
   Box,
+  CircularProgress,
 } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../state/store'
@@ -25,6 +26,7 @@ import { getAllSpecies } from '../../../state/species/speciesActions'
 import { Race } from '../../../state/races/racesReducer'
 import { BASE_URL_IMG, DEFAULT_PET_IMG } from '../../../utils/constants'
 import { v4 as uuid } from 'uuid'
+import moment from 'moment'
 
 interface PetFormParams {
   petId: string
@@ -42,9 +44,10 @@ export const PetCreatePage = (props: RouteComponentProps<PetFormParams>) => {
   const [petSpeciesId, setPetSpeciesId] = useState<number>(1)
   const [petRaceId, setPetRaceId] = useState<number>(1)
   const [partialRaces, setPartialRaces] = useState<Race[]>([])
+  const [birthDate, setBirthDate] = useState<Date>()
   const [initialPet, setInitialPet] = useState<Pet>({
     id: '',
-    birthDate: new Date().toISOString(),
+    birthDate: moment().format('YYYY-MM-DD'),
     gender: 'Male',
     height: 0,
     weight: 0,
@@ -52,9 +55,11 @@ export const PetCreatePage = (props: RouteComponentProps<PetFormParams>) => {
     raceId: 1,
     imageUrl: '',
   })
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const run = async () => {
+      setIsLoading(true)
       await dispatch(getRaces())
       await dispatch(getAllSpecies())
 
@@ -67,7 +72,10 @@ export const PetCreatePage = (props: RouteComponentProps<PetFormParams>) => {
         )
         if (currentPet) {
           setCreationForm(false)
-          setInitialPet(currentPet)
+          setInitialPet({
+            ...currentPet,
+            birthDate: moment(currentPet.birthDate).format('YYYY-MM-DD'),
+          })
           const race = racesState.items.find(r => r.id === currentPet?.raceId)
           if (race) {
             setPartialRaces(
@@ -80,6 +88,7 @@ export const PetCreatePage = (props: RouteComponentProps<PetFormParams>) => {
       } else {
         setCreationForm(true)
       }
+      setIsLoading(false)
     }
     run()
   }, [])
@@ -107,7 +116,11 @@ export const PetCreatePage = (props: RouteComponentProps<PetFormParams>) => {
           <Grid item xs={7}>
             <Card>
               <CardContent>
-                {!petsState.loading && !speciesState.loading && (
+                {petsState.loading ||
+                  (isLoading && (
+                    <CircularProgress style={{ alignSelf: 'center' }} />
+                  ))}
+                {!petsState.loading && !speciesState.loading && !isLoading && (
                   <Formik
                     enableReinitialize={false}
                     validationSchema={object({
@@ -155,7 +168,7 @@ export const PetCreatePage = (props: RouteComponentProps<PetFormParams>) => {
                                   setFile(event.currentTarget.files[0])
                                 }}
                               />
-
+                              <pre>{JSON.stringify(values, null, 4)} </pre>
                               <FormControl fullWidth margin="normal">
                                 <Button
                                   variant="contained"
@@ -176,7 +189,6 @@ export const PetCreatePage = (props: RouteComponentProps<PetFormParams>) => {
                                   as={TextField}
                                   label="Imię zwierzaka"
                                   variant="outlined"
-                                  value={values.name}
                                 />
                                 <ErrorMessage name="name" />
                               </FormGroup>
