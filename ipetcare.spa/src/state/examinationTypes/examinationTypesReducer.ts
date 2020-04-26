@@ -31,6 +31,7 @@ export const examinationTypesReducer = (
     case ExaminationTypesActionTypes.CREATE_EXAMINATION_TYPE:
     case ExaminationTypesActionTypes.UPDATE_EXAMINATION_TYPE:
     case ExaminationTypesActionTypes.DELETE_EXAMINATION_TYPE:
+    case ExaminationTypesActionTypes.GET_EXAMINATION_TYPES_BY_PET_ID:
       return { ...state, loading: true }
 
     case ExaminationTypesActionTypes.GET_EXAMINATION_TYPE_FAIL:
@@ -38,6 +39,7 @@ export const examinationTypesReducer = (
     case ExaminationTypesActionTypes.CREATE_EXAMINATION_TYPE_FAIL:
     case ExaminationTypesActionTypes.DELETE_EXAMINATION_TYPE_FAIL:
     case ExaminationTypesActionTypes.UPDATE_EXAMINATION_TYPE_FAIL:
+    case ExaminationTypesActionTypes.GET_EXAMINATION_TYPES_BY_PET_ID_FAIL:
       return { ...state, loading: false }
 
     case ExaminationTypesActionTypes.CREATE_EXAMINATION_TYPE_SUCCESS:
@@ -48,6 +50,8 @@ export const examinationTypesReducer = (
       }
 
     case ExaminationTypesActionTypes.GET_EXAMINATION_TYPES_SUCCESS:
+    case ExaminationTypesActionTypes.GET_EXAMINATION_TYPES__BY_PET_ID_SUCCESS:
+
       return {
         ...state,
         items: [...action.payload],

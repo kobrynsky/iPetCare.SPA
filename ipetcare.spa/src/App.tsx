@@ -26,6 +26,12 @@ import { ExaminationTypesPage } from './features/examinations/containers/examina
 import { ExaminationParametersPage } from './features/examinations/containers/examinationParametersPage'
 import { PetList } from './features/pets/containers/petList'
 import { PetPage } from './features/pets/containers/petPage'
+import { AddNotePage } from './features/notes/containers/addNotePage'
+import { PetNotesPage } from './features/notes/containers/petNotesPage'
+import { EditNotePage } from './features/notes/containers/editNotePage'
+import { AddExaminationPage } from './features/examinations/containers/addExaminationPage'
+import { PetExaminationsPage } from './features/examinations/containers/petExaminationsPage'
+import { PetExaminationPage } from './features/examinations/containers/petExaminationPage'
 import { PetFormPage } from './features/pets/containers/petFormPage'
 import PetsIcon from '@material-ui/icons/Pets';
 import { UsersPage } from './features/users/containers/usersPage'
@@ -53,15 +59,15 @@ const App: React.FC = () => {
     user.userName && user.userName.length > 0 ? (
       <LoggedInNavbar />
     ) : (
-      <>
-        <NavLink className="titleContainerNotLogged" to="/">
-          <Typography className="title" variant="h5">
-            <PetsIcon fontSize="large" />iPetCare
+        <>
+          <NavLink className="titleContainerNotLogged" to="/">
+            <Typography className="title" variant="h5">
+              <PetsIcon fontSize="large" />iPetCare
           </Typography>
-        </NavLink>
-        <NotLoggedNavbar />
-      </>
-    )
+          </NavLink>
+          <NotLoggedNavbar />
+        </>
+      )
 
   return (
     <div className="app">
@@ -83,12 +89,23 @@ const App: React.FC = () => {
                 <Route path="/vet" component={VetScreen} />
                 <Route path="/races" component={RacesPage} />
                 <Route path="/species" component={SpeciesPage} />
-                <Route path="/forbidden" component={ForbiddenPage} />
-                <Route path="/unauthorized" component={UnauthorizedPage} />
+                <Route path="/pets/:petId/notes/add" component={AddNotePage} />
+                <Route
+                  path="/pets/:petId/notes/edit/:noteId"
+                  component={EditNotePage}
+                />
+                <Route path="/pets/:petId/notes" component={PetNotesPage} />
+                <Route
+                  path="/pets/:petId/examinations/add"
+                  component={AddExaminationPage}
+                />
+                <Route path="/pets/:petId/examinations/:examinationId" component={PetExaminationPage} />
+                <Route path="/pets/:petId/examinations" component={PetExaminationsPage} />
                 <Route exact path="/pets/create" component={PetFormPage} />
                 <Route exact path="/pets/:petId/edit" component={PetFormPage} />
                 <Route exact path="/pets/:petId" component={PetPage} />
                 <Route exact path="/pets" component={PetList} />
+
                 <Route path="/profile/edit" component={EditProfilePage} />
                 <Route path="/users/search" component={UserSearchPage} />
                 <Route path="/institutions" component={InstitutionsPage} />
@@ -100,6 +117,9 @@ const App: React.FC = () => {
                   path="/examination/parameters"
                   component={ExaminationParametersPage}
                 />
+
+                <Route path="/forbidden" component={ForbiddenPage} />
+                <Route path="/unauthorized" component={UnauthorizedPage} />
                 <Route path="/users" component={UsersPage} />
                 <Route path="*" component={NotFoundPage} />
               </Switch>

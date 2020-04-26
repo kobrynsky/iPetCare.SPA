@@ -15,6 +15,9 @@ import {
 import { Institution } from '../state/institutions/institutionsReducer'
 import { ExaminationType } from '../state/examinationTypes/examinationTypesReducer'
 import { ExaminationParameter } from '../state/examinationParameters/examinationParametersReducer'
+import { Note } from '../state/notes/notesReducer'
+import { Examination, ExaminationDetails } from '../state/examinations/examinationsReducer'
+import { ExaminationParameterValue } from '../state/examinationValues/examinationValuesReducer'
 import { toast } from 'react-toastify'
 
 axios.defaults.baseURL = BASE_URL
@@ -77,6 +80,9 @@ const speciesBody = (response: any) => response.species
 const examinationParameterBody = (response: any) =>
   response.examinationParameters
 const petsBody = (response: any) => response.pets
+const notesBody = (response: any) => response.notes
+const examinationsBody = (response: any) => response.examinations
+const examinationParameterValuesBody = (response: any) => response.examinationParametersValues
 const usersBody = (response: any) => response.users
 
 const requests = {
@@ -152,6 +158,8 @@ export const Institutions = {
 export const ExaminationTypes = {
   getExaminationTypes: (): Promise<ExaminationType[]> =>
     requests.get('/examinationTypes').then(examinationTypesBody),
+  getByPetId: (petId: string): Promise<ExaminationType[]> =>
+    requests.get(`/examinationTypes/pet/${petId}`).then(examinationTypesBody),
   getExaminationType: (id: number): Promise<ExaminationType> =>
     requests.get(`/examinationTypes/${id}`),
   create: (examinationType: ExaminationType) =>
@@ -183,4 +191,39 @@ export const AllSpecies = {
   create: (species: Species) => requests.post('/species', species),
   update: (species: Species) => requests.put(`/species/${species.id}`, species),
   delete: (id: number) => requests.del(`/species/${id}`),
+}
+
+export const Notes = {
+  getAllNotes: (): Promise<Note[]> =>
+    requests.get('/notes').then(notesBody),
+  getNotes: (petId: string): Promise<Note[]> =>
+    requests.get(`/notes/${petId}`).then(notesBody),
+  getNote: (petId: string, noteId: string): Promise<Note> =>
+    requests.get(`/notes/${petId}/${noteId}`),
+  create: (note: Note) =>
+    requests.post('/notes', note),
+  update: (note: Note) =>
+    requests.put(`/notes/${note.petId}/${note.id}`, note),
+  delete: (id: string, petId: string) => requests.del(`/notes/${petId}/${id}`),
+}
+
+export const Examinations = {
+  getExaminations: (): Promise<Examination[]> =>
+    requests.get('/examinations').then(examinationsBody),
+  getExaminationsByPetId: (petId: string): Promise<Examination[]> =>
+    requests.get(`/examinations/pet/${petId}`).then(examinationsBody),
+  getExamination: (id: string): Promise<ExaminationDetails> => requests.get(`/examinations/${id}`),
+  create: (examination: Examination) => requests.post('/examinations', examination),
+  update: (examination: Examination) => requests.put(`/examinations/${examination.id}`, examination),
+  delete: (id: string, petId: string) => requests.del(`/examinations/${petId}/${id}`),
+}
+export const ExaminationParametersValues = {
+  getExaminationParameterValues: (): Promise<ExaminationParameterValue[]> =>
+    requests.get('/examinationParameterValues').then(examinationParameterValuesBody),
+  getByExaminationId: (examinationId: string): Promise<ExaminationParameterValue[]> =>
+    requests.get(`/examinationParameterValues/getByExaminationId/${examinationId}`).then(examinationParameterValuesBody),
+  getExaminationParameterValue: (id: string): Promise<ExaminationParameterValue> => requests.get(`/examinationParameterValues/${id}`),
+  create: (examinationParameterValue: ExaminationParameterValue) => requests.post('/examinationParameterValues', examinationParameterValue),
+  update: (examinationParameterValue: ExaminationParameterValue) => requests.put(`/examinationParameterValues/${examinationParameterValue.id}`, examinationParameterValue),
+  delete: (id: string) => requests.del(`/examinationParameterValues/${id}`),
 }
