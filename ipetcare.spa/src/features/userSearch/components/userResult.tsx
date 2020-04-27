@@ -53,45 +53,45 @@ export const UserResult = ({
 
   return (
     <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          alt="Zdjęcie profilowe"
-          height="180"
-          image={imageUrl}
-        />
-        <CardContent className={'hideScroll ' + classes.content}>
-          <Typography variant="h5" component="h2">
-            {`${title} ${firstName} ${lastName}`}
+      {/* <CardActionArea> */}
+      <CardMedia
+        component="img"
+        alt="Zdjęcie profilowe"
+        height="180"
+        image={imageUrl}
+      />
+      <CardContent className={'hideScroll ' + classes.content}>
+        <Typography variant="h5" component="h2">
+          {`${title} ${firstName} ${lastName}`}
+        </Typography>
+        {specialization && (
+          <Typography variant="subtitle1" color="textSecondary">
+            Specjalizacja: {specialization}
           </Typography>
-          {specialization && (
-            <Typography variant="subtitle1" color="textSecondary">
-              Specjalizacja: {specialization}
-            </Typography>
-          )}
-          {placeOfResidence && (
-            <Typography variant="body1">{placeOfResidence}</Typography>
-          )}
-          {institutions &&
-            institutions.map(i => (
-              <>
-                <Typography variant="body1">{i.name}</Typography>
-                <Typography variant="subtitle1" color="textSecondary">
-                  {i.address}
-                </Typography>
-              </>
-            ))}
-          {institutions &&
-            institutions.map(i => (
-              <>
-                <Typography variant="body1">{i.name}</Typography>
-                <Typography variant="subtitle1" color="textSecondary">
-                  {i.address}
-                </Typography>
-              </>
-            ))}
-        </CardContent>
-      </CardActionArea>
+        )}
+        {placeOfResidence && (
+          <Typography variant="body1">{placeOfResidence}</Typography>
+        )}
+        {institutions &&
+          institutions.map(i => (
+            <>
+              <Typography variant="body1">{i.name}</Typography>
+              <Typography variant="subtitle1" color="textSecondary">
+                {i.address}
+              </Typography>
+            </>
+          ))}
+        {institutions &&
+          institutions.map(i => (
+            <>
+              <Typography variant="body1">{i.name}</Typography>
+              <Typography variant="subtitle1" color="textSecondary">
+                {i.address}
+              </Typography>
+            </>
+          ))}
+      </CardContent>
+      {/* </CardActionArea> */}
       <CardActions>
         <Button size="small" color="primary">
           Szczegóły

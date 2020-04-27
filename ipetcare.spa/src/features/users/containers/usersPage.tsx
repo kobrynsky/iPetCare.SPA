@@ -3,7 +3,7 @@ import { Grid, Typography } from '@material-ui/core'
 import { TableCommon } from '../../../common/components/tableCommon'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../state/store'
-import { getAllUsers} from '../../../state/user/userActions'
+import { getAllUsers } from '../../../state/user/userActions'
 
 export function UsersPage() {
   const dispatch = useDispatch()
@@ -17,7 +17,7 @@ export function UsersPage() {
     <div>
       <Grid container direction="column">
         <Grid item>
-          <Typography variant="h1" className="title">
+          <Typography variant="h2" className="title">
             Użytkownicy
           </Typography>
         </Grid>
@@ -25,7 +25,13 @@ export function UsersPage() {
           <TableCommon
             title="Użytkownicy"
             isLoading={userState.loading}
-            columns={[{ title: 'Nazwa użytkownika', field: 'userName' }, { title: 'Imie', field: 'firstName' }, { title: 'Nazwisko', field: 'lastName' }, { title: 'E-mail', field: 'email' }, { title: 'Rola', field: 'role' }]}
+            columns={[
+              { title: 'Nazwa użytkownika', field: 'userName' },
+              { title: 'Imie', field: 'firstName' },
+              { title: 'Nazwisko', field: 'lastName' },
+              { title: 'E-mail', field: 'email' },
+              { title: 'Rola', field: 'role' },
+            ]}
             rows={userState.items}
           />
         </Grid>
