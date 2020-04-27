@@ -93,7 +93,7 @@ const renderOwners = (results: GetSearchResponseDto) => {
         firstName={v.firstName}
         lastName={v.lastName}
         email={v.email}
-        imageUrl="https://i.pinimg.com/originals/02/60/fa/0260fa4827b372bb5884126324d171c1.jpg"
+        imageUrl="https://i.kym-cdn.com/entries/icons/facebook/000/032/280/meme1.jpg"
         placeOfResidence={v.placeOfResidence}
       />
     ))
