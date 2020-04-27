@@ -33,11 +33,10 @@ import { AddExaminationPage } from './features/examinations/containers/addExamin
 import { PetExaminationsPage } from './features/examinations/containers/petExaminationsPage'
 import { PetExaminationPage } from './features/examinations/containers/petExaminationPage'
 import { PetFormPage } from './features/pets/containers/petFormPage'
-import PetsIcon from '@material-ui/icons/Pets';
+import PetsIcon from '@material-ui/icons/Pets'
 import { UsersPage } from './features/users/containers/usersPage'
 import { ToastContainer, toast } from 'react-toastify'
-import "react-toastify/dist/ReactToastify.css";
-
+import 'react-toastify/dist/ReactToastify.css'
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -59,15 +58,16 @@ const App: React.FC = () => {
     user.userName && user.userName.length > 0 ? (
       <LoggedInNavbar />
     ) : (
-        <>
-          <NavLink className="titleContainerNotLogged" to="/">
-            <Typography className="title" variant="h5">
-              <PetsIcon fontSize="large" />iPetCare
+      <>
+        <NavLink className="titleContainerNotLogged" to="/">
+          <Typography className="title peru" variant="h5">
+            <PetsIcon fontSize="small" />
+            iPetCare
           </Typography>
-          </NavLink>
-          <NotLoggedNavbar />
-        </>
-      )
+        </NavLink>
+        <NotLoggedNavbar />
+      </>
+    )
 
   return (
     <div className="app">
@@ -99,8 +99,14 @@ const App: React.FC = () => {
                   path="/pets/:petId/examinations/add"
                   component={AddExaminationPage}
                 />
-                <Route path="/pets/:petId/examinations/:examinationId" component={PetExaminationPage} />
-                <Route path="/pets/:petId/examinations" component={PetExaminationsPage} />
+                <Route
+                  path="/pets/:petId/examinations/:examinationId"
+                  component={PetExaminationPage}
+                />
+                <Route
+                  path="/pets/:petId/examinations"
+                  component={PetExaminationsPage}
+                />
                 <Route exact path="/pets/create" component={PetFormPage} />
                 <Route exact path="/pets/:petId/edit" component={PetFormPage} />
                 <Route exact path="/pets/:petId" component={PetPage} />
