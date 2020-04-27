@@ -19,7 +19,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../state/store'
 import { getPet, createPet, updatePet } from '../../../state/pets/petsActions'
-import { RouteComponentProps } from 'react-router-dom'
+import { RouteComponentProps, useHistory } from 'react-router-dom'
 import { Pet } from '../../../state/pets/petsReducer'
 import { getRaces } from '../../../state/races/racesActions'
 import { getAllSpecies } from '../../../state/species/speciesActions'
@@ -34,6 +34,7 @@ interface PetFormParams {
 
 export const PetFormPage = (props: RouteComponentProps<PetFormParams>) => {
   const dispatch = useDispatch()
+  const history = useHistory()
   const petsState = useSelector((state: RootState) => state.pets)
   const racesState = useSelector((state: RootState) => state.races)
   const speciesState = useSelector((state: RootState) => state.species)
@@ -112,6 +113,7 @@ export const PetFormPage = (props: RouteComponentProps<PetFormParams>) => {
       dispatch(updatePet({ ...values, image: file }))
     }
     setSubmitting(!submitting)
+    history.goBack()
   }
 
   return (

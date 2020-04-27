@@ -10,10 +10,10 @@ import AccountCircle from '@material-ui/icons/AccountCircle'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../state/store'
 import { logout } from '../../state/user/userActions'
-import { deleteUserState } from '../../utils/localStorageHelper'
-import { deleteTokenInHeader } from '../../utils/api'
 import { NavLink, useHistory } from 'react-router-dom'
 import '../pageElements.css'
+import PetsIcon from '@material-ui/icons/Pets'
+import { Typography } from '@material-ui/core'
 
 interface Route {
   caption: string
@@ -226,7 +226,10 @@ export function LoggedInNavbar() {
           color="inherit"
           to="/"
         >
-          Główna
+          <Typography className="title peru">
+            <PetsIcon fontSize="small" />
+            iPetCare
+          </Typography>
         </NavLink>
       </MenuItem>
       <MenuItem>
@@ -284,7 +287,10 @@ export function LoggedInNavbar() {
               color="inherit"
               to="/"
             >
-              Główna
+              <Typography className="title peru" variant="h4">
+                <PetsIcon fontSize="small" />
+                iPetCare
+              </Typography>
             </NavLink>
             <NavLink
               exact
