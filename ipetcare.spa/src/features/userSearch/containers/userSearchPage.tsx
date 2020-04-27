@@ -75,7 +75,7 @@ const renderVets = (results: GetSearchResponseDto) => {
         lastName={v.lastName}
         title="lek"
         email={v.email}
-        imageUrl="https://www.wprost.pl/_thumb/5f/09/909272231d1fcb0bd2a3bcd3d8c3.jpeg"
+        imageUrl="https://i.pinimg.com/originals/02/60/fa/0260fa4827b372bb5884126324d171c1.jpg"
         institutions={v.institutions}
         specialization={v.specialization}
       />
@@ -93,7 +93,7 @@ const renderOwners = (results: GetSearchResponseDto) => {
         firstName={v.firstName}
         lastName={v.lastName}
         email={v.email}
-        imageUrl="https://www.wprost.pl/_thumb/5f/09/909272231d1fcb0bd2a3bcd3d8c3.jpeg"
+        imageUrl="https://i.pinimg.com/originals/02/60/fa/0260fa4827b372bb5884126324d171c1.jpg"
         placeOfResidence={v.placeOfResidence}
       />
     ))
@@ -131,13 +131,13 @@ export const UserSearchPage = () => {
   const getPages = () => {
     return who === VET
       ? ceil(
-          searchState.vetsResponse.totalItems /
-            searchState.vetsResponse.pageSize
-        )
+        searchState.vetsResponse.totalItems /
+        searchState.vetsResponse.pageSize
+      )
       : ceil(
-          searchState.ownersResponse.totalItems /
-            searchState.ownersResponse.pageSize
-        )
+        searchState.ownersResponse.totalItems /
+        searchState.ownersResponse.pageSize
+      )
   }
 
   const onInputChange = (e: any) => {
@@ -149,8 +149,8 @@ export const UserSearchPage = () => {
       {who === VET ? (
         <h2 className={styles.resultTitle}>Weterynarze</h2>
       ) : (
-        <h2 className={styles.resultTitle}>Użytkownicy</h2>
-      )}
+          <h2 className={styles.resultTitle}>Użytkownicy</h2>
+        )}
       <br />
       <div className={styles.resultContainer}>
         {who === VET

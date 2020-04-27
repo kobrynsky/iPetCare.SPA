@@ -45,12 +45,12 @@ export const AddExaminationPage = (props: RouteComponentProps<AddExaminationPage
         await dispatch(createExamination({ petId: petId, examinationTypeId: examinationTypeId, id: examinationId, date: selectedDate as Date, content: content }))
 
         let paramsValues = document.getElementsByClassName('parameter-value');
-
+        let params = examinationParametersState.items.filter(x => x.examinationTypeId == examinationTypeId);
         for (let i = 0; i < paramsValues.length; i++) {
             let parameterValue = {
                 examinationId: examinationId,
                 value: +paramsValues[i].innerHTML,
-                examinationParameterId: examinationTypesState.items[i].id as number
+                examinationParameterId: params[i].id as number
             }
             await dispatch(createExaminationParameterValue(parameterValue))
         }
