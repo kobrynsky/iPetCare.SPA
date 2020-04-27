@@ -74,14 +74,12 @@ export const userReducer = (
     case UserActionTypes.EDIT_USER_FAIL:
       return { ...state, loading: false, error: action.payload }
 
-    case UserActionTypes.REGISTER_USER_SUCCESS:
-      return { ...state, loading: false }
-
     case UserActionTypes.LOGIN_USER_FAIL:
       return { ...state, loading: false, error: 'Błędny login lub hasło' }
 
     case UserActionTypes.LOGIN_USER_SUCCESS:
     case UserActionTypes.EDIT_USER_SUCCESS:
+    case UserActionTypes.REGISTER_USER_SUCCESS:
       const user = action.payload
       return {
         ...state,

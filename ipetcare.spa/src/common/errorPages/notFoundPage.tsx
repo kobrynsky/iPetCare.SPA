@@ -2,7 +2,7 @@ import React from 'react'
 import '../../index.css'
 import './error.css'
 import { Button, makeStyles, Card, Grid } from '@material-ui/core'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import kitty from '../../assets/Cat-404.png'
 
 export const NotFoundPage = () => (
@@ -16,9 +16,7 @@ export const NotFoundPage = () => (
       <div className="container">
         <h3 className="title">404 Not Found</h3>
         <h4 className="title">Sorry, I cat find that page right meow.</h4 >
-        <Button variant="contained">
-          <NavLink to="/">Strona Główna</NavLink>
-        </Button>
+        <Button variant="outlined" component={Link} to="/" style={{ marginTop: "1rem" }}>Strona Główna</Button>
         <img src={kitty} alt="Logo" style={{ width: "50%", height: "50%", marginBottom: "2rem", marginTop: "2rem" }} />
       </div>
     </Card>

@@ -40,7 +40,7 @@ export function RegisterForm() {
 
   useEffect(() => {
     if (userState.user.token) history.push('/login')
-  }, [userState.user])
+  }, [userState.user.token])
 
   const onSumbit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -147,10 +147,10 @@ export function RegisterForm() {
           {userState.loading ? (
             <CircularProgress style={{ alignSelf: 'center' }} />
           ) : (
-            <Button disabled={password !== passwordRepeated} type="submit">
-              Zarejestruj
-            </Button>
-          )}
+              <Button disabled={password !== passwordRepeated} type="submit">
+                Zarejestruj
+              </Button>
+            )}
         </div>
       </form>
     </Card>
