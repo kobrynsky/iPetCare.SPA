@@ -100,7 +100,7 @@ export const Users = {
     requests.post('/users/login', user),
   register: (user: RegisterProps): Promise<User> =>
     requests.post('/users/register', user),
-  users: (): Promise<User[]> => requests.get('/users'),
+  users: (): Promise<User[]> => requests.get('/users').then(usersBody),
   edit: (user: User): Promise<User> => requests.put('/users', user),
   getVets: (searchDto: GetSearchDto): Promise<GetSearchResponseDto> =>
     requests.post('/users/vets', searchDto),
