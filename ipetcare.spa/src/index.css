@@ -44,9 +44,17 @@ label {
   color: black;
 }
 
+.peru {
+  color: peru;
+}
+
 .titleContainerNotLogged {
   margin: 5px;
   padding: 2px;
+}
+
+.errorMessage {
+  color: red;
 }
 
 body .MuiTypography-root,

@@ -122,7 +122,7 @@ export const registerUser = (
     saveUserState(response)
     response.token && setTokenInHeader(response.token)
     handleRegisterUserSuccess(dispatch, response)
-    toast.success("Sukces")
+    toast.success('Rejestracja przebiegła pomyślnie')
   } catch (e) {
     handleRegisterUserFail(dispatch, e.data)
   }
@@ -175,7 +175,7 @@ export const editUser = (user: User): ThunkResult<void> => async dispatch => {
     saveUserState(response)
     response.token && setTokenInHeader(response.token)
     handleRegisterUserSuccess(dispatch, response)
-    toast.success("Sukces")
+    toast.success('Pomyślnie zaktualizowano dane użytkownika')
   } catch (e) {
     handleRegisterUserFail(dispatch, e.data)
   }
@@ -204,7 +204,6 @@ export const handleEditUserFail = (
     payload: response,
   })
 }
-
 
 interface GetAllUsers {
   type: UserActionTypes.GET_ALL_USERS

@@ -8,6 +8,7 @@
 .navlink {
   margin: 5px;
   color: gray;
+  align-self: center;
 }
 
 .navlink:hover {

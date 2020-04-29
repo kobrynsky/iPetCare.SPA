@@ -19,7 +19,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../state/store'
 import { getPet, createPet, updatePet } from '../../../state/pets/petsActions'
-import { RouteComponentProps } from 'react-router-dom'
+import { RouteComponentProps, useHistory } from 'react-router-dom'
 import { Pet } from '../../../state/pets/petsReducer'
 import { getRaces } from '../../../state/races/racesActions'
 import { getAllSpecies } from '../../../state/species/speciesActions'
@@ -34,6 +34,7 @@ interface PetFormParams {
 
 export const PetFormPage = (props: RouteComponentProps<PetFormParams>) => {
   const dispatch = useDispatch()
+  const history = useHistory()
   const petsState = useSelector((state: RootState) => state.pets)
   const racesState = useSelector((state: RootState) => state.races)
   const speciesState = useSelector((state: RootState) => state.species)
@@ -112,6 +113,7 @@ export const PetFormPage = (props: RouteComponentProps<PetFormParams>) => {
       dispatch(updatePet({ ...values, image: file }))
     }
     setSubmitting(!submitting)
+    history.goBack()
   }
 
   return (
@@ -130,15 +132,15 @@ export const PetFormPage = (props: RouteComponentProps<PetFormParams>) => {
                     enableReinitialize={false}
                     validationSchema={object({
                       name: string()
-                        .required()
+                        .required('Nazwa jest wymagana')
                         .max(255),
                       weight: number()
-                        .positive()
-                        .required(),
+                        .positive('Waga musi być liczbą większą od zera')
+                        .required('Waga jest wymagana'),
                       height: number()
-                        .positive()
-                        .required(),
-                      birthDate: date().required(),
+                        .positive('Wysokość musi być liczbą większą od zera')
+                        .required('Wysokość jest wymagana'),
+                      birthDate: date().required('Data urodzin jest wymagana'),
                     })}
                     initialValues={{ ...initialPet, petSpeciesId }}
                     onSubmit={handleSubmitForm}
@@ -193,7 +195,12 @@ export const PetFormPage = (props: RouteComponentProps<PetFormParams>) => {
                                   label="Imię zwierzaka"
                                   variant="outlined"
                                 />
-                                <ErrorMessage name="name" />
+                                <ErrorMessage
+                                  name="name"
+                                  render={msg => (
+                                    <span className="errorMessage">{msg}</span>
+                                  )}
+                                />
                               </FormGroup>
                             </FormControl>
 
@@ -242,7 +249,12 @@ export const PetFormPage = (props: RouteComponentProps<PetFormParams>) => {
                                     </MenuItem>
                                   ))}
                                 </Field>
-                                <ErrorMessage name="raceId" />
+                                <ErrorMessage
+                                  name="raceId"
+                                  render={msg => (
+                                    <span className="errorMessage">{msg}</span>
+                                  )}
+                                />
                               </FormGroup>
                             </FormControl>
 
@@ -263,7 +275,12 @@ export const PetFormPage = (props: RouteComponentProps<PetFormParams>) => {
                                   variant="outlined"
                                   inputProps={{ step: 0.01 }}
                                 />
-                                <ErrorMessage name="weight" />
+                                <ErrorMessage
+                                  name="weight"
+                                  render={msg => (
+                                    <span className="errorMessage">{msg}</span>
+                                  )}
+                                />
                               </FormGroup>
                             </FormControl>
 
@@ -284,7 +301,12 @@ export const PetFormPage = (props: RouteComponentProps<PetFormParams>) => {
                                   inputProps={{ step: 0.01 }}
                                   variant="outlined"
                                 />
-                                <ErrorMessage name="height" />
+                                <ErrorMessage
+                                  name="height"
+                                  render={msg => (
+                                    <span className="errorMessage">{msg}</span>
+                                  )}
+                                />
                               </FormGroup>
                             </FormControl>
 
@@ -299,7 +321,12 @@ export const PetFormPage = (props: RouteComponentProps<PetFormParams>) => {
                                   <MenuItem value="Male">Samiec</MenuItem>
                                   <MenuItem value="Female">Samica</MenuItem>
                                 </Field>
-                                <ErrorMessage name="gender" />
+                                <ErrorMessage
+                                  name="gender"
+                                  render={msg => (
+                                    <span className="errorMessage">{msg}</span>
+                                  )}
+                                />
                               </FormGroup>
                             </FormControl>
 
@@ -312,7 +339,12 @@ export const PetFormPage = (props: RouteComponentProps<PetFormParams>) => {
                                   label="Data urodzenia"
                                   variant="outlined"
                                 />
-                                <ErrorMessage name="birthDate" />
+                                <ErrorMessage
+                                  name="birthDate"
+                                  render={msg => (
+                                    <span className="errorMessage">{msg}</span>
+                                  )}
+                                />
                               </FormGroup>
                             </FormControl>
                           </Grid>

@@ -127,12 +127,14 @@ interface CreateSpeciesFail {
   type: SpeciesActionTypes.CREATE_SPECIES_FAIL
 }
 
-export const createSpecies = (speciesUnit: Species): ThunkResult<void> => async dispatch => {
+export const createSpecies = (
+  speciesUnit: Species
+): ThunkResult<void> => async dispatch => {
   handleCreateSpecies(dispatch)
   try {
     const response: Species = await species.create(speciesUnit)
     handleCreateSpeciesSuccess(dispatch, response)
-    toast.success("Sukces")
+    toast.success('Pomyślnie utworzono gatunek')
   } catch (e) {
     handleCreateSpeciesFail(dispatch)
   }
@@ -146,7 +148,10 @@ const handleCreateSpeciesSuccess = (
   dispatch: Dispatch<CreateSpeciesSuccess>,
   response: Species
 ) => {
-  dispatch({ type: SpeciesActionTypes.CREATE_SPECIES_SUCCESS, payload: response })
+  dispatch({
+    type: SpeciesActionTypes.CREATE_SPECIES_SUCCESS,
+    payload: response,
+  })
 }
 
 const handleCreateSpeciesFail = (dispatch: Dispatch<CreateSpeciesFail>) => {
@@ -174,7 +179,7 @@ export const updateSpecies = (
   try {
     const response: Species = await species.update(updatedSpecies)
     handleUpdateSpeciesSuccess(dispatch, response)
-    toast.success("Sukces")
+    toast.success('Pomyślnie zaktulizowano gatunek')
   } catch (e) {
     handleUpdateSpeciesFail(dispatch)
   }
@@ -188,7 +193,10 @@ const handleUpdateSpeciesSuccess = (
   dispatch: Dispatch<UpdateSpeciesSuccess>,
   updatedRace: Species
 ) => {
-  dispatch({ type: SpeciesActionTypes.UPDATE_SPECIES_SUCCESS, payload: updatedRace })
+  dispatch({
+    type: SpeciesActionTypes.UPDATE_SPECIES_SUCCESS,
+    payload: updatedRace,
+  })
   history.push('/species')
 }
 
@@ -221,7 +229,7 @@ export const deleteSpecies = (
       payload: deletedId,
     })
     history.push('/species')
-    toast.success("Sukces")
+    toast.success('Pomyślnie usunięto gatunek')
   } catch (e) {
     dispatch({ type: SpeciesActionTypes.DELETE_SPECIES_FAIL })
   }

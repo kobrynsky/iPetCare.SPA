@@ -4,7 +4,7 @@ import { Dispatch } from 'redux'
 import { ThunkResult } from '../store'
 import { Pet, PetForm } from './petsReducer'
 import { AxiosResponse } from 'axios'
-import { toast } from 'react-toastify';
+import { toast } from 'react-toastify'
 
 export enum PetsActionTypes {
   GET_PETS = 'GET_PETS',
@@ -182,7 +182,7 @@ export const createPet = (
     const response: Pet = await pets.create(pet)
     console.log(response)
     handleCreatePetSuccess(dispatch, response)
-    toast.success("Sukces")
+    toast.success('Pomyslnie utworzono zwierzę')
   } catch (e) {
     handleCreatePetFail(dispatch)
   }
@@ -224,7 +224,7 @@ export const updatePet = (
   try {
     const response: AxiosResponse<Pet> = await pets.update(updatedPet)
     handleUpdatePetSuccess(dispatch, response.data)
-    toast.success("Sukces")
+    toast.success('Pomyślnie zaktualizowano dane zwierzęcia')
   } catch (e) {
     handleUpdatePetFail(dispatch)
   }
@@ -270,7 +270,7 @@ export const deletePet = (
       payload: deletedId,
     })
     history.push('/pets')
-    toast.success("Sukces")
+    toast.success('Pomyślnie usunięto zwierzę')
   } catch (e) {
     dispatch({ type: PetsActionTypes.DELETE_PET_FAIL })
   }
