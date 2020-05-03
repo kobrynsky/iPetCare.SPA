@@ -35,6 +35,7 @@ import { PetExaminationPage } from './features/examinations/containers/petExamin
 import { PetFormPage } from './features/pets/containers/petFormPage'
 import PetsIcon from '@material-ui/icons/Pets'
 import { UsersPage } from './features/users/containers/usersPage'
+import { CalendarPage } from './features/calendar/containers/calendarPage'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -89,6 +90,7 @@ const App: React.FC = () => {
                 <Route path="/vet" component={VetScreen} />
                 <Route path="/races" component={RacesPage} />
                 <Route path="/species" component={SpeciesPage} />
+                <Route path="/calendar" component={CalendarPage} />
                 <Route path="/pets/:petId/notes/add" component={AddNotePage} />
                 <Route
                   path="/pets/:petId/notes/edit/:noteId"
