@@ -168,10 +168,13 @@ interface EditUserFail {
 
 type EDIT_USER = EditUser | EditUserSuccess | EditUserFail
 
-export const editUser = (user: User): ThunkResult<void> => async dispatch => {
+export const editUser = (
+  user: User,
+  file: any
+): ThunkResult<void> => async dispatch => {
   handleRegisterUser(dispatch)
   try {
-    const response: User = await Users.edit(user)
+    const response: User = await Users.edit(user, file)
     saveUserState(response)
     response.token && setTokenInHeader(response.token)
     handleRegisterUserSuccess(dispatch, response)

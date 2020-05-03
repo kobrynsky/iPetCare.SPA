@@ -49,18 +49,20 @@ export const PetList = () => {
             }
           </Box>
           <Grid container spacing={3} justify="space-around">
-            <Grid item xs={12}>
-              <Button
-                size="large"
-                variant="contained"
-                color="primary"
-                startIcon={<AddIcon />}
-                component={Link}
-                to="/pets/create"
-              >
-                Dodaj
+            {user?.role === OWNER && (
+              <Grid item xs={12}>
+                <Button
+                  size="large"
+                  variant="contained"
+                  color="primary"
+                  startIcon={<AddIcon />}
+                  component={Link}
+                  to="/pets/create"
+                >
+                  Dodaj
                 </Button>
-            </Grid>
+              </Grid>
+            )}
             {petsState.items.map((pet: Pet) => {
               return (
                 <Grid key={pet.id} item xs={4}>
