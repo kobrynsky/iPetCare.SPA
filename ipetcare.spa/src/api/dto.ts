@@ -67,3 +67,16 @@ export interface GetSearchResponseDto {
   vets?: Vet[]
   owners?: Owner[]
 }
+
+export interface ImportantDate {
+  id: string
+  payload: string
+  createdAt: string
+  importantDate: string
+  petId: string
+}
+
+export interface ImportantDatesResponseDto {
+  upcomingDates: ImportantDate[]
+  pastDates: ImportantDate[]
+}
