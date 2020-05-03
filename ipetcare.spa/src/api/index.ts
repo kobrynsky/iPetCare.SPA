@@ -41,24 +41,24 @@ axios.interceptors.response.use(undefined, error => {
   if (status === 404) {
     console.log(error.response)
     toast.error("Błąd: " + error.response.data)
-    history.push('/notfound')
+    window.location.href = '/notfound'
   }
   if (status === 403) {
     console.log(error.response)
     toast.error("Błąd: " + error.response.data)
-    history.push('/forbidden')
+    window.location.href = '/forbidden'
   }
   if (status === 401) {
     console.log(error.response)
     toast.error("Błąd: " + error.response.data)
     deleteUserState()
-    history.replace('/unauthorized')
+    window.location.href = '/unauthorized'
     console.info('Twoja sesja wygasła, zaloguj się ponownie.')
   }
   if (
     status === 400
   ) {
-    history.push('/notfound')
+    window.location.href = '/notfound'
     toast.error("Błąd: " + error.response.data)
     console.log(error.response)
   }
