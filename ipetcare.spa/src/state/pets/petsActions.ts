@@ -13,6 +13,9 @@ export enum PetsActionTypes {
   GET_MY_PETS = 'GET_MY_PETS',
   GET_MY_PETS_SUCCESS = 'GET_MY_PETS_SUCCESS',
   GET_MY_PETS_FAIL = 'GET_MY_PETS_FAIL',
+  GET_SHARED_PETS = 'GET_SHARED_PETS',
+  GET_SHARED_PETS_SUCCESS = 'GET_SHARED_PETS_SUCCESS',
+  GET_SHARED_PETS_FAIL = 'GET_SHARED_PETS_FAIL',
   GET_PET = 'GET_PET',
   GET_PET_SUCCESS = 'GET_PET_SUCCESS',
   GET_PET_FAIL = 'GET_PET_FAIL',
@@ -112,6 +115,50 @@ export const handleGetMyPetsSuccess = (
 export const handleGetMyPetsFail = (dispatch: Dispatch<GetMyPetsFail>) => {
   dispatch({
     type: PetsActionTypes.GET_MY_PETS_FAIL,
+  })
+}
+
+// FETCH SHARED PETS LIST
+interface GetSharedPets {
+  type: PetsActionTypes.GET_SHARED_PETS
+}
+
+interface GetSharedPetsSuccess {
+  type: PetsActionTypes.GET_SHARED_PETS_SUCCESS
+  payload: Pet[]
+}
+
+interface GetSharedPetsFail {
+  type: PetsActionTypes.GET_SHARED_PETS_FAIL
+}
+
+export const getSharedPets = (): ThunkResult<void> => async dispatch => {
+  handleGetSharedPets(dispatch)
+  try {
+    const response: Pet[] = await pets.getSharedPets()
+    handleGetSharedPetsSuccess(dispatch, response)
+  } catch (e) {
+    handleGetSharedPetsFail(dispatch)
+  }
+}
+
+export const handleGetSharedPets = (dispatch: Dispatch<GetSharedPets>) => {
+  dispatch({ type: PetsActionTypes.GET_SHARED_PETS })
+}
+
+export const handleGetSharedPetsSuccess = (
+  dispatch: Dispatch<GetSharedPetsSuccess>,
+  response: Pet[]
+) => {
+  dispatch({
+    type: PetsActionTypes.GET_SHARED_PETS_SUCCESS,
+    payload: response,
+  })
+}
+
+export const handleGetSharedPetsFail = (dispatch: Dispatch<GetSharedPetsFail>) => {
+  dispatch({
+    type: PetsActionTypes.GET_SHARED_PETS_FAIL,
   })
 }
 
@@ -283,6 +330,9 @@ export type PETS_ACTIONS =
   | GetMyPets
   | GetMyPetsSuccess
   | GetMyPetsFail
+  | GetSharedPets
+  | GetSharedPetsSuccess
+  | GetSharedPetsFail
   | GetPet
   | GetPetSuccess
   | GetPetFail

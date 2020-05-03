@@ -111,6 +111,7 @@ export const Users = {
 export const Pets = {
   getPets: (): Promise<Pet[]> => requests.get('/pets').then(petsBody),
   getMyPets: (): Promise<Pet[]> => requests.get('/pets/my').then(petsBody),
+  getSharedPets: (): Promise<Pet[]> => requests.get('/pets/shared').then(petsBody),
   getPet: (id: string): Promise<Pet> => requests.get(`/pets/${id}`),
   create: (pet: PetForm | any) => {
     let formData = new FormData()
