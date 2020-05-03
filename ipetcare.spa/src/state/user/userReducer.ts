@@ -67,6 +67,7 @@ export const userReducer = (
     case UserActionTypes.REGISTER_USER:
     case UserActionTypes.EDIT_USER:
     case UserActionTypes.GET_ALL_USERS:
+    case UserActionTypes.DELETE_USER:
       return { ...state, loading: true }
 
     case UserActionTypes.REGISTER_USER_FAIL:
@@ -74,6 +75,7 @@ export const userReducer = (
       return { ...state, loading: false, error: action.payload }
 
     case UserActionTypes.GET_ALL_USERS_FAIL:
+    case UserActionTypes.DELETE_USER_FAIL:
       return { ...state, loading: false }
 
     case UserActionTypes.LOGIN_USER_FAIL:
@@ -105,6 +107,13 @@ export const userReducer = (
       return {
         ...state,
         items: [...action.payload],
+        loading: false,
+      }
+
+    case UserActionTypes.DELETE_USER_SUCCESS:
+      return {
+        ...state,
+        items: state.items.filter(x => x.id !== action.payload),
         loading: false,
       }
 
