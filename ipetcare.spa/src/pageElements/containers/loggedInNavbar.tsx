@@ -14,7 +14,7 @@ import { NavLink, useHistory } from 'react-router-dom'
 import '../pageElements.css'
 import PetsIcon from '@material-ui/icons/Pets'
 import { Typography } from '@material-ui/core'
-import { ADMIN, BASE_URL_IMG, DEFAULT_PET_IMG, VET, OWNER } from '../../utils/constants'
+import { ADMIN, VET, OWNER } from '../../utils/constants'
 
 interface Route {
   caption: string

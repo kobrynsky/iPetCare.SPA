@@ -1,38 +1,20 @@
 import React, { useEffect, useState, Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../state/store'
-import { getPets, getMyPets, deletePet, getSharedPets } from '../../../state/pets/petsActions'
+import { getPets, getMyPets, getSharedPets } from '../../../state/pets/petsActions'
 import { getUserState } from '../../../utils/localStorageHelper'
-import { ADMIN, BASE_URL_IMG, DEFAULT_PET_IMG, VET, OWNER } from '../../../utils/constants'
+import { ADMIN, VET, OWNER } from '../../../utils/constants'
 import { Pet } from '../../../state/pets/petsReducer'
 import AddIcon from '@material-ui/icons/Add'
-
-import {
-  Card,
-  CardActionArea,
-  CardMedia,
-  CardContent,
-  Typography,
-  CardActions,
-  Button,
-  makeStyles,
-  Grid,
-  Box,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-} from '@material-ui/core'
+import { Typography, Button, Grid, Box } from '@material-ui/core'
 import { Link } from 'react-router-dom'
-import moment from 'moment'
 import { getRaces } from '../../../state/races/racesActions'
 import { getAllSpecies } from '../../../state/species/speciesActions'
 import { PetCard } from '../components/petCard'
 
 export const PetList = () => {
-  const [openDeletePrompt, setOpenDeletePrompt] = useState(false)
-  const [modalPetId, setModalPetId] = useState<string | undefined>('')
+  const [] = useState(false)
+  const [] = useState<string | undefined>('')
   const dispatch = useDispatch()
   const petsState = useSelector((state: RootState) => state.pets)
   const racesState = useSelector((state: RootState) => state.races)

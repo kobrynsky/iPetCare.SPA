@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import { Card, CardContent, Typography, CardActionArea, CardMedia, CardActions, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core'
 import { Link } from 'react-router-dom'
-import { getPets, getMyPets, deletePet, getSharedPets } from '../../../state/pets/petsActions'
-import { ADMIN, BASE_URL_IMG, DEFAULT_PET_IMG, VET, OWNER } from '../../../utils/constants'
+import { deletePet } from '../../../state/pets/petsActions'
+import { BASE_URL_IMG, DEFAULT_PET_IMG } from '../../../utils/constants'
 import moment from 'moment'
 
 interface Props {
