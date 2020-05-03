@@ -37,6 +37,7 @@ import PetsIcon from '@material-ui/icons/Pets'
 import { UsersPage } from './features/users/containers/usersPage'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import ScrollToTop from './pageElements/containers/scrollToTop'
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -58,79 +59,81 @@ const App: React.FC = () => {
     user.userName && user.userName.length > 0 ? (
       <LoggedInNavbar />
     ) : (
-      <>
-        <NavLink className="titleContainerNotLogged" to="/">
-          <Typography className="title peru" variant="h5">
-            <PetsIcon fontSize="small" />
+        <>
+          <NavLink className="titleContainerNotLogged" to="/">
+            <Typography className="title peru" variant="h5">
+              <PetsIcon fontSize="small" />
             iPetCare
           </Typography>
-        </NavLink>
-        <NotLoggedNavbar />
-      </>
-    )
+          </NavLink>
+          <NotLoggedNavbar />
+        </>
+      )
 
   return (
     <div className="app">
       <div className="background"></div>
       <BrowserRouter>
         <Grid container direction="column">
-          <Grid container justify="space-between">
-            {header}
-          </Grid>
+          <ScrollToTop>
+            <Grid container justify="space-between">
+              {header}
+            </Grid>
 
-          <Grid item>
-            {loaded && (
-              <Switch>
-                <Route path="/" component={HomeScreen} exact />
-                <Route path="/register" component={RegisterForm} />
-                <Route path="/login" component={LoginForm} />
-                <Route path="/admin" component={AdminScreen} />
-                <Route path="/owner" component={OwnerScreen} />
-                <Route path="/vet" component={VetScreen} />
-                <Route path="/races" component={RacesPage} />
-                <Route path="/species" component={SpeciesPage} />
-                <Route path="/pets/:petId/notes/add" component={AddNotePage} />
-                <Route
-                  path="/pets/:petId/notes/edit/:noteId"
-                  component={EditNotePage}
-                />
-                <Route path="/pets/:petId/notes" component={PetNotesPage} />
-                <Route
-                  path="/pets/:petId/examinations/add"
-                  component={AddExaminationPage}
-                />
-                <Route
-                  path="/pets/:petId/examinations/:examinationId"
-                  component={PetExaminationPage}
-                />
-                <Route
-                  path="/pets/:petId/examinations"
-                  component={PetExaminationsPage}
-                />
-                <Route exact path="/pets/create" component={PetFormPage} />
-                <Route exact path="/pets/:petId/edit" component={PetFormPage} />
-                <Route exact path="/pets/:petId" component={PetPage} />
-                <Route exact path="/pets" component={PetList} />
+            <Grid item>
+              {loaded && (
+                <Switch>
+                  <Route path="/" component={HomeScreen} exact />
+                  <Route path="/register" component={RegisterForm} />
+                  <Route path="/login" component={LoginForm} />
+                  <Route path="/admin" component={AdminScreen} />
+                  <Route path="/owner" component={OwnerScreen} />
+                  <Route path="/vet" component={VetScreen} />
+                  <Route path="/races" component={RacesPage} />
+                  <Route path="/species" component={SpeciesPage} />
+                  <Route path="/pets/:petId/notes/add" component={AddNotePage} />
+                  <Route
+                    path="/pets/:petId/notes/edit/:noteId"
+                    component={EditNotePage}
+                  />
+                  <Route path="/pets/:petId/notes" component={PetNotesPage} />
+                  <Route
+                    path="/pets/:petId/examinations/add"
+                    component={AddExaminationPage}
+                  />
+                  <Route
+                    path="/pets/:petId/examinations/:examinationId"
+                    component={PetExaminationPage}
+                  />
+                  <Route
+                    path="/pets/:petId/examinations"
+                    component={PetExaminationsPage}
+                  />
+                  <Route exact path="/pets/create" component={PetFormPage} />
+                  <Route exact path="/pets/:petId/edit" component={PetFormPage} />
+                  <Route exact path="/pets/:petId" component={PetPage} />
+                  <Route exact path="/pets" component={PetList} />
 
-                <Route path="/profile/edit" component={EditProfilePage} />
-                <Route path="/users/search" component={UserSearchPage} />
-                <Route path="/institutions" component={InstitutionsPage} />
-                <Route
-                  path="/examination/types"
-                  component={ExaminationTypesPage}
-                />
-                <Route
-                  path="/examination/parameters"
-                  component={ExaminationParametersPage}
-                />
+                  <Route path="/profile/edit" component={EditProfilePage} />
+                  <Route path="/users/search" component={UserSearchPage} />
+                  <Route path="/institutions" component={InstitutionsPage} />
+                  <Route
+                    path="/examination/types"
+                    component={ExaminationTypesPage}
+                  />
+                  <Route
+                    path="/examination/parameters"
+                    component={ExaminationParametersPage}
+                  />
 
-                <Route path="/forbidden" component={ForbiddenPage} />
-                <Route path="/unauthorized" component={UnauthorizedPage} />
-                <Route path="/users" component={UsersPage} />
-                <Route path="*" component={NotFoundPage} />
-              </Switch>
-            )}
-          </Grid>
+                  <Route path="/forbidden" component={ForbiddenPage} />
+                  <Route path="/unauthorized" component={UnauthorizedPage} />
+                  <Route path="/users" component={UsersPage} />
+                  <Route path="*" component={NotFoundPage} />
+                </Switch>
+              )}
+            </Grid>
+          </ScrollToTop>
         </Grid>
       </BrowserRouter>
       <ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_RIGHT} />
