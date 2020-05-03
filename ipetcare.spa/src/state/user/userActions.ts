@@ -27,6 +27,9 @@ export enum UserActionTypes {
   GET_ALL_USERS = 'GET_ALL_USERS',
   GET_ALL_USERS_SUCCESS = 'GET_ALL_USERS_SUCCESS',
   GET_ALL_USERS_FAIL = 'GET_ALL_USERS_FAIL',
+  DELETE_USER = 'DELETE_USER',
+  DELETE_USER_FAIL = 'DELETE_USER_FAIL',
+  DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS',
 }
 
 type SET_USER = ReturnType<typeof setUser>
@@ -253,6 +256,39 @@ export const handleGetAllUsersFail = (dispatch: Dispatch<GetAllUsersFail>) => {
 
 // )
 
+// Delete user
+interface DeleteUser {
+  type: UserActionTypes.DELETE_USER
+}
+
+interface DeleteUserSuccess {
+  type: UserActionTypes.DELETE_USER_SUCCESS
+  payload: string
+}
+
+interface DeleteUserFail {
+  type: UserActionTypes.DELETE_USER_FAIL
+}
+
+type DELETE_USER = DeleteUser | DeleteUserSuccess | DeleteUserFail
+
+export const deleteUser = (
+  deletedId: string
+): ThunkResult<void> => async dispatch => {
+  dispatch({ type: UserActionTypes.DELETE_USER })
+  try {
+    await Users.delete(deletedId)
+    dispatch({
+      type: UserActionTypes.DELETE_USER_SUCCESS,
+      payload: deletedId,
+    })
+    toast.success('Pomyślnie usunięto użytkownika')
+  } catch (e) {
+    dispatch({ type: UserActionTypes.DELETE_USER_FAIL })
+  }
+}
+
+
 export type USER_ACTIONS =
   | LOGIN_USER
   | LOGOUT_ACTION
@@ -260,3 +296,4 @@ export type USER_ACTIONS =
   | REGISTER_USER
   | EDIT_USER
   | GET_ALL_USERS
+  | DELETE_USER

@@ -130,6 +130,7 @@ export const Users = {
     requests.post('/users/vets', searchDto),
   getOwners: (searchDto: GetSearchDto): Promise<GetSearchResponseDto> =>
     requests.post('/users/owners', searchDto),
+  delete: (id: string) => requests.del(`/users/${id}`),
 }
 
 export const Pets = {

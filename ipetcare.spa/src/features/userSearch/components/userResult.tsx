@@ -11,6 +11,7 @@ import {
   ButtonGroup,
 } from '@material-ui/core'
 import { Institution } from '../../../api/dto'
+import { ADMIN } from '../../../utils/constants'
 
 interface Props {
   firstName: string
@@ -21,6 +22,7 @@ interface Props {
   institutions?: Institution[]
   imageUrl: string
   title?: string
+  currentSearchingUserRole: string 
 }
 
 const useStyles = makeStyles({
@@ -48,6 +50,7 @@ export const UserResult = ({
   institutions,
   specialization,
   title = '',
+  currentSearchingUserRole,
 }: Props) => {
   const classes = useStyles()
 
@@ -96,9 +99,16 @@ export const UserResult = ({
         <Button size="small" color="primary">
           Szczegóły
         </Button>
-        <Button size="small" color="primary">
-          Dodaj
-        </Button>
+        {currentSearchingUserRole === ADMIN ?
+          <Button size="small" color="primary">
+            Usuń
+          </Button>
+          :
+          <Button size="small" color="primary">
+            Dodaj
+          </Button>
+        }
+
       </CardActions>
     </Card>
   )
