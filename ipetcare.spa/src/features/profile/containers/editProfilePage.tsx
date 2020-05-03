@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../../state/store'
 import { editUser, logout } from '../../../state/user/userActions'
 import { useHistory } from 'react-router-dom'
+import { User } from '../../../state/user/userReducer'
 
 export const EditProfilePage = () => {
   const userState = useSelector((state: RootState) => state.user)
@@ -13,15 +14,15 @@ export const EditProfilePage = () => {
   return (
     <EditProfileForm
       disabled={userState.loading}
-      onSubmit={async user => {
+      onSubmit={async (user: User, file: any) => {
         if (
           user.email !== userState.user.email ||
           user.userName !== userState.user.userName
         ) {
-          await dispatch(editUser(user))
+          await dispatch(editUser(user, file))
           await dispatch(logout())
           history.push('/')
-        } else await dispatch(editUser(user))
+        } else await dispatch(editUser(user, file))
       }}
       user={userState.user}
     />
