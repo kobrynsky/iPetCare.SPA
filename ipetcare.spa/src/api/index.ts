@@ -43,26 +43,36 @@ axios.interceptors.response.use(undefined, error => {
   const { status, data, config } = error.response
   if (status === 404) {
     console.log(error.response)
-    toast.error('Błąd: ' + error.response.data)
-    history.push('/notfound')
+    toast.error("Błąd: " + error.response.data)
+    window.location.href = '/notfound'
   }
+  
+  if (status === 403) {
+    console.log(error.response)
+    toast.error("Błąd: " + error.response.data)
+    window.location.href = '/forbidden'
+    toast.error('Błąd: ' + error.response.data)
+  }
+  
   if (status === 403) {
     console.log(error.response)
     toast.error('Błąd: ' + error.response.data)
     history.push('/forbidden')
   }
+  
   if (status === 401) {
     console.log(error.response)
     toast.error('Błąd: ' + error.response.data)
     deleteUserState()
-    history.replace('/unauthorized')
+    window.location.href = '/unauthorized'
     console.info('Twoja sesja wygasła, zaloguj się ponownie.')
   }
+
   if (status === 400) {
-    history.push('/notfound')
+    window.location.href = '/notfound'
     toast.error('Błąd: ' + error.response.data)
-    console.log(error.response)
   }
+  
   if (status === 500) {
     console.log(error.response)
     toast.error(
@@ -125,6 +135,7 @@ export const Users = {
 export const Pets = {
   getPets: (): Promise<Pet[]> => requests.get('/pets').then(petsBody),
   getMyPets: (): Promise<Pet[]> => requests.get('/pets/my').then(petsBody),
+  getSharedPets: (): Promise<Pet[]> => requests.get('/pets/shared').then(petsBody),
   getPet: (id: string): Promise<Pet> => requests.get(`/pets/${id}`),
   create: (pet: PetForm | any) => {
     let formData = new FormData()
