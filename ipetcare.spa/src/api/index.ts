@@ -146,6 +146,8 @@ export const Races = {
 export const Institutions = {
   getInstitutions: (): Promise<Institution[]> =>
     requests.get('/institutions').then(institutionsBody),
+  getInstitutionsPerVet: (id: string): Promise<Institution[]> =>
+    requests.get(`/institutions/vet/${id}`).then(institutionsBody),
   getInstitution: (id: string): Promise<Institution> =>
     requests.get(`/institutions/${id}`),
   create: (institution: Institution) =>
@@ -153,6 +155,8 @@ export const Institutions = {
   update: (institution: Institution) =>
     requests.put(`/institutions/${institution.id}`, institution),
   delete: (id: string) => requests.del(`/institutions/${id}`),
+  singUp: (id: string) =>requests.post(`/institutions/signup/${id}`, ""),
+  singOut: (id: string) =>requests.del(`/institutions/signout/${id}`),
 }
 
 export const ExaminationTypes = {

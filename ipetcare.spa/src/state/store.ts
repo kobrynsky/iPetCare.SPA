@@ -13,6 +13,7 @@ import {
   InstitutionsState,
   institutionsReducer,
 } from './institutions/institutionsReducer'
+import {myInstitutionsReducer,} from './institutions/myInstitutionsReducer'
 import { INSTITUTIONS_ACTIONS } from './institutions/institutionsActions'
 import {
   examinationTypesReducer,
@@ -41,6 +42,7 @@ export interface RootState {
   readonly races: RacesState
   readonly search: SearchState
   readonly institutions: InstitutionsState
+  readonly myInstitutions: InstitutionsState
   readonly examinationTypes: ExaminationTypesState
   readonly examinationParameters: ExaminationParametersState
   readonly species: SpeciesState
@@ -55,6 +57,7 @@ const rootReducer = combineReducers<RootState>({
   races: racesReducer,
   search: searchReducer,
   institutions: institutionsReducer,
+  myInstitutions: myInstitutionsReducer,
   examinationTypes: examinationTypesReducer,
   examinationParameters: examinationParametersReducer,
   species: speciesReducer,

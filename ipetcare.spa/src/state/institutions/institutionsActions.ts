@@ -11,6 +11,9 @@ export enum InstitutionsActionTypes {
   GET_INSTITUTIONS = 'GET_INSTITUTIONS',
   GET_INSTITUTIONS_SUCCESS = 'GET_INSTITUTIONS_SUCCESS',
   GET_INSTITUTIONS_FAIL = 'GET_INSTITUTIONS_FAIL',
+  GET_INSTITUTIONS_PER_VET = 'GET_INSTITUTIONS_PER_VET',
+  GET_INSTITUTIONS_PER_VET_SUCCESS = 'GET_INSTITUTIONS_PER_VET_SUCCESS',
+  GET_INSTITUTIONS_PER_VET_FAIL = 'GET_INSTITUTIONS_PER_VET_FAIL',
   GET_INSTITUTION = 'GET_INSTITUTION',
   GET_INSTITUTION_SUCCESS = 'GET_INSTITUTION_SUCCESS',
   GET_INSTITUTION_FAIL = 'GET_INSTITUTION_FAIL',
@@ -23,6 +26,12 @@ export enum InstitutionsActionTypes {
   DELETE_INSTITUTION = 'DELETE_INSTITUTION',
   DELETE_INSTITUTION_SUCCESS = 'DELETE_INSTITUTION_SUCCESS',
   DELETE_INSTITUTION_FAIL = 'DELETE_INSTITUTION_FAIL',
+  SINGUP_INSTITUTION = 'SINGUP_INSTITUTION',
+  SINGUP_INSTITUTION_SUCCESS = 'SINGUP_INSTITUTION_SUCCESS',
+  SINGUP_INSTITUTION_FAIL = 'SINGUP_INSTITUTION_FAIL',
+  SINGOUT_INSTITUTION = 'SINGOUT_INSTITUTION',
+  SINGOUT_INSTITUTION_SUCCESS = 'SINGOUT_INSTITUTION_SUCCESS',
+  SINGOUT_INSTITUTION_FAIL = 'SINGOUT_INSTITUTION_FAIL',
 }
 
 // FETCH INSTITUTION LIST
@@ -69,6 +78,53 @@ export const handleGetInstitutionsFail = (
 ) => {
   dispatch({
     type: InstitutionsActionTypes.GET_INSTITUTIONS_FAIL,
+  })
+}
+
+// FETCH INSTITUTION LIST PER VET
+interface GetInstitutionsPerVet {
+  type: InstitutionsActionTypes.GET_INSTITUTIONS_PER_VET
+}
+
+interface GetInstitutionsPerVetSuccess {
+  type: InstitutionsActionTypes.GET_INSTITUTIONS_PER_VET_SUCCESS
+  payload: any
+}
+
+interface GetInstitutionsPerVetFail {
+  type: InstitutionsActionTypes.GET_INSTITUTIONS_PER_VET_FAIL
+}
+
+export const getInstitutionsPerVet = ( id: string): ThunkResult<void> => async dispatch => {
+  handleGetInstitutionsPerVet(dispatch)
+  try {
+    const response: Institution[] = await institutions.getInstitutionsPerVet(id)
+    handleGetInstitutionsPerVetSuccess(dispatch, response)
+  } catch (e) {
+    console.log(e)
+    handleGetInstitutionsPerVetFail(dispatch)
+  }
+}
+
+export const handleGetInstitutionsPerVet = (dispatch: Dispatch<GetInstitutionsPerVet>) => {
+  dispatch({ type: InstitutionsActionTypes.GET_INSTITUTIONS_PER_VET })
+}
+
+export const handleGetInstitutionsPerVetSuccess = (
+  dispatch: Dispatch<GetInstitutionsPerVetSuccess>,
+  response: Institution[]
+) => {
+  dispatch({
+    type: InstitutionsActionTypes.GET_INSTITUTIONS_PER_VET_SUCCESS,
+    payload: response,
+  })
+}
+
+export const handleGetInstitutionsPerVetFail = (
+  dispatch: Dispatch<GetInstitutionsPerVetFail>
+) => {
+  dispatch({
+    type: InstitutionsActionTypes.GET_INSTITUTIONS_PER_VET_FAIL,
   })
 }
 
@@ -246,10 +302,109 @@ export const deleteInstitution = (
   }
 }
 
+// SINGUP INSTITUTION
+interface SingUpInstitution {
+  type: InstitutionsActionTypes.SINGUP_INSTITUTION
+}
+
+interface SingUpInstitutionSuccess {
+  type: InstitutionsActionTypes.SINGUP_INSTITUTION_SUCCESS
+  payload: Institution
+}
+
+interface SingUpInstitutionFail {
+  type: InstitutionsActionTypes.SINGUP_INSTITUTION_FAIL
+}
+export const singUpInstitution = (
+  id: string
+): ThunkResult<void> => async dispatch => {
+  handleSingUpInstitution(dispatch)
+  try {
+    const response: Institution = await institutions.singUp(id)
+    handleSingUpInstitutionSuccess(dispatch, response)
+    toast.success('Pomyślnie przypisano do instytucji')
+  } catch (e) {
+    handleSingUpInstitutionFail(dispatch)
+  }
+}
+
+const handleSingUpInstitution = (
+  dispatch: Dispatch<SingUpInstitution>
+): void => {
+  dispatch({ type: InstitutionsActionTypes.SINGUP_INSTITUTION })
+}
+
+const handleSingUpInstitutionSuccess = (
+  dispatch: Dispatch<SingUpInstitutionSuccess>,
+  updatedInstitution: Institution
+) => {
+  dispatch({
+    type: InstitutionsActionTypes.SINGUP_INSTITUTION_SUCCESS,
+    payload: updatedInstitution,
+  })
+}
+
+const handleSingUpInstitutionFail = (
+  dispatch: Dispatch<SingUpInstitutionFail>
+) => {
+  dispatch({ type: InstitutionsActionTypes.SINGUP_INSTITUTION_FAIL })
+}
+
+// SINGOUT INSTITUTION
+interface SingOutInstitution {
+  type: InstitutionsActionTypes.SINGOUT_INSTITUTION
+}
+
+interface SingOutInstitutionSuccess {
+  type: InstitutionsActionTypes.SINGOUT_INSTITUTION_SUCCESS
+  payload: Institution
+}
+
+interface SingOutInstitutionFail {
+  type: InstitutionsActionTypes.SINGOUT_INSTITUTION_FAIL
+}
+export const singOutInstitution = (
+  id: string
+): ThunkResult<void> => async dispatch => {
+  handleSingOutInstitution(dispatch)
+  try {
+    const response: Institution = await institutions.singOut(id)
+    handleSingOutInstitutionSuccess(dispatch, response)
+    toast.success('Pomyślnie wypisano z instytucji')
+  } catch (e) {
+    handleSingOutInstitutionFail(dispatch)
+  }
+}
+
+const handleSingOutInstitution = (
+  dispatch: Dispatch<SingOutInstitution>
+): void => {
+  dispatch({ type: InstitutionsActionTypes.SINGOUT_INSTITUTION })
+}
+
+const handleSingOutInstitutionSuccess = (
+  dispatch: Dispatch<SingOutInstitutionSuccess>,
+  updatedInstitution: Institution
+) => {
+  dispatch({
+    type: InstitutionsActionTypes.SINGOUT_INSTITUTION_SUCCESS,
+    payload: updatedInstitution,
+  })
+}
+
+const handleSingOutInstitutionFail = (
+  dispatch: Dispatch<SingOutInstitutionFail>
+) => {
+  dispatch({ type: InstitutionsActionTypes.SINGOUT_INSTITUTION_FAIL })
+}
+
 export type INSTITUTIONS_ACTIONS =
   | GetInstitutions
   | GetInstitutionsSuccess
   | GetInstitutionsFail
+  | GetInstitutionsPerVet
+  | GetInstitutionsPerVetSuccess
+  | GetInstitutionsPerVetFail
   | GetInstitution
   | GetInstitutionsuccess
   | GetInstitutionFail
@@ -262,3 +417,9 @@ export type INSTITUTIONS_ACTIONS =
   | DeleteInstitution
   | DeleteInstitutionSuccess
   | DeleteInstitutionFail
+  | SingUpInstitution
+  | SingUpInstitutionSuccess
+  | SingUpInstitutionFail
+  | SingOutInstitution
+  | SingOutInstitutionSuccess
+  | SingOutInstitutionFail
