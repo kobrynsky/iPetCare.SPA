@@ -37,6 +37,8 @@ import PetsIcon from '@material-ui/icons/Pets'
 import { UsersPage } from './features/users/containers/usersPage'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import PrivateRoute from './utils/privateRoute'
+import { ADMIN, OWNER } from './utils/constants'
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -107,7 +109,12 @@ const App: React.FC = () => {
                   path="/pets/:petId/examinations"
                   component={PetExaminationsPage}
                 />
-                <Route exact path="/pets/create" component={PetFormPage} />
+                <PrivateRoute
+                  exact
+                  path="/pets/create"
+                  component={PetFormPage}
+                  requiredRole={[OWNER]}
+                />
                 <Route exact path="/pets/:petId/edit" component={PetFormPage} />
                 <Route exact path="/pets/:petId" component={PetPage} />
                 <Route exact path="/pets" component={PetList} />

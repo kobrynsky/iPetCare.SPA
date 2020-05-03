@@ -3,7 +3,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../state/store'
 import { getPets, getMyPets, deletePet } from '../../../state/pets/petsActions'
 import { getUserState } from '../../../utils/localStorageHelper'
-import { ADMIN, BASE_URL_IMG, DEFAULT_PET_IMG } from '../../../utils/constants'
+import {
+  ADMIN,
+  BASE_URL_IMG,
+  DEFAULT_PET_IMG,
+  OWNER,
+} from '../../../utils/constants'
 import { Pet } from '../../../state/pets/petsReducer'
 import AddIcon from '@material-ui/icons/Add'
 
@@ -64,18 +69,21 @@ export const PetList = () => {
         <Typography variant="h2">Twoje zwierzaki</Typography>
       </Box>
       <Grid container spacing={3} justify="space-around">
-        <Grid item xs={12}>
-          <Button
-            size="large"
-            variant="contained"
-            color="primary"
-            startIcon={<AddIcon />}
-            component={Link}
-            to="/pets/create"
-          >
-            Dodaj
-          </Button>
-        </Grid>
+        {user?.role === OWNER && (
+          <Grid item xs={12}>
+            <Button
+              size="large"
+              variant="contained"
+              color="primary"
+              startIcon={<AddIcon />}
+              component={Link}
+              to="/pets/create"
+            >
+              Dodaj
+            </Button>
+          </Grid>
+        )}
+
         {petsState.items.map((pet: Pet) => {
           return (
             <Grid key={pet.id} item xs={4}>
