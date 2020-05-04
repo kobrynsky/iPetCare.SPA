@@ -155,8 +155,8 @@ export const Institutions = {
   update: (institution: Institution) =>
     requests.put(`/institutions/${institution.id}`, institution),
   delete: (id: string) => requests.del(`/institutions/${id}`),
-  singUp: (id: string) =>requests.post(`/institutions/signup/${id}`, ""),
-  singOut: (id: string) =>requests.del(`/institutions/signout/${id}`),
+  singUp: (id: string): Promise<Institution> => requests.post(`/institutions/signup/${id}`, ""),
+  singOut: (id: string) => requests.del(`/institutions/signout/${id}`),
 }
 
 export const ExaminationTypes = {

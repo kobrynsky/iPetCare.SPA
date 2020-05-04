@@ -10,10 +10,9 @@ interface Props {
   user: User
 }
 
-export function TableInstitutions({ user}: Props) {
+export function TableInstitutions({ user }: Props) {
   const dispatch = useDispatch()
   const institutionsState = useSelector((state: RootState) => state.institutions)
-  const myInstitutionsState = useSelector((state: RootState) => state.myInstitutions)
 
   useEffect(() => {
     dispatch(getInstitutionsPerVet(user.id as string))
@@ -22,10 +21,10 @@ export function TableInstitutions({ user}: Props) {
 
   return (
     <div>
-    <Grid item>
-      <Table
+      <Grid item>
+        <Table
           title="Moje Instytucje"
-          isLoading={myInstitutionsState.loading}
+          isLoading={institutionsState.loading}
           columns={[
             {
               title: 'Nazwa',
@@ -35,25 +34,27 @@ export function TableInstitutions({ user}: Props) {
                 {}
               ),
             },
-            { title: 'Adres', field: 'id',
-            lookup: institutionsState.items.reduce(
-              (a, x) => ({ ...a, [x.id as string]: x.address }),
-              {}
-            ), }
+            {
+              title: 'Adres', field: 'id',
+              lookup: institutionsState.items.reduce(
+                (a, x) => ({ ...a, [x.id as string]: x.address }),
+                {}
+              ),
+            }
           ]}
 
-          rows={myInstitutionsState.items}
+          rows={institutionsState.myItems}
           onDelete={async data => {
-                console.log(data)
-                dispatch(singOutInstitution(data.id))
-                dispatch(getInstitutionsPerVet(user.id as string))
+            console.log(data)
+            dispatch(singOutInstitution(data.id))
+            dispatch(getInstitutionsPerVet(user.id as string))
           }}
           onAdd={async data => {
-              dispatch(singUpInstitution(data.id))
-              dispatch(getInstitutionsPerVet(user.id as string))
+            dispatch(singUpInstitution(data.id))
+            dispatch(getInstitutionsPerVet(user.id as string))
           }}
         />
-    </Grid>
-</div>
+      </Grid>
+    </div>
   )
 }
