@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Card, TextField, Button, Grid } from '@material-ui/core'
 import { User } from '../../../state/user/userReducer'
 import { VET } from '../../../utils/constants'
-import { TableCommon } from '../../../common/components/tableCommon'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../../state/store'
+import { TableInstitutions } from './myInstitutionsTable'
 // import '../../auth/auth.css'
-import { getInstitutions, getInstitutionsPerVet, singUpInstitution, singOutInstitution } from '../../../state/institutions/institutionsActions'
 
 interface Props {
   user: User
@@ -26,14 +23,7 @@ export const EditProfileForm = ({ user, onSubmit, disabled }: Props) => {
   const [userName, setUserName] = useState(user.userName)
   const [role, setRole] = useState(user.role)
   const [imageUrl, setImageUrl] = useState(user.imageUrl)
-  const dispatch = useDispatch()
-  const institutionsState = useSelector((state: RootState) => state.institutions)
-  const myInstitutionsState = useSelector((state: RootState) => state.myInstitutions)
 
-  useEffect(() => {
-    dispatch(getInstitutionsPerVet(user.id as string))
-    dispatch(getInstitutions())
-  }, [])
 
   return (
     <Card className="formCard">
@@ -112,32 +102,7 @@ export const EditProfileForm = ({ user, onSubmit, disabled }: Props) => {
           {user.role === VET && (
             <div>
             <Grid item>
-              <TableCommon
-                  title="Moje Instytucje"
-                  isLoading={myInstitutionsState.loading}
-                  columns={[
-                    {
-                      title: 'Nazwa',
-                      field: 'Id',
-                      lookup: institutionsState.items.reduce(
-                        (a, x) => ({ ...a, [x.id as string]: x.name }),
-                        {}
-                      ),
-                    },
-                    { title: 'Adres', field: 'address' }
-                  ]}
-
-                  rows={myInstitutionsState.items}
-                  onDelete={async data => {
-                        console.log(data)
-                        dispatch(singOutInstitution(data.id))
-                  }}
-                  onAdd={async data => {
-                      dispatch(
-                        singUpInstitution(data.Id)
-                      )
-                  }}
-                />
+              <TableInstitutions user={user}/>
             </Grid>
         </div>
           )}
