@@ -32,7 +32,7 @@ const ownerRoutes: Route[] = [
   },
   {
     caption: 'Kalendarz',
-    path: '/',
+    path: '/calendar',
   },
 ]
 

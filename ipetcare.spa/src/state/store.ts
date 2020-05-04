@@ -28,8 +28,19 @@ import {
 import { EXAMINATION_PARAMETERS_ACTIONS } from './examinationParameters/examinationParametersActions'
 import { NotesState, notesReducer } from './notes/notesReducer'
 import { NOTES_ACTIONS } from './notes/notesActions'
-import { ExaminationsState, examinationsReducer } from './examinations/examinationsReducer'
-import { ExaminationParameterValuesState, examinationParameterValuesReducer } from './examinationValues/examinationValuesReducer'
+import { IMPORTANT_DATES_ACTIONS } from './importantDates/importantDatesActions'
+import {
+  ImportantDateState,
+  importantDateReducer,
+} from './importantDates/importantDatesReducer'
+import {
+  ExaminationsState,
+  examinationsReducer,
+} from './examinations/examinationsReducer'
+import {
+  ExaminationParameterValuesState,
+  examinationParameterValuesReducer,
+} from './examinationValues/examinationValuesReducer'
 import { EXAMINATIONS_ACTIONS } from './examinations/examinationsActions'
 import { EXAMINATION_PARAMETER_VALUES_ACTIONS } from './examinationValues/examinationValuesActions'
 
@@ -45,6 +56,7 @@ export interface RootState {
   readonly examinationParameters: ExaminationParametersState
   readonly species: SpeciesState
   readonly notes: NotesState
+  readonly importantDates: ImportantDateState
   readonly examinations: ExaminationsState
   readonly examinationParameterValues: ExaminationParameterValuesState
 }
@@ -59,6 +71,7 @@ const rootReducer = combineReducers<RootState>({
   examinationParameters: examinationParametersReducer,
   species: speciesReducer,
   notes: notesReducer,
+  importantDates: importantDateReducer,
   examinations: examinationsReducer,
   examinationParameterValues: examinationParameterValuesReducer,
 })
@@ -72,6 +85,7 @@ export type RootActions =
   | SPECIES_ACTIONS
   | EXAMINATION_PARAMETERS_ACTIONS
   | NOTES_ACTIONS
+  | IMPORTANT_DATES_ACTIONS
   | EXAMINATION_PARAMETER_VALUES_ACTIONS
   | EXAMINATIONS_ACTIONS
 

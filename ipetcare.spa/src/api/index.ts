@@ -11,6 +11,7 @@ import {
   RegisterProps,
   GetSearchDto,
   GetSearchResponseDto,
+  ImportantDatesResponseDto,
 } from './dto'
 import { Institution } from '../state/institutions/institutionsReducer'
 import { ExaminationType } from '../state/examinationTypes/examinationTypesReducer'
@@ -49,15 +50,8 @@ axios.interceptors.response.use(undefined, error => {
   
   if (status === 403) {
     console.log(error.response)
-    toast.error("Błąd: " + error.response.data)
     window.location.href = '/forbidden'
     toast.error('Błąd: ' + error.response.data)
-  }
-  
-  if (status === 403) {
-    console.log(error.response)
-    toast.error('Błąd: ' + error.response.data)
-    history.push('/forbidden')
   }
   
   if (status === 401) {
@@ -69,6 +63,7 @@ axios.interceptors.response.use(undefined, error => {
   }
 
   if (status === 400) {
+    console.log(error.response)
     window.location.href = '/notfound'
     toast.error('Błąd: ' + error.response.data)
   }
@@ -229,6 +224,8 @@ export const Notes = {
     requests.get(`/notes/${petId}`).then(notesBody),
   getNote: (petId: string, noteId: string): Promise<Note> =>
     requests.get(`/notes/${petId}/${noteId}`),
+  getImportantDates: (): Promise<ImportantDatesResponseDto> =>
+    requests.get('/notes/important-dates'),
   create: (note: Note) => requests.post('/notes', note),
   update: (note: Note) => requests.put(`/notes/${note.petId}/${note.id}`, note),
   delete: (id: string, petId: string) => requests.del(`/notes/${petId}/${id}`),

@@ -1,0 +1,5 @@
+.calendarToolbar {
+  padding: 10px;
+  display: flex !important;
+  flex-direction: column;
+}
