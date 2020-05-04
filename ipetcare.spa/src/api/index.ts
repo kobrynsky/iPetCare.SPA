@@ -44,26 +44,30 @@ axios.interceptors.response.use(undefined, error => {
   const { status, data, config } = error.response
   if (status === 404) {
     console.log(error.response)
-    toast.error('Błąd: ' + error.response.data)
-    history.push('/notfound')
+    toast.error("Błąd: " + error.response.data)
+    window.location.href = '/notfound'
   }
+  
   if (status === 403) {
     console.log(error.response)
+    window.location.href = '/forbidden'
     toast.error('Błąd: ' + error.response.data)
-    history.push('/forbidden')
   }
+  
   if (status === 401) {
     console.log(error.response)
     toast.error('Błąd: ' + error.response.data)
     deleteUserState()
-    history.replace('/unauthorized')
+    window.location.href = '/unauthorized'
     console.info('Twoja sesja wygasła, zaloguj się ponownie.')
   }
+
   if (status === 400) {
-    history.push('/notfound')
-    toast.error('Błąd: ' + error.response.data)
     console.log(error.response)
+    window.location.href = '/notfound'
+    toast.error('Błąd: ' + error.response.data)
   }
+  
   if (status === 500) {
     console.log(error.response)
     toast.error(
@@ -107,16 +111,27 @@ export const Users = {
   register: (user: RegisterProps): Promise<User> =>
     requests.post('/users/register', user),
   users: (): Promise<User[]> => requests.get('/users').then(usersBody),
-  edit: (user: User): Promise<User> => requests.put('/users', user),
+  edit: (user: User | any, file: any): Promise<User> => {
+    let formData = new FormData()
+
+    Object.keys(user).forEach(key => formData.append(key, user[key]))
+    formData.append('image', file)
+
+    return requests.put(`/users`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
+  },
   getVets: (searchDto: GetSearchDto): Promise<GetSearchResponseDto> =>
     requests.post('/users/vets', searchDto),
   getOwners: (searchDto: GetSearchDto): Promise<GetSearchResponseDto> =>
     requests.post('/users/owners', searchDto),
+  delete: (id: string) => requests.del(`/users/${id}`),
 }
 
 export const Pets = {
   getPets: (): Promise<Pet[]> => requests.get('/pets').then(petsBody),
   getMyPets: (): Promise<Pet[]> => requests.get('/pets/my').then(petsBody),
+  getSharedPets: (): Promise<Pet[]> => requests.get('/pets/shared').then(petsBody),
   getPet: (id: string): Promise<Pet> => requests.get(`/pets/${id}`),
   create: (pet: PetForm | any) => {
     let formData = new FormData()
@@ -152,6 +167,8 @@ export const Races = {
 export const Institutions = {
   getInstitutions: (): Promise<Institution[]> =>
     requests.get('/institutions').then(institutionsBody),
+  getInstitutionsPerVet: (id: string): Promise<Institution[]> =>
+    requests.get(`/institutions/vet/${id}`).then(institutionsBody),
   getInstitution: (id: string): Promise<Institution> =>
     requests.get(`/institutions/${id}`),
   create: (institution: Institution) =>
@@ -159,6 +176,8 @@ export const Institutions = {
   update: (institution: Institution) =>
     requests.put(`/institutions/${institution.id}`, institution),
   delete: (id: string) => requests.del(`/institutions/${id}`),
+  signUp: (id: string): Promise<Institution> => requests.post(`/institutions/signup/${id}`, ""),
+  signOut: (id: string) => requests.del(`/institutions/signout/${id}`),
 }
 
 export const ExaminationTypes = {

@@ -66,6 +66,7 @@ export interface GetSearchResponseDto {
   sortBy: SortByVets | SortByOwners
   vets?: Vet[]
   owners?: Owner[]
+  currentSearchingUserRole: string
 }
 
 export interface ImportantDate {
