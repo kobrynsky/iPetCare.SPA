@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { Card, TextField, Button } from '@material-ui/core'
+import { Card, TextField, Button, Grid } from '@material-ui/core'
 import { User } from '../../../state/user/userReducer'
+import { TableInstitutions } from './myInstitutionsTable'
 import { VET, BASE_URL_IMG, DEFAULT_USER_IMG } from '../../../utils/constants'
 // import '../../auth/auth.css'
 
@@ -18,10 +19,12 @@ export const EditProfileForm = ({ user, onSubmit, disabled }: Props) => {
     user.placeOfResidence
   )
   const [specialization, setSpecialization] = useState(user?.specialization)
+  // const [institution, setInstitution] = useState(user?.institution)
   const [userName, setUserName] = useState(user.userName)
   const [role, setRole] = useState(user.role)
   const [imageUrl, setImageUrl] = useState(user.imageUrl)
   const [file, setFile] = useState<any>()
+
 
   return (
     <Card className="formCard">
@@ -102,6 +105,14 @@ export const EditProfileForm = ({ user, onSubmit, disabled }: Props) => {
               value={specialization}
               onChange={e => setSpecialization(e.target.value)}
             />
+          )}
+
+          {user.role === VET && (
+            <div>
+            <Grid item>
+              <TableInstitutions user={user}/>
+            </Grid>
+        </div>
           )}
 
           <TextField

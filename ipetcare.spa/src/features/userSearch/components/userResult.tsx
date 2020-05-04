@@ -84,15 +84,6 @@ export const UserResult = ({
               </Typography>
             </>
           ))}
-        {institutions &&
-          institutions.map(i => (
-            <>
-              <Typography variant="body1">{i.name}</Typography>
-              <Typography variant="subtitle1" color="textSecondary">
-                {i.address}
-              </Typography>
-            </>
-          ))}
       </CardContent>
       {/* </CardActionArea> */}
       <CardActions>
