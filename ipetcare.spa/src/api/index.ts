@@ -44,16 +44,16 @@ axios.interceptors.response.use(undefined, error => {
   const { status, data, config } = error.response
   if (status === 404) {
     console.log(error.response)
-    toast.error("Błąd: " + error.response.data)
+    toast.error('Błąd: ' + error.response.data)
     window.location.href = '/notfound'
   }
-  
+
   if (status === 403) {
     console.log(error.response)
     window.location.href = '/forbidden'
     toast.error('Błąd: ' + error.response.data)
   }
-  
+
   if (status === 401) {
     console.log(error.response)
     toast.error('Błąd: ' + error.response.data)
@@ -64,10 +64,10 @@ axios.interceptors.response.use(undefined, error => {
 
   if (status === 400) {
     console.log(error.response)
-    window.location.href = '/notfound'
+    // window.location.href = '/notfound'
     toast.error('Błąd: ' + error.response.data)
   }
-  
+
   if (status === 500) {
     console.log(error.response)
     toast.error(
@@ -131,7 +131,8 @@ export const Users = {
 export const Pets = {
   getPets: (): Promise<Pet[]> => requests.get('/pets').then(petsBody),
   getMyPets: (): Promise<Pet[]> => requests.get('/pets/my').then(petsBody),
-  getSharedPets: (): Promise<Pet[]> => requests.get('/pets/shared').then(petsBody),
+  getSharedPets: (): Promise<Pet[]> =>
+    requests.get('/pets/shared').then(petsBody),
   getPet: (id: string): Promise<Pet> => requests.get(`/pets/${id}`),
   create: (pet: PetForm | any) => {
     let formData = new FormData()
@@ -176,7 +177,8 @@ export const Institutions = {
   update: (institution: Institution) =>
     requests.put(`/institutions/${institution.id}`, institution),
   delete: (id: string) => requests.del(`/institutions/${id}`),
-  signUp: (id: string): Promise<Institution> => requests.post(`/institutions/signup/${id}`, ""),
+  signUp: (id: string): Promise<Institution> =>
+    requests.post(`/institutions/signup/${id}`, ''),
   signOut: (id: string) => requests.del(`/institutions/signout/${id}`),
 }
 
