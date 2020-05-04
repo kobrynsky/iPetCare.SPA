@@ -34,8 +34,8 @@ export const institutionsReducer = (
     case InstitutionsActionTypes.UPDATE_INSTITUTION:
     case InstitutionsActionTypes.DELETE_INSTITUTION:
     case InstitutionsActionTypes.GET_INSTITUTIONS_PER_VET:
-    case InstitutionsActionTypes.SINGUP_INSTITUTION:
-    case InstitutionsActionTypes.SINGOUT_INSTITUTION:
+    case InstitutionsActionTypes.SIGNUP_INSTITUTION:
+    case InstitutionsActionTypes.SIGNOUT_INSTITUTION:
       return { ...state, loading: true }
 
     case InstitutionsActionTypes.GET_INSTITUTION_FAIL:
@@ -44,8 +44,8 @@ export const institutionsReducer = (
     case InstitutionsActionTypes.DELETE_INSTITUTION_FAIL:
     case InstitutionsActionTypes.UPDATE_INSTITUTION_FAIL:
     case InstitutionsActionTypes.GET_INSTITUTIONS_PER_VET_FAIL:
-    case InstitutionsActionTypes.SINGUP_INSTITUTION_FAIL:
-    case InstitutionsActionTypes.SINGOUT_INSTITUTION_FAIL:
+    case InstitutionsActionTypes.SIGNUP_INSTITUTION_FAIL:
+    case InstitutionsActionTypes.SIGNOUT_INSTITUTION_FAIL:
       return { ...state, loading: false }
 
     case InstitutionsActionTypes.CREATE_INSTITUTION_SUCCESS:
@@ -87,13 +87,13 @@ export const institutionsReducer = (
         loading: false,
       }
 
-    case InstitutionsActionTypes.SINGOUT_INSTITUTION_SUCCESS:
+    case InstitutionsActionTypes.SIGNOUT_INSTITUTION_SUCCESS:
       return {
         ...state,
         myItems: state.myItems.filter(x => x.id !== action.payload),
         loading: false,
       }
-    case InstitutionsActionTypes.SINGUP_INSTITUTION_SUCCESS:
+    case InstitutionsActionTypes.SIGNUP_INSTITUTION_SUCCESS:
       return {
         ...state,
         myItems: [...state.myItems, action.payload],

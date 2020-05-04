@@ -26,12 +26,12 @@ export enum InstitutionsActionTypes {
   DELETE_INSTITUTION = 'DELETE_INSTITUTION',
   DELETE_INSTITUTION_SUCCESS = 'DELETE_INSTITUTION_SUCCESS',
   DELETE_INSTITUTION_FAIL = 'DELETE_INSTITUTION_FAIL',
-  SINGUP_INSTITUTION = 'SINGUP_INSTITUTION',
-  SINGUP_INSTITUTION_SUCCESS = 'SINGUP_INSTITUTION_SUCCESS',
-  SINGUP_INSTITUTION_FAIL = 'SINGUP_INSTITUTION_FAIL',
-  SINGOUT_INSTITUTION = 'SINGOUT_INSTITUTION',
-  SINGOUT_INSTITUTION_SUCCESS = 'SINGOUT_INSTITUTION_SUCCESS',
-  SINGOUT_INSTITUTION_FAIL = 'SINGOUT_INSTITUTION_FAIL',
+  SIGNUP_INSTITUTION = 'SIGNUP_INSTITUTION',
+  SIGNUP_INSTITUTION_SUCCESS = 'SIGNUP_INSTITUTION_SUCCESS',
+  SIGNUP_INSTITUTION_FAIL = 'SIGNUP_INSTITUTION_FAIL',
+  SIGNOUT_INSTITUTION = 'SIGNOUT_INSTITUTION',
+  SIGNOUT_INSTITUTION_SUCCESS = 'SIGNOUT_INSTITUTION_SUCCESS',
+  SIGNOUT_INSTITUTION_FAIL = 'SIGNOUT_INSTITUTION_FAIL',
 }
 
 // FETCH INSTITUTION LIST
@@ -128,7 +128,7 @@ export const handleGetInstitutionsPerVetFail = (
   })
 }
 
-// FETCH SINGLE INSTITUTION
+// FETCH SIGNLE INSTITUTION
 interface GetInstitution {
   type: InstitutionsActionTypes.GET_INSTITUTION
 }
@@ -302,100 +302,100 @@ export const deleteInstitution = (
   }
 }
 
-// SINGUP INSTITUTION
-interface SingUpInstitution {
-  type: InstitutionsActionTypes.SINGUP_INSTITUTION
+// SIGNUP INSTITUTION
+interface SignUpInstitution {
+  type: InstitutionsActionTypes.SIGNUP_INSTITUTION
 }
 
-interface SingUpInstitutionSuccess {
-  type: InstitutionsActionTypes.SINGUP_INSTITUTION_SUCCESS
+interface SignUpInstitutionSuccess {
+  type: InstitutionsActionTypes.SIGNUP_INSTITUTION_SUCCESS
   payload: Institution
 }
 
-interface SingUpInstitutionFail {
-  type: InstitutionsActionTypes.SINGUP_INSTITUTION_FAIL
+interface SignUpInstitutionFail {
+  type: InstitutionsActionTypes.SIGNUP_INSTITUTION_FAIL
 }
-export const singUpInstitution = (
+export const signUpInstitution = (
   id: string
 ): ThunkResult<void> => async dispatch => {
-  handleSingUpInstitution(dispatch)
+  handleSignUpInstitution(dispatch)
   try {
-    const response: Institution = await institutions.singUp(id)
-    handleSingUpInstitutionSuccess(dispatch, response)
+    const response: Institution = await institutions.signUp(id)
+    handleSignUpInstitutionSuccess(dispatch, response)
     toast.success('Pomyślnie przypisano do instytucji')
   } catch (e) {
-    handleSingUpInstitutionFail(dispatch)
+    handleSignUpInstitutionFail(dispatch)
   }
 }
 
-const handleSingUpInstitution = (
-  dispatch: Dispatch<SingUpInstitution>
+const handleSignUpInstitution = (
+  dispatch: Dispatch<SignUpInstitution>
 ): void => {
-  dispatch({ type: InstitutionsActionTypes.SINGUP_INSTITUTION })
+  dispatch({ type: InstitutionsActionTypes.SIGNUP_INSTITUTION })
 }
 
-const handleSingUpInstitutionSuccess = (
-  dispatch: Dispatch<SingUpInstitutionSuccess>,
+const handleSignUpInstitutionSuccess = (
+  dispatch: Dispatch<SignUpInstitutionSuccess>,
   institution: Institution
 ) => {
   dispatch({
-    type: InstitutionsActionTypes.SINGUP_INSTITUTION_SUCCESS,
+    type: InstitutionsActionTypes.SIGNUP_INSTITUTION_SUCCESS,
     payload: institution,
   })
 }
 
-const handleSingUpInstitutionFail = (
-  dispatch: Dispatch<SingUpInstitutionFail>
+const handleSignUpInstitutionFail = (
+  dispatch: Dispatch<SignUpInstitutionFail>
 ) => {
-  dispatch({ type: InstitutionsActionTypes.SINGUP_INSTITUTION_FAIL })
+  dispatch({ type: InstitutionsActionTypes.SIGNUP_INSTITUTION_FAIL })
 }
 
-// SINGOUT INSTITUTION
-interface SingOutInstitution {
-  type: InstitutionsActionTypes.SINGOUT_INSTITUTION
+// SIGNOUT INSTITUTION
+interface SignOutInstitution {
+  type: InstitutionsActionTypes.SIGNOUT_INSTITUTION
 }
 
-interface SingOutInstitutionSuccess {
-  type: InstitutionsActionTypes.SINGOUT_INSTITUTION_SUCCESS
+interface SignOutInstitutionSuccess {
+  type: InstitutionsActionTypes.SIGNOUT_INSTITUTION_SUCCESS
   payload: string
 }
 
-interface SingOutInstitutionFail {
-  type: InstitutionsActionTypes.SINGOUT_INSTITUTION_FAIL
+interface SignOutInstitutionFail {
+  type: InstitutionsActionTypes.SIGNOUT_INSTITUTION_FAIL
 }
-export const singOutInstitution = (
+export const signOutInstitution = (
   id: string
 ): ThunkResult<void> => async dispatch => {
-  handleSingOutInstitution(dispatch)
+  handleSignOutInstitution(dispatch)
   try {
-    await institutions.singOut(id)
-    handleSingOutInstitutionSuccess(dispatch, id)
+    await institutions.signOut(id)
+    handleSignOutInstitutionSuccess(dispatch, id)
     toast.success('Pomyślnie wypisano z instytucji')
   } catch (e) {
-    handleSingOutInstitutionFail(dispatch)
+    handleSignOutInstitutionFail(dispatch)
   }
 }
 
-const handleSingOutInstitution = (
-  dispatch: Dispatch<SingOutInstitution>
+const handleSignOutInstitution = (
+  dispatch: Dispatch<SignOutInstitution>
 ): void => {
-  dispatch({ type: InstitutionsActionTypes.SINGOUT_INSTITUTION })
+  dispatch({ type: InstitutionsActionTypes.SIGNOUT_INSTITUTION })
 }
 
-const handleSingOutInstitutionSuccess = (
-  dispatch: Dispatch<SingOutInstitutionSuccess>,
+const handleSignOutInstitutionSuccess = (
+  dispatch: Dispatch<SignOutInstitutionSuccess>,
   institutionId: string
 ) => {
   dispatch({
-    type: InstitutionsActionTypes.SINGOUT_INSTITUTION_SUCCESS,
+    type: InstitutionsActionTypes.SIGNOUT_INSTITUTION_SUCCESS,
     payload: institutionId,
   })
 }
 
-const handleSingOutInstitutionFail = (
-  dispatch: Dispatch<SingOutInstitutionFail>
+const handleSignOutInstitutionFail = (
+  dispatch: Dispatch<SignOutInstitutionFail>
 ) => {
-  dispatch({ type: InstitutionsActionTypes.SINGOUT_INSTITUTION_FAIL })
+  dispatch({ type: InstitutionsActionTypes.SIGNOUT_INSTITUTION_FAIL })
 }
 
 export type INSTITUTIONS_ACTIONS =
@@ -417,9 +417,9 @@ export type INSTITUTIONS_ACTIONS =
   | DeleteInstitution
   | DeleteInstitutionSuccess
   | DeleteInstitutionFail
-  | SingUpInstitution
-  | SingUpInstitutionSuccess
-  | SingUpInstitutionFail
-  | SingOutInstitution
-  | SingOutInstitutionSuccess
-  | SingOutInstitutionFail
+  | SignUpInstitution
+  | SignUpInstitutionSuccess
+  | SignUpInstitutionFail
+  | SignOutInstitution
+  | SignOutInstitutionSuccess
+  | SignOutInstitutionFail
