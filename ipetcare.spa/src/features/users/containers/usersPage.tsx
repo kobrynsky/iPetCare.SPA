@@ -3,7 +3,7 @@ import { Grid, Typography } from '@material-ui/core'
 import { TableCommon } from '../../../common/components/tableCommon'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../state/store'
-import { getAllUsers } from '../../../state/user/userActions'
+import { getAllUsers, deleteUser } from '../../../state/user/userActions'
 
 export function UsersPage() {
   const dispatch = useDispatch()
@@ -33,6 +33,9 @@ export function UsersPage() {
               { title: 'Rola', field: 'role' },
             ]}
             rows={userState.items}
+            onDelete={async data => {
+              dispatch(deleteUser(data.id))
+          }}
           />
         </Grid>
       </Grid>

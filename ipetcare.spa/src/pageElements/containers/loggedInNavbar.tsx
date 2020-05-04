@@ -14,6 +14,7 @@ import { NavLink, useHistory } from 'react-router-dom'
 import '../pageElements.css'
 import PetsIcon from '@material-ui/icons/Pets'
 import { Typography } from '@material-ui/core'
+import { ADMIN, VET, OWNER } from '../../utils/constants'
 
 interface Route {
   caption: string
@@ -23,6 +24,21 @@ interface Route {
 const ownerRoutes: Route[] = [
   {
     caption: 'Moje Zwierzęta',
+    path: '/pets',
+  },
+  {
+    caption: 'Weterynarze',
+    path: '/',
+  },
+  {
+    caption: 'Kalendarz',
+    path: '/',
+  },
+]
+
+const vetRoutes: Route[] = [
+  {
+    caption: 'Zwierzęta',
     path: '/pets',
   },
   {
@@ -191,6 +207,17 @@ export function LoggedInNavbar() {
     </Menu>
   )
 
+  const renderMobileMenuItemByRole = () => {
+    switch (user.role) {
+      case ADMIN:
+        return renderMobileMenuItem(adminRoutes)
+      case OWNER:
+        return renderMobileMenuItem(ownerRoutes)
+      case VET:
+        return renderMobileMenuItem(vetRoutes)
+    }
+  }
+
   const renderMobileMenuItem = (routes: Route[]) => {
     return routes.map(r => (
       <MenuItem key={r.caption}>
@@ -243,11 +270,20 @@ export function LoggedInNavbar() {
           Wyszukaj
         </NavLink>
       </MenuItem>
-      {renderMobileMenuItem(
-        user.role.toLowerCase() === 'administrator' ? adminRoutes : ownerRoutes
-      )}
+      {renderMobileMenuItemByRole()}
     </Menu>
   )
+
+  const renderDesktopMenuItemByRole = () => {
+    switch (user.role) {
+      case ADMIN:
+        return renderDesktopMenuItem(adminRoutes)
+      case OWNER:
+        return renderDesktopMenuItem(ownerRoutes)
+      case VET:
+        return renderDesktopMenuItem(vetRoutes)
+    }
+  }
 
   const renderDesktopMenuItem = (routes: Route[]) => {
     return routes.map(r => (
@@ -301,11 +337,7 @@ export function LoggedInNavbar() {
             >
               Wyszukaj
             </NavLink>
-            {renderDesktopMenuItem(
-              user.role.toLowerCase() === 'administrator'
-                ? adminRoutes
-                : ownerRoutes
-            )}
+            {renderDesktopMenuItemByRole()}
           </div>
           <div className={classes.grow} />
           <IconButton

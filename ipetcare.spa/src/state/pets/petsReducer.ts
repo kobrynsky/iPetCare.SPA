@@ -25,12 +25,14 @@ export interface PetForm {
 
 export interface PetsState {
   items: Pet[]
+  sharedItems: Pet[]
   loading: boolean
   error: String | null
 }
 
 const initialState = {
   items: [] as Pet[],
+  sharedItems: [] as Pet[],
   loading: false,
   error: null,
 }
@@ -43,6 +45,7 @@ export const petsReducer: Reducer<PetsState, PETS_ACTIONS> = (
     case PetsActionTypes.GET_PET:
     case PetsActionTypes.GET_PETS:
     case PetsActionTypes.GET_MY_PETS:
+    case PetsActionTypes.GET_SHARED_PETS:
     case PetsActionTypes.CREATE_PET:
     case PetsActionTypes.UPDATE_PET:
     case PetsActionTypes.DELETE_PET:
@@ -51,6 +54,7 @@ export const petsReducer: Reducer<PetsState, PETS_ACTIONS> = (
     case PetsActionTypes.GET_PET_FAIL:
     case PetsActionTypes.GET_PETS_FAIL:
     case PetsActionTypes.GET_MY_PETS_FAIL:
+    case PetsActionTypes.GET_SHARED_PETS_FAIL:
     case PetsActionTypes.CREATE_PET_FAIL:
     case PetsActionTypes.UPDATE_PET_FAIL:
     case PetsActionTypes.DELETE_PET_FAIL:
@@ -68,6 +72,13 @@ export const petsReducer: Reducer<PetsState, PETS_ACTIONS> = (
       return {
         ...state,
         items: [...action.payload],
+        loading: false,
+      }
+
+    case PetsActionTypes.GET_SHARED_PETS_SUCCESS:
+      return {
+        ...state,
+        sharedItems: [...action.payload],
         loading: false,
       }
 

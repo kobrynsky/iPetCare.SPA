@@ -16,7 +16,10 @@ import { Institution } from '../state/institutions/institutionsReducer'
 import { ExaminationType } from '../state/examinationTypes/examinationTypesReducer'
 import { ExaminationParameter } from '../state/examinationParameters/examinationParametersReducer'
 import { Note } from '../state/notes/notesReducer'
-import { Examination, ExaminationDetails } from '../state/examinations/examinationsReducer'
+import {
+  Examination,
+  ExaminationDetails,
+} from '../state/examinations/examinationsReducer'
 import { ExaminationParameterValue } from '../state/examinationValues/examinationValuesReducer'
 import { toast } from 'react-toastify'
 
@@ -41,30 +44,41 @@ axios.interceptors.response.use(undefined, error => {
   if (status === 404) {
     console.log(error.response)
     toast.error("Błąd: " + error.response.data)
-    history.push('/notfound')
+    window.location.href = '/notfound'
   }
+  
   if (status === 403) {
     console.log(error.response)
     toast.error("Błąd: " + error.response.data)
+    window.location.href = '/forbidden'
+    toast.error('Błąd: ' + error.response.data)
+  }
+  
+  if (status === 403) {
+    console.log(error.response)
+    toast.error('Błąd: ' + error.response.data)
     history.push('/forbidden')
   }
+  
   if (status === 401) {
     console.log(error.response)
-    toast.error("Błąd: " + error.response.data)
+    toast.error('Błąd: ' + error.response.data)
     deleteUserState()
-    history.replace('/unauthorized')
+    window.location.href = '/unauthorized'
     console.info('Twoja sesja wygasła, zaloguj się ponownie.')
   }
-  if (
-    status === 400
-  ) {
-    history.push('/notfound')
-    toast.error("Błąd: " + error.response.data)
-    console.log(error.response)
+
+  if (status === 400) {
+    window.location.href = '/notfound'
+    toast.error('Błąd: ' + error.response.data)
   }
+  
   if (status === 500) {
     console.log(error.response)
-    toast.error("Błąd: " + "Błąd serwera - sprawdź konsolę, aby uzyskać więcej informacji!")
+    toast.error(
+      'Błąd: ' +
+        'Błąd serwera - sprawdź konsolę, aby uzyskać więcej informacji!'
+    )
     console.error(
       'Błąd serwera - sprawdź konsolę, aby uzyskać więcej informacji!'
     )
@@ -82,7 +96,8 @@ const examinationParameterBody = (response: any) =>
 const petsBody = (response: any) => response.pets
 const notesBody = (response: any) => response.notes
 const examinationsBody = (response: any) => response.examinations
-const examinationParameterValuesBody = (response: any) => response.examinationParametersValues
+const examinationParameterValuesBody = (response: any) =>
+  response.examinationParametersValues
 const usersBody = (response: any) => response.users
 
 const requests = {
@@ -101,16 +116,27 @@ export const Users = {
   register: (user: RegisterProps): Promise<User> =>
     requests.post('/users/register', user),
   users: (): Promise<User[]> => requests.get('/users').then(usersBody),
-  edit: (user: User): Promise<User> => requests.put('/users', user),
+  edit: (user: User | any, file: any): Promise<User> => {
+    let formData = new FormData()
+
+    Object.keys(user).forEach(key => formData.append(key, user[key]))
+    formData.append('image', file)
+
+    return requests.put(`/users`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
+  },
   getVets: (searchDto: GetSearchDto): Promise<GetSearchResponseDto> =>
     requests.post('/users/vets', searchDto),
   getOwners: (searchDto: GetSearchDto): Promise<GetSearchResponseDto> =>
     requests.post('/users/owners', searchDto),
+  delete: (id: string) => requests.del(`/users/${id}`),
 }
 
 export const Pets = {
   getPets: (): Promise<Pet[]> => requests.get('/pets').then(petsBody),
   getMyPets: (): Promise<Pet[]> => requests.get('/pets/my').then(petsBody),
+  getSharedPets: (): Promise<Pet[]> => requests.get('/pets/shared').then(petsBody),
   getPet: (id: string): Promise<Pet> => requests.get(`/pets/${id}`),
   create: (pet: PetForm | any) => {
     let formData = new FormData()
@@ -198,16 +224,13 @@ export const AllSpecies = {
 }
 
 export const Notes = {
-  getAllNotes: (): Promise<Note[]> =>
-    requests.get('/notes').then(notesBody),
+  getAllNotes: (): Promise<Note[]> => requests.get('/notes').then(notesBody),
   getNotes: (petId: string): Promise<Note[]> =>
     requests.get(`/notes/${petId}`).then(notesBody),
   getNote: (petId: string, noteId: string): Promise<Note> =>
     requests.get(`/notes/${petId}/${noteId}`),
-  create: (note: Note) =>
-    requests.post('/notes', note),
-  update: (note: Note) =>
-    requests.put(`/notes/${note.petId}/${note.id}`, note),
+  create: (note: Note) => requests.post('/notes', note),
+  update: (note: Note) => requests.put(`/notes/${note.petId}/${note.id}`, note),
   delete: (id: string, petId: string) => requests.del(`/notes/${petId}/${id}`),
 }
 
@@ -216,18 +239,36 @@ export const Examinations = {
     requests.get('/examinations').then(examinationsBody),
   getExaminationsByPetId: (petId: string): Promise<Examination[]> =>
     requests.get(`/examinations/pet/${petId}`).then(examinationsBody),
-  getExamination: (id: string): Promise<ExaminationDetails> => requests.get(`/examinations/${id}`),
-  create: (examination: Examination) => requests.post('/examinations', examination),
-  update: (examination: Examination) => requests.put(`/examinations/${examination.id}`, examination),
-  delete: (id: string, petId: string) => requests.del(`/examinations/${petId}/${id}`),
+  getExamination: (id: string): Promise<ExaminationDetails> =>
+    requests.get(`/examinations/${id}`),
+  create: (examination: Examination) =>
+    requests.post('/examinations', examination),
+  update: (examination: Examination) =>
+    requests.put(`/examinations/${examination.id}`, examination),
+  delete: (id: string, petId: string) =>
+    requests.del(`/examinations/${petId}/${id}`),
 }
 export const ExaminationParametersValues = {
   getExaminationParameterValues: (): Promise<ExaminationParameterValue[]> =>
-    requests.get('/examinationParameterValues').then(examinationParameterValuesBody),
-  getByExaminationId: (examinationId: string): Promise<ExaminationParameterValue[]> =>
-    requests.get(`/examinationParameterValues/getByExaminationId/${examinationId}`).then(examinationParameterValuesBody),
-  getExaminationParameterValue: (id: string): Promise<ExaminationParameterValue> => requests.get(`/examinationParameterValues/${id}`),
-  create: (examinationParameterValue: ExaminationParameterValue) => requests.post('/examinationParameterValues', examinationParameterValue),
-  update: (examinationParameterValue: ExaminationParameterValue) => requests.put(`/examinationParameterValues/${examinationParameterValue.id}`, examinationParameterValue),
+    requests
+      .get('/examinationParameterValues')
+      .then(examinationParameterValuesBody),
+  getByExaminationId: (
+    examinationId: string
+  ): Promise<ExaminationParameterValue[]> =>
+    requests
+      .get(`/examinationParameterValues/getByExaminationId/${examinationId}`)
+      .then(examinationParameterValuesBody),
+  getExaminationParameterValue: (
+    id: string
+  ): Promise<ExaminationParameterValue> =>
+    requests.get(`/examinationParameterValues/${id}`),
+  create: (examinationParameterValue: ExaminationParameterValue) =>
+    requests.post('/examinationParameterValues', examinationParameterValue),
+  update: (examinationParameterValue: ExaminationParameterValue) =>
+    requests.put(
+      `/examinationParameterValues/${examinationParameterValue.id}`,
+      examinationParameterValue
+    ),
   delete: (id: string) => requests.del(`/examinationParameterValues/${id}`),
 }

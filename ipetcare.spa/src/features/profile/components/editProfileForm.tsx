@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { Card, TextField, Button, Grid } from '@material-ui/core'
 import { User } from '../../../state/user/userReducer'
-import { VET } from '../../../utils/constants'
 import { TableInstitutions } from './myInstitutionsTable'
+import { VET, BASE_URL_IMG, DEFAULT_USER_IMG } from '../../../utils/constants'
 // import '../../auth/auth.css'
 
 interface Props {
   user: User
-  onSubmit: (user: User) => any
+  onSubmit: (user: User, file: any) => any
   disabled: boolean
 }
 
@@ -23,6 +23,7 @@ export const EditProfileForm = ({ user, onSubmit, disabled }: Props) => {
   const [userName, setUserName] = useState(user.userName)
   const [role, setRole] = useState(user.role)
   const [imageUrl, setImageUrl] = useState(user.imageUrl)
+  const [file, setFile] = useState<any>()
 
 
   return (
@@ -30,16 +31,19 @@ export const EditProfileForm = ({ user, onSubmit, disabled }: Props) => {
       <form
         onSubmit={e => {
           e.preventDefault()
-          onSubmit({
-            firstName,
-            lastName,
-            email,
-            placeOfResidence,
-            imageUrl,
-            role,
-            userName,
-            specialization,
-          })
+          onSubmit(
+            {
+              firstName,
+              lastName,
+              email,
+              placeOfResidence,
+              imageUrl,
+              role,
+              userName,
+              specialization,
+            },
+            file
+          )
         }}
       >
         <div className="authForm">
@@ -71,13 +75,17 @@ export const EditProfileForm = ({ user, onSubmit, disabled }: Props) => {
             onChange={e => setEmail(e.target.value)}
           />
 
-          <TextField
-            required
-            margin="normal"
-            // variant="outlined"
-            label="Zdjęcie"
-            value={imageUrl}
-            onChange={e => setImageUrl(e.target.value)}
+          <img
+            style={{ height: '100%', width: '100%' }}
+            src={imageUrl ? `${BASE_URL_IMG + imageUrl}` : DEFAULT_USER_IMG}
+          />
+          <input
+            id="file"
+            name="file"
+            type="file"
+            onChange={(event: any) => {
+              setFile(event.currentTarget.files[0])
+            }}
           />
 
           <TextField
