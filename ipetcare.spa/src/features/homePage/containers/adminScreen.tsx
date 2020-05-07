@@ -5,6 +5,7 @@ import { ContentCard } from '../../../common/components/contentCard'
 import { NavLink } from 'react-router-dom'
 import { RootState } from '../../../state/store'
 import { useSelector } from 'react-redux'
+import PetsIcon from '@material-ui/icons/Pets'
 
 export function AdminScreen() {
   const user = useSelector((state: RootState) => state.user.user)
@@ -13,8 +14,9 @@ export function AdminScreen() {
     <div>
       <Grid container direction="column">
         <Grid item>
-          <NavLink className="title" to="/">
-            <Typography variant="h2" className="title">
+          <NavLink className="title" to="/admin">
+            <Typography variant="h2" className="title peru">
+              <PetsIcon fontSize="large" />
               iPetCare
             </Typography>
           </NavLink>
@@ -26,9 +28,11 @@ export function AdminScreen() {
             <Grid container direction="column">
               <Grid item>
                 <ContentCard title={`Witaj ${user.firstName}`}>
-                  Właśnie zalogowałeś się do panelu administratora systemu iPetCare. 
-                  Jako administrator możesz przeglądać listę użytkowników oraz zwierząt, dodawać i modyfikować 
-                  rasy oraz gatunki, jak również tworzyć nowe typy badań wraz z ich parametrami oraz dodawać instytucje.
+                  Właśnie zalogowałeś się do panelu administratora systemu
+                  iPetCare. Jako administrator możesz przeglądać listę
+                  użytkowników oraz zwierząt, dodawać i modyfikować rasy oraz
+                  gatunki, jak również tworzyć nowe typy badań wraz z ich
+                  parametrami oraz dodawać instytucje.
                 </ContentCard>
               </Grid>
             </Grid>

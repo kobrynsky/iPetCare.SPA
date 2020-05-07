@@ -133,13 +133,13 @@ export const UserSearchPage = () => {
   const getPages = () => {
     return who === VET
       ? ceil(
-        searchState.vetsResponse.totalItems /
-        searchState.vetsResponse.pageSize
-      )
+          searchState.vetsResponse.totalItems /
+            searchState.vetsResponse.pageSize
+        )
       : ceil(
-        searchState.ownersResponse.totalItems /
-        searchState.ownersResponse.pageSize
-      )
+          searchState.ownersResponse.totalItems /
+            searchState.ownersResponse.pageSize
+        )
   }
 
   const onInputChange = (e: any) => {
@@ -151,8 +151,8 @@ export const UserSearchPage = () => {
       {who === VET ? (
         <h2 className={styles.resultTitle}>Weterynarze</h2>
       ) : (
-          <h2 className={styles.resultTitle}>Użytkownicy</h2>
-        )}
+        <h2 className={styles.resultTitle}>Użytkownicy</h2>
+      )}
       <br />
       <div className={styles.resultContainer}>
         {who === VET
@@ -199,12 +199,11 @@ export const UserSearchPage = () => {
             className={styles.select}
             label="Sortowanie"
             value={request.sortBy}
-            defaultValue=""
+            defaultValue="SortByLastNameAsc"
             onChange={e => {
               setRequest({ ...request, sortBy: e.target.value as SortBy })
             }}
           >
-            <MenuItem value="">Brak</MenuItem>
             <MenuItem value={'SortByLastNameAsc' as SortBy}>
               Nazwisko rosnąco
             </MenuItem>
