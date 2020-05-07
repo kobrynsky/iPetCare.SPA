@@ -1,7 +1,11 @@
 import React, { useEffect, useState, Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../state/store'
-import { getPets, getMyPets, getSharedPets } from '../../../state/pets/petsActions'
+import {
+  getPets,
+  getMyPets,
+  getSharedPets,
+} from '../../../state/pets/petsActions'
 import { getUserState } from '../../../utils/localStorageHelper'
 import { ADMIN, VET, OWNER } from '../../../utils/constants'
 import { Pet } from '../../../state/pets/petsReducer'
@@ -29,8 +33,7 @@ export const PetList = () => {
         dispatch(getPets())
       } else if (user.role === VET) {
         dispatch(getSharedPets())
-      }
-      else if (user.role === OWNER) {
+      } else if (user.role === OWNER) {
         dispatch(getSharedPets())
         dispatch(getMyPets())
       }
@@ -39,16 +42,16 @@ export const PetList = () => {
 
   return (
     <div className="container">
-      {user?.role !== VET &&
+      {user?.role !== VET && (
         <Fragment>
           <Box marginY={2}>
-            {user?.role === ADMIN ?
+            {user?.role === ADMIN ? (
               <Typography variant="h2">Wszystkie zwierzaki</Typography>
-              :
+            ) : (
               <Typography variant="h2">Moje zwierzaki</Typography>
-            }
+            )}
           </Box>
-          <Grid container spacing={3} justify="space-around">
+          <Grid container spacing={3} justify="flex-start">
             {user?.role === OWNER && (
               <Grid item xs={12}>
                 <Button
@@ -65,8 +68,9 @@ export const PetList = () => {
             )}
             {petsState.items.map((pet: Pet) => {
               return (
-                <Grid key={pet.id} item xs={4}>
-                  <PetCard pet={{
+                // <Grid key={pet.id} item xs={4}>
+                <PetCard
+                  pet={{
                     ...pet,
                     species: speciesState.items.find(
                       s =>
@@ -74,15 +78,17 @@ export const PetList = () => {
                         racesState.items.find(r => r.id === pet.raceId)
                           ?.speciesId
                     )?.name,
-                    race: racesState.items.find(r => r.id === pet.raceId)?.name
-                  }} shared={false} />
-                </Grid>
+                    race: racesState.items.find(r => r.id === pet.raceId)?.name,
+                  }}
+                  shared={false}
+                />
+                // </Grid>
               )
             })}
           </Grid>
         </Fragment>
-      }
-      {user?.role !== ADMIN &&
+      )}
+      {user?.role !== ADMIN && (
         <Fragment>
           <Box marginY={2}>
             <Typography variant="h2">Udostępnione zwierzaki</Typography>
@@ -91,22 +97,26 @@ export const PetList = () => {
             {petsState.sharedItems.map((pet: Pet) => {
               return (
                 <Grid key={pet.id} item xs={4}>
-                  <PetCard pet={{
-                    ...pet,
-                    species: speciesState.items.find(
-                      s =>
-                        s.id ===
-                        racesState.items.find(r => r.id === pet.raceId)
-                          ?.speciesId
-                    )?.name,
-                    race: racesState.items.find(r => r.id === pet.raceId)?.name
-                  }} shared={true} />
+                  <PetCard
+                    pet={{
+                      ...pet,
+                      species: speciesState.items.find(
+                        s =>
+                          s.id ===
+                          racesState.items.find(r => r.id === pet.raceId)
+                            ?.speciesId
+                      )?.name,
+                      race: racesState.items.find(r => r.id === pet.raceId)
+                        ?.name,
+                    }}
+                    shared={true}
+                  />
                 </Grid>
               )
             })}
           </Grid>
         </Fragment>
-      }
+      )}
     </div>
   )
 }

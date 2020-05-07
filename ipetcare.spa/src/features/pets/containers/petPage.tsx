@@ -43,7 +43,7 @@ export function PetPage(props: RouteComponentProps<PetPageParams>) {
     <Box paddingTop={2}>
       <Container>
         <Grid container justify="center">
-          <Grid item xs={7}>
+          <Grid item xs={12} md={10}>
             <Card>
               <CardContent>
                 {(petsState.loading || racesState.loading) && (
@@ -54,12 +54,14 @@ export function PetPage(props: RouteComponentProps<PetPageParams>) {
                   <Grid container spacing={3}>
                     <Grid
                       item
-                      xs={6}
+                      xs={12}
+                      sm={6}
+                      md={6}
                       spacing={3}
                       container
                       alignItems="stretch"
                     >
-                      <Grid item xs={12}>
+                      <Grid item xs={12} md={12}>
                         <img
                           style={{ height: '100%', width: '100%' }}
                           src={
@@ -69,23 +71,8 @@ export function PetPage(props: RouteComponentProps<PetPageParams>) {
                           }
                         />
                       </Grid>
-
-                      <Grid item xs={12} container justify="space-between">
-                        <Button
-                          style={{ maxHeight: '50px' }}
-                          size="small"
-                          fullWidth
-                          variant="contained"
-                          color="primary"
-                          type="submit"
-                          component={Link}
-                          to={`/pets/${pet.id}/edit`}
-                        >
-                          Edycja
-                        </Button>
-                      </Grid>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                       <TextField
                         value={pet.name}
                         margin="normal"
@@ -177,6 +164,26 @@ export function PetPage(props: RouteComponentProps<PetPageParams>) {
                           readOnly: true,
                         }}
                       />
+                    </Grid>
+                    <Grid
+                      item
+                      xs={12}
+                      md={12}
+                      container
+                      justify="space-between"
+                    >
+                      <Button
+                        style={{ maxHeight: '50px' }}
+                        size="small"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        type="submit"
+                        component={Link}
+                        to={`/pets/${pet.id}/edit`}
+                      >
+                        Edycja
+                      </Button>
                     </Grid>
                   </Grid>
                 )}

@@ -8,7 +8,7 @@ import PetsIcon from '@material-ui/icons/Pets'
 export function HomeScreen() {
   return (
     <div>
-      <Grid container direction="column">
+      <Grid container direction="column" justify={'center'}>
         <Grid item>
           <NavLink className="title" to="/">
             <Typography variant="h2" className="title peru">
@@ -17,8 +17,8 @@ export function HomeScreen() {
             </Typography>
           </NavLink>
         </Grid>
-        <Grid container direction="row">
-          <Grid item xs={3}>
+        <Grid container direction="row" wrap={'wrap'}>
+          <Grid item xs={12} md={3} style={{ minWidth: 200 }}>
             <Grid container alignItems="center" direction="column">
               <Link className="sideNav" to="/">
                 Główna
@@ -35,8 +35,8 @@ export function HomeScreen() {
             </Grid>
           </Grid>
 
-          <Grid item xs={6}>
-            <Grid container direction="column">
+          <Grid item xs={12} md={6}>
+            <Grid container direction="column" style={{ minWidth: 300 }}>
               <Grid item id="whatItIs">
                 <ContentCard title="Co to jest?">
                   iPetCare to internetowa książeczka zdrowia zwierząt, która

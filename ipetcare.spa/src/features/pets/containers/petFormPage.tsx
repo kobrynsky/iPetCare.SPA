@@ -120,7 +120,7 @@ export const PetFormPage = (props: RouteComponentProps<PetFormParams>) => {
     <Box paddingTop={2}>
       <Container>
         <Grid container justify="center">
-          <Grid item xs={7}>
+          <Grid item xs={12} md={7}>
             <Card>
               <CardContent>
                 {petsState.loading ||
@@ -148,10 +148,22 @@ export const PetFormPage = (props: RouteComponentProps<PetFormParams>) => {
                     {({ values, errors, isSubmitting, handleChange }) => (
                       <Form>
                         <Grid container spacing={3}>
-                          <Grid item xs={6} container alignItems="stretch">
-                            <Grid item xs={12}>
+                          <Grid
+                            item
+                            xs={12}
+                            sm={6}
+                            md={6}
+                            container
+                            wrap={'wrap'}
+                            alignItems="stretch"
+                          >
+                            <Grid item xs={12} md={12}>
                               <img
-                                style={{ height: '100%', width: '100%' }}
+                                style={{
+                                  height: '100%',
+                                  width: '100%',
+                                  minWidth: 200,
+                                }}
                                 src={
                                   values.imageUrl
                                     ? `${BASE_URL_IMG + values.imageUrl}`
@@ -163,6 +175,7 @@ export const PetFormPage = (props: RouteComponentProps<PetFormParams>) => {
                             <Grid
                               item
                               xs={12}
+                              md={12}
                               container
                               justify="space-between"
                             >
@@ -174,19 +187,9 @@ export const PetFormPage = (props: RouteComponentProps<PetFormParams>) => {
                                   setFile(event.currentTarget.files[0])
                                 }}
                               />
-                              <FormControl fullWidth margin="normal">
-                                <Button
-                                  variant="contained"
-                                  color="primary"
-                                  type="submit"
-                                  disabled={isSubmitting}
-                                >
-                                  Zapisz
-                                </Button>
-                              </FormControl>
                             </Grid>
                           </Grid>
-                          <Grid item xs={6}>
+                          <Grid item xs={12} md={6} style={{ minWidth: 200 }}>
                             <FormControl fullWidth margin="normal">
                               <FormGroup>
                                 <Field
@@ -349,6 +352,16 @@ export const PetFormPage = (props: RouteComponentProps<PetFormParams>) => {
                             </FormControl>
                           </Grid>
                         </Grid>
+                        <FormControl fullWidth margin="normal">
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            type="submit"
+                            disabled={isSubmitting}
+                          >
+                            Zapisz
+                          </Button>
+                        </FormControl>
                       </Form>
                     )}
                   </Formik>

@@ -42,7 +42,6 @@ import PrivateRoute from './utils/privateRoute'
 import { ADMIN, OWNER } from './utils/constants'
 import ScrollToTop from './pageElements/containers/scrollToTop'
 
-
 const App: React.FC = () => {
   const dispatch = useDispatch()
   const user = useSelector((state: RootState) => state.user.user)
@@ -63,16 +62,16 @@ const App: React.FC = () => {
     user.userName && user.userName.length > 0 ? (
       <LoggedInNavbar />
     ) : (
-        <>
-          <NavLink className="titleContainerNotLogged" to="/">
-            <Typography className="title peru" variant="h5">
-              <PetsIcon fontSize="small" />
+      <>
+        <NavLink className="titleContainerNotLogged" to="/">
+          <Typography className="title peru" variant="h5">
+            <PetsIcon fontSize="small" />
             iPetCare
           </Typography>
-          </NavLink>
-          <NotLoggedNavbar />
-        </>
-      )
+        </NavLink>
+        <NotLoggedNavbar />
+      </>
+    )
 
   return (
     <div className="app">
@@ -95,7 +94,10 @@ const App: React.FC = () => {
                   <Route path="/races" component={RacesPage} />
                   <Route path="/species" component={SpeciesPage} />
                   <Route path="/calendar" component={CalendarPage} />
-                  <Route path="/pets/:petId/notes/add" component={AddNotePage} />
+                  <Route
+                    path="/pets/:petId/notes/add"
+                    component={AddNotePage}
+                  />
                   <Route
                     path="/pets/:petId/notes/edit/:noteId"
                     component={EditNotePage}
@@ -114,10 +116,14 @@ const App: React.FC = () => {
                     component={PetExaminationsPage}
                   />
                   <Route exact path="/pets/create" component={PetFormPage} />
-                  <Route exact path="/pets/:petId/edit" component={PetFormPage} />
+                  <Route
+                    exact
+                    path="/pets/:petId/edit"
+                    component={PetFormPage}
+                  />
                   <Route exact path="/pets/:petId" component={PetPage} />
                   <Route exact path="/pets" component={PetList} />
-                  
+
                   <Route path="/profile/edit" component={EditProfilePage} />
                   <Route path="/users/search" component={UserSearchPage} />
                   <Route path="/institutions" component={InstitutionsPage} />

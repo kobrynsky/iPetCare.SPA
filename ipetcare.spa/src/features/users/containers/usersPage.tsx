@@ -14,31 +14,31 @@ export function UsersPage() {
   }, [])
 
   return (
-    <div>
-      <Grid container direction="column">
-        <Grid item>
-          <Typography variant="h2" className="title">
-            Użytkownicy
-          </Typography>
-        </Grid>
-        <Grid item>
-          <TableCommon
-            title="Użytkownicy"
-            isLoading={userState.loading}
-            columns={[
-              { title: 'Nazwa użytkownika', field: 'userName' },
-              { title: 'Imie', field: 'firstName' },
-              { title: 'Nazwisko', field: 'lastName' },
-              { title: 'E-mail', field: 'email' },
-              { title: 'Rola', field: 'role' },
-            ]}
-            rows={userState.items}
-            onDelete={async data => {
-              dispatch(deleteUser(data.id))
-          }}
-          />
-        </Grid>
+    // <div>
+    <Grid container direction="column" xs={12}>
+      <Grid item xs={12}>
+        <Typography variant="h2" className="title">
+          Użytkownicy
+        </Typography>
       </Grid>
-    </div>
+      <Grid item xs={12}>
+        <TableCommon
+          title="Użytkownicy"
+          isLoading={userState.loading}
+          columns={[
+            { title: 'Nazwa użytkownika', field: 'userName' },
+            { title: 'Imie', field: 'firstName' },
+            { title: 'Nazwisko', field: 'lastName' },
+            { title: 'E-mail', field: 'email' },
+            { title: 'Rola', field: 'role' },
+          ]}
+          rows={userState.items}
+          onDelete={async data => {
+            dispatch(deleteUser(data.id))
+          }}
+        />
+      </Grid>
+    </Grid>
+    // </div>
   )
 }
