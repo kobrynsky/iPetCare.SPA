@@ -22,9 +22,9 @@ export function OwnerScreen() {
           </NavLink>
         </Grid>
         <Grid container direction="row">
-          <Grid item xs={3}></Grid>
+          <Grid item md={3}></Grid>
 
-          <Grid item xs={6}>
+          <Grid item md={6} xs={12}>
             <Grid container direction="column">
               <Grid item>
                 <ContentCard title={`Witaj ${user.firstName}`}>

@@ -25,7 +25,6 @@ export const EditProfileForm = ({ user, onSubmit, disabled }: Props) => {
   const [imageUrl, setImageUrl] = useState(user.imageUrl)
   const [file, setFile] = useState<any>()
 
-
   return (
     <Card className="formCard">
       <form
@@ -48,6 +47,20 @@ export const EditProfileForm = ({ user, onSubmit, disabled }: Props) => {
       >
         <div className="authForm">
           <h2>Profil</h2>
+
+          <img
+            style={{ height: '100%', width: '100%' }}
+            src={imageUrl ? `${BASE_URL_IMG + imageUrl}` : DEFAULT_USER_IMG}
+          />
+          <input
+            id="file"
+            name="file"
+            type="file"
+            onChange={(event: any) => {
+              setFile(event.currentTarget.files[0])
+            }}
+          />
+
           <TextField
             required
             margin="normal"
@@ -75,19 +88,6 @@ export const EditProfileForm = ({ user, onSubmit, disabled }: Props) => {
             onChange={e => setEmail(e.target.value)}
           />
 
-          <img
-            style={{ height: '100%', width: '100%' }}
-            src={imageUrl ? `${BASE_URL_IMG + imageUrl}` : DEFAULT_USER_IMG}
-          />
-          <input
-            id="file"
-            name="file"
-            type="file"
-            onChange={(event: any) => {
-              setFile(event.currentTarget.files[0])
-            }}
-          />
-
           <TextField
             margin="normal"
             // variant="outlined"
@@ -109,10 +109,10 @@ export const EditProfileForm = ({ user, onSubmit, disabled }: Props) => {
 
           {user.role === VET && (
             <div>
-            <Grid item>
-              <TableInstitutions user={user}/>
-            </Grid>
-        </div>
+              <Grid item>
+                <TableInstitutions user={user} />
+              </Grid>
+            </div>
           )}
 
           <TextField
