@@ -23,9 +23,23 @@ export interface PetForm {
   gender: string
 }
 
+export interface PetDetails {
+  id?: string
+  imageUrl?: string
+  name: string
+  weight: number
+  height: number
+  birthDate: string
+  race: string
+  species: string
+  gender: string
+  invitationStatus?: boolean
+}
+
 export interface PetsState {
   items: Pet[]
   sharedItems: Pet[]
+  someonesItems: PetDetails[]
   loading: boolean
   error: String | null
 }
@@ -33,6 +47,7 @@ export interface PetsState {
 const initialState = {
   items: [] as Pet[],
   sharedItems: [] as Pet[],
+  someonesItems: [] as PetDetails[],
   loading: false,
   error: null,
 }
@@ -46,6 +61,7 @@ export const petsReducer: Reducer<PetsState, PETS_ACTIONS> = (
     case PetsActionTypes.GET_PETS:
     case PetsActionTypes.GET_MY_PETS:
     case PetsActionTypes.GET_SHARED_PETS:
+    case PetsActionTypes.GET_USER_PETS:
     case PetsActionTypes.CREATE_PET:
     case PetsActionTypes.UPDATE_PET:
     case PetsActionTypes.DELETE_PET:
@@ -55,6 +71,7 @@ export const petsReducer: Reducer<PetsState, PETS_ACTIONS> = (
     case PetsActionTypes.GET_PETS_FAIL:
     case PetsActionTypes.GET_MY_PETS_FAIL:
     case PetsActionTypes.GET_SHARED_PETS_FAIL:
+    case PetsActionTypes.GET_USER_PETS_FAIL:
     case PetsActionTypes.CREATE_PET_FAIL:
     case PetsActionTypes.UPDATE_PET_FAIL:
     case PetsActionTypes.DELETE_PET_FAIL:
@@ -79,6 +96,13 @@ export const petsReducer: Reducer<PetsState, PETS_ACTIONS> = (
       return {
         ...state,
         sharedItems: [...action.payload],
+        loading: false,
+      }
+
+    case PetsActionTypes.GET_USER_PETS_SUCCESS:
+      return {
+        ...state,
+        someonesItems: [...action.payload],
         loading: false,
       }
 

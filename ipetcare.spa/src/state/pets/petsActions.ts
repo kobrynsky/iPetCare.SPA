@@ -2,7 +2,7 @@ import { history } from './../../index'
 import { Pets as pets } from '../../api'
 import { Dispatch } from 'redux'
 import { ThunkResult } from '../store'
-import { Pet, PetForm } from './petsReducer'
+import { Pet, PetForm, PetDetails } from './petsReducer'
 import { AxiosResponse } from 'axios'
 import { toast } from 'react-toastify'
 
@@ -28,6 +28,9 @@ export enum PetsActionTypes {
   DELETE_PET = 'DELETE_PET',
   DELETE_PET_SUCCESS = 'DELETE_PET_SUCCESS',
   DELETE_PET_FAIL = 'DELETE_PET_FAIL',
+  GET_USER_PETS = 'GET_USER_PETS',
+  GET_USER_PETS_FAIL = 'GET_USER_PETS_FAIL',
+  GET_USER_PETS_SUCCESS = 'GET_USER_PETS_SUCCESS'
 }
 
 // FETCH PET LIST
@@ -323,6 +326,35 @@ export const deletePet = (
   }
 }
 
+
+// get user pets
+interface GetUserPets {
+  type: PetsActionTypes.GET_USER_PETS
+}
+
+interface GetUserPetsSuccess {
+  type: PetsActionTypes.GET_USER_PETS_SUCCESS
+  payload: PetDetails[]
+}
+
+interface GetUserPetsFail {
+  type: PetsActionTypes.GET_USER_PETS_FAIL
+}
+
+
+export const getUserPets = (userId: string): ThunkResult<void> => async dispatch => {
+  dispatch({ type: PetsActionTypes.GET_USER_PETS })
+  try {
+    const userPets: PetDetails[] = await pets.getUserPets(userId);
+    dispatch({
+      type: PetsActionTypes.GET_USER_PETS_SUCCESS,
+      payload: userPets
+    })
+  } catch (e) {
+    dispatch({ type: PetsActionTypes.GET_USER_PETS_FAIL })
+  }
+}
+
 export type PETS_ACTIONS =
   | GetPets
   | GetPetsSuccess
@@ -333,6 +365,9 @@ export type PETS_ACTIONS =
   | GetSharedPets
   | GetSharedPetsSuccess
   | GetSharedPetsFail
+  | GetUserPets
+  | GetUserPetsFail
+  | GetUserPetsSuccess
   | GetPet
   | GetPetSuccess
   | GetPetFail

@@ -41,6 +41,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import PrivateRoute from './utils/privateRoute'
 import { ADMIN, OWNER } from './utils/constants'
 import ScrollToTop from './pageElements/containers/scrollToTop'
+import { SomeonePetsListPage } from './features/pets/containers/someonePetsList'
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -62,16 +63,16 @@ const App: React.FC = () => {
     user.userName && user.userName.length > 0 ? (
       <LoggedInNavbar />
     ) : (
-      <>
-        <NavLink className="titleContainerNotLogged" to="/">
-          <Typography className="title peru" variant="h5">
-            <PetsIcon fontSize="small" />
+        <>
+          <NavLink className="titleContainerNotLogged" to="/">
+            <Typography className="title peru" variant="h5">
+              <PetsIcon fontSize="small" />
             iPetCare
           </Typography>
-        </NavLink>
-        <NotLoggedNavbar />
-      </>
-    )
+          </NavLink>
+          <NotLoggedNavbar />
+        </>
+      )
 
   return (
     <div className="app">
@@ -114,6 +115,10 @@ const App: React.FC = () => {
                   <Route
                     path="/pets/:petId/examinations"
                     component={PetExaminationsPage}
+                  />
+                  <Route
+                    path="/users/:userId/pets"
+                    component={SomeonePetsListPage}
                   />
                   <Route exact path="/pets/create" component={PetFormPage} />
                   <Route

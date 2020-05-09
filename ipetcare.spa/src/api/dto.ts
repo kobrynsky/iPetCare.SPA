@@ -36,6 +36,7 @@ export interface Institution {
 
 export interface UserBase {
   id: string
+  userId: string
   firstName: string
   lastName: string
   email: string
