@@ -44,14 +44,14 @@ export const PetList = () => {
     <div className="container">
       {user?.role !== VET && (
         <Fragment>
-          <Box marginY={2}>
+          <Box marginY={2} textAlign={'center'}>
             {user?.role === ADMIN ? (
               <Typography variant="h2">Wszystkie zwierzaki</Typography>
             ) : (
               <Typography variant="h2">Moje zwierzaki</Typography>
             )}
           </Box>
-          <Grid container spacing={3} justify="flex-start">
+          <Grid container spacing={3} justify="center">
             {user?.role === OWNER && (
               <Grid item xs={12}>
                 <Button

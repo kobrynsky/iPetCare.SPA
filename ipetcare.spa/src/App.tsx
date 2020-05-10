@@ -82,7 +82,7 @@ const App: React.FC = () => {
             <Grid container justify="space-between">
               {header}
             </Grid>
-            <Grid item>
+            <Grid item style={{ maxWidth: '100%' }}>
               {loaded && (
                 <Switch>
                   <Route path="/" component={HomeScreen} exact />
