@@ -38,10 +38,10 @@ import { UsersPage } from './features/users/containers/usersPage'
 import { CalendarPage } from './features/calendar/containers/calendarPage'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import PrivateRoute from './utils/privateRoute'
-import { ADMIN, OWNER } from './utils/constants'
 import ScrollToTop from './pageElements/containers/scrollToTop'
 import { SomeonePetsListPage } from './features/pets/containers/someonePetsList'
+import { PetInvitationsPage } from './features/pets/containers/petInvitations'
+import { MyInvitationsPage } from './features/invitations/containers/myInvitationsPage'
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -104,6 +104,14 @@ const App: React.FC = () => {
                     component={EditNotePage}
                   />
                   <Route path="/pets/:petId/notes" component={PetNotesPage} />
+                  <Route
+                    exact
+                    path='/pets/my/invitations'
+                    component={MyInvitationsPage}
+                  />
+                  <Route
+                    path='/pets/:petId/invitations' component={PetInvitationsPage}
+                  />
                   <Route
                     path="/pets/:petId/examinations/add"
                     component={AddExaminationPage}

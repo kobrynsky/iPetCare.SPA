@@ -1,5 +1,6 @@
 import { PETS_ACTIONS, PetsActionTypes } from './petsActions'
 import { Reducer } from 'redux'
+import { User } from '../user/userReducer'
 
 export interface Pet {
   id?: string
@@ -36,10 +37,18 @@ export interface PetDetails {
   invitationStatus?: boolean
 }
 
+export interface InvitationStatus {
+  invitationId?: string
+  user: User
+  pet: Pet
+  pending: boolean
+}
+
 export interface PetsState {
   items: Pet[]
   sharedItems: Pet[]
   someonesItems: PetDetails[]
+  invitationsStatus: InvitationStatus[]
   loading: boolean
   error: String | null
 }
@@ -48,6 +57,7 @@ const initialState = {
   items: [] as Pet[],
   sharedItems: [] as Pet[],
   someonesItems: [] as PetDetails[],
+  invitationsStatus: [] as InvitationStatus[],
   loading: false,
   error: null,
 }
@@ -65,6 +75,8 @@ export const petsReducer: Reducer<PetsState, PETS_ACTIONS> = (
     case PetsActionTypes.CREATE_PET:
     case PetsActionTypes.UPDATE_PET:
     case PetsActionTypes.DELETE_PET:
+    case PetsActionTypes.GET_PET_INVITATIONS:
+    case PetsActionTypes.GET_MY_INVITATIONS:
       return { ...state, loading: true }
 
     case PetsActionTypes.GET_PET_FAIL:
@@ -75,6 +87,8 @@ export const petsReducer: Reducer<PetsState, PETS_ACTIONS> = (
     case PetsActionTypes.CREATE_PET_FAIL:
     case PetsActionTypes.UPDATE_PET_FAIL:
     case PetsActionTypes.DELETE_PET_FAIL:
+    case PetsActionTypes.GET_PET_INVITATIONS_FAIL:
+    case PetsActionTypes.GET_MY_INVITATIONS_FAIL:
       return { ...state, loading: false }
 
     case PetsActionTypes.CREATE_PET_SUCCESS:
@@ -123,6 +137,15 @@ export const petsReducer: Reducer<PetsState, PETS_ACTIONS> = (
         ],
         loading: false,
       }
+
+    case PetsActionTypes.GET_PET_INVITATIONS_SUCCESS:
+    case PetsActionTypes.GET_MY_INVITATIONS_SUCCESS:
+      return {
+        ...state,
+        invitationsStatus: action.payload,
+        loading: false,
+      }
+
 
     default:
       return state

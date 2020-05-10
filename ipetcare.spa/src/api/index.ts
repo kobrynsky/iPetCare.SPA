@@ -1,7 +1,7 @@
 import axios, { AxiosResponse, AxiosRequestConfig } from 'axios'
 import { BASE_URL } from '../utils/constants'
 import { getUserState, deleteUserState } from '../utils/localStorageHelper'
-import { Pet, PetForm, PetDetails } from '../state/pets/petsReducer'
+import { Pet, PetForm, PetDetails, InvitationStatus } from '../state/pets/petsReducer'
 import { Race } from '../state/races/racesReducer'
 import { Species } from '../state/species/speciesReducer'
 import { history } from '../index'
@@ -95,6 +95,7 @@ const examinationsBody = (response: any) => response.examinations
 const examinationParameterValuesBody = (response: any) =>
   response.examinationParametersValues
 const usersBody = (response: any) => response.users
+const invitationsBody = (response: any) => response.invitationsStatus
 
 const requests = {
   get: (url: string, body?: {}) =>
@@ -133,8 +134,9 @@ export const Pets = {
   getPets: (): Promise<Pet[]> => requests.get('/pets').then(petsBody),
   getMyPets: (): Promise<Pet[]> => requests.get('/pets/my').then(petsBody),
   getUserPets: (userId: string): Promise<PetDetails[]> => requests.get(`/pets/user/${userId}`).then(petsBody),
-  getSharedPets: (): Promise<Pet[]> =>
-    requests.get('/pets/shared').then(petsBody),
+  getSharedPets: (): Promise<Pet[]> => requests.get('/pets/shared').then(petsBody),
+  getInvitationsStatus: (petId: string): Promise<InvitationStatus[]> => requests.get(`/pets/${petId}/invitations`).then(invitationsBody),
+  getMyInvitations: (): Promise<InvitationStatus[]> => requests.get(`/pets/my/invitations`).then(invitationsBody),
   getPet: (id: string): Promise<Pet> => requests.get(`/pets/${id}`),
   create: (pet: PetForm | any) => {
     let formData = new FormData()

@@ -78,16 +78,17 @@ export const SimplePetCard = (props: Props) => {
                     </CardContent>
                 </CardActionArea>
                 <CardActions>
-                    <Fragment>
-                        <Button
-                            size="small"
-                            color="secondary"
-                            onClick={() => { dispatch(deletePetAccess(props.pet.id as string, props.userId)) }}
-                        >
-                            Usuń dostęp
+                    {props.pet.invitationStatus === true && (
+                        <Fragment>
+                            <Button
+                                size="small"
+                                color="secondary"
+                                onClick={() => { dispatch(deletePetAccess(props.pet.id as string, props.userId)) }}
+                            >
+                                Usuń dostęp
                             </Button>
-                        <Typography>Masz dostęp</Typography>
-                    </Fragment>
+                            <Typography>Masz dostęp</Typography>
+                        </Fragment>
                     )}
                     {props.pet.invitationStatus === null && (
 

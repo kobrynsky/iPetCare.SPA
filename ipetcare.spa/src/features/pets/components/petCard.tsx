@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import {
   Card,
@@ -19,6 +19,8 @@ import { Link } from 'react-router-dom'
 import { deletePet } from '../../../state/pets/petsActions'
 import { BASE_URL_IMG, DEFAULT_PET_IMG } from '../../../utils/constants'
 import moment from 'moment'
+import { deletePetAccess } from '../../../state/invitations/invitationsActions'
+import { RootState } from '../../../state/store'
 
 interface Props {
   pet: Pet
@@ -52,6 +54,7 @@ export const PetCard = (props: Props) => {
   const classes = useStyles()
   const dispatch = useDispatch()
 
+  const userId = useSelector((state: RootState) => state.user).user.id
   const [openDeletePrompt, setOpenDeletePrompt] = useState(false)
   const [modalPetId, setModalPetId] = useState<string | undefined>('')
   const pet = props.pet
@@ -103,6 +106,16 @@ export const PetCard = (props: Props) => {
           >
             Notatki
           </Button>
+          {!props.shared && (
+            <Button
+              size="small"
+              color="primary"
+              component={Link}
+              to={`/pets/${pet.id}/invitations`}
+            >
+              Dostępy
+            </Button>
+          )}
         </CardActions>
         <CardActions>
           <Button
@@ -131,6 +144,15 @@ export const PetCard = (props: Props) => {
               }}
             >
               Usuń
+            </Button>
+          )}
+          {props.shared && (
+            <Button
+              size="small"
+              color="primary"
+              onClick={() => { dispatch(deletePetAccess(pet.id as string, userId as string, true)) }}
+            >
+              Usuń dostęp
             </Button>
           )}
         </CardActions>
