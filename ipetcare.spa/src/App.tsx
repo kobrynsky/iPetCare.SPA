@@ -41,6 +41,9 @@ import 'react-toastify/dist/ReactToastify.css'
 import PrivateRoute from './utils/privateRoute'
 import { ADMIN, OWNER, VET } from './utils/constants'
 import ScrollToTop from './pageElements/containers/scrollToTop'
+import { SomeonePetsListPage } from './features/pets/containers/someonePetsList'
+import { PetInvitationsPage } from './features/pets/containers/petInvitations'
+import { MyInvitationsPage } from './features/invitations/containers/myInvitationsPage'
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -62,16 +65,16 @@ const App: React.FC = () => {
     user.userName && user.userName.length > 0 ? (
       <LoggedInNavbar />
     ) : (
-      <>
-        <NavLink className="titleContainerNotLogged" to="/">
-          <Typography className="title peru" variant="h5">
-            <PetsIcon fontSize="small" />
+        <>
+          <NavLink className="titleContainerNotLogged" to="/">
+            <Typography className="title peru" variant="h5">
+              <PetsIcon fontSize="small" />
             iPetCare
           </Typography>
-        </NavLink>
-        <NotLoggedNavbar />
-      </>
-    )
+          </NavLink>
+          <NotLoggedNavbar />
+        </>
+      )
 
   return (
     <div className="app">
@@ -128,6 +131,16 @@ const App: React.FC = () => {
                     path="/pets/:petId/notes/edit/:noteId"
                     component={EditNotePage}
                   />
+                  <Route path="/pets/:petId/notes" component={PetNotesPage} />
+                  <Route
+                    exact
+                    path='/pets/my/invitations'
+                    component={MyInvitationsPage}
+                  />
+                  <Route
+                    path='/pets/:petId/invitations' component={PetInvitationsPage}
+                  />
+                  <Route
                   <PrivateRoute
                     requiredRole={[OWNER, ADMIN, VET]}
                     path="/pets/:petId/notes"
@@ -148,6 +161,12 @@ const App: React.FC = () => {
                     path="/pets/:petId/examinations"
                     component={PetExaminationsPage}
                   />
+                  <Route
+                    path="/users/:userId/pets"
+                    component={SomeonePetsListPage}
+                  />
+                  <Route exact path="/pets/create" component={PetFormPage} />
+                  <Route
                   <PrivateRoute
                     exact
                     path="/pets/create"

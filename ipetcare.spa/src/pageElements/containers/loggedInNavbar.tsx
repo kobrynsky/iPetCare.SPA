@@ -34,6 +34,10 @@ const ownerRoutes: Route[] = [
     caption: 'Kalendarz',
     path: '/calendar',
   },
+  {
+    caption: 'Dostęp',
+    path: '/pets/my/invitations',
+  }
 ]
 
 const vetRoutes: Route[] = [

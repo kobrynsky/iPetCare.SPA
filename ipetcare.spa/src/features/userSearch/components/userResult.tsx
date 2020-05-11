@@ -11,9 +11,12 @@ import {
   ButtonGroup,
 } from '@material-ui/core'
 import { Institution } from '../../../api/dto'
-import { ADMIN } from '../../../utils/constants'
+import { ADMIN, OWNER } from '../../../utils/constants'
+import { Link } from 'react-router-dom'
 
 interface Props {
+  key: string
+  userId: string
   firstName: string
   lastName: string
   specialization?: string
@@ -22,7 +25,9 @@ interface Props {
   institutions?: Institution[]
   imageUrl: string
   title?: string
-  currentSearchingUserRole: string 
+  currentSearchingUserRole: string
+  isOwner: boolean
+  role: string
 }
 
 const useStyles = makeStyles({
@@ -42,6 +47,8 @@ const useStyles = makeStyles({
 })
 
 export const UserResult = ({
+  key,
+  userId,
   email,
   firstName,
   imageUrl,
@@ -51,6 +58,8 @@ export const UserResult = ({
   specialization,
   title = '',
   currentSearchingUserRole,
+  isOwner,
+  role
 }: Props) => {
   const classes = useStyles()
 
@@ -90,16 +99,21 @@ export const UserResult = ({
         <Button size="small" color="primary">
           Szczegóły
         </Button>
-        {currentSearchingUserRole === ADMIN ?
+        {currentSearchingUserRole === ADMIN &&
           <Button size="small" color="primary">
             Usuń
           </Button>
-          :
-          <Button size="small" color="primary">
-            Dodaj
+        }
+        {role === OWNER &&
+          <Button
+            size="small"
+            color="primary"
+            component={Link}
+            to={`/users/${userId}/pets`}
+          >
+            Zwierzaki
           </Button>
         }
-
       </CardActions>
     </Card>
   )

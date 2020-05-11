@@ -2,7 +2,7 @@ import { history } from './../../index'
 import { Pets as pets } from '../../api'
 import { Dispatch } from 'redux'
 import { ThunkResult } from '../store'
-import { Pet, PetForm } from './petsReducer'
+import { Pet, PetForm, PetDetails, InvitationStatus } from './petsReducer'
 import { AxiosResponse } from 'axios'
 import { toast } from 'react-toastify'
 
@@ -28,6 +28,15 @@ export enum PetsActionTypes {
   DELETE_PET = 'DELETE_PET',
   DELETE_PET_SUCCESS = 'DELETE_PET_SUCCESS',
   DELETE_PET_FAIL = 'DELETE_PET_FAIL',
+  GET_USER_PETS = 'GET_USER_PETS',
+  GET_USER_PETS_FAIL = 'GET_USER_PETS_FAIL',
+  GET_USER_PETS_SUCCESS = 'GET_USER_PETS_SUCCESS',
+  GET_PET_INVITATIONS = 'GET_PET_INVITATIONS',
+  GET_PET_INVITATIONS_FAIL = 'GET_PET_INVITATIONS_FAIL',
+  GET_PET_INVITATIONS_SUCCESS = 'GET_PET_INVITATIONS_SUCCESS',
+  GET_MY_INVITATIONS = 'GET_MY_INVITATIONS',
+  GET_MY_INVITATIONS_FAIL = 'GET_MY_INVITATIONS_FAIL',
+  GET_MY_INVITATIONS_SUCCESS = 'GET_MY_INVITATIONS_SUCCESS'
 }
 
 // FETCH PET LIST
@@ -323,6 +332,125 @@ export const deletePet = (
   }
 }
 
+
+// get user pets
+interface GetUserPets {
+  type: PetsActionTypes.GET_USER_PETS
+}
+
+interface GetUserPetsSuccess {
+  type: PetsActionTypes.GET_USER_PETS_SUCCESS
+  payload: PetDetails[]
+}
+
+interface GetUserPetsFail {
+  type: PetsActionTypes.GET_USER_PETS_FAIL
+}
+
+
+export const getUserPets = (userId: string): ThunkResult<void> => async dispatch => {
+  dispatch({ type: PetsActionTypes.GET_USER_PETS })
+  try {
+    const userPets: PetDetails[] = await pets.getUserPets(userId);
+    dispatch({
+      type: PetsActionTypes.GET_USER_PETS_SUCCESS,
+      payload: userPets
+    })
+  } catch (e) {
+    dispatch({ type: PetsActionTypes.GET_USER_PETS_FAIL })
+  }
+}
+
+
+// FETCH PET INVITATIONS
+interface GetPetInvitations {
+  type: PetsActionTypes.GET_PET_INVITATIONS
+}
+
+interface GetPetInvitationsSuccess {
+  type: PetsActionTypes.GET_PET_INVITATIONS_SUCCESS
+  payload: InvitationStatus[]
+}
+
+interface GetPetInvitationsFail {
+  type: PetsActionTypes.GET_PET_INVITATIONS_FAIL
+}
+
+export const getPetInvitations = (id: string): ThunkResult<void> => async dispatch => {
+  handleGetPetInvitations(dispatch)
+  try {
+    const response: InvitationStatus[] = await pets.getInvitationsStatus(id)
+    handleGetPetInvitationsSuccess(dispatch, response)
+  } catch (e) {
+    handleGetPetInvitationsFail(dispatch)
+  }
+}
+
+export const handleGetPetInvitations = (dispatch: Dispatch<GetPetInvitations>) => {
+  dispatch({ type: PetsActionTypes.GET_PET_INVITATIONS })
+}
+
+const handleGetPetInvitationsSuccess = (
+  dispatch: Dispatch<GetPetInvitationsSuccess>,
+  response: InvitationStatus[]
+) => {
+  dispatch({
+    type: PetsActionTypes.GET_PET_INVITATIONS_SUCCESS,
+    payload: response,
+  })
+}
+
+const handleGetPetInvitationsFail = (dispatch: Dispatch<GetPetInvitationsFail>) => {
+  dispatch({
+    type: PetsActionTypes.GET_PET_INVITATIONS_FAIL,
+  })
+}
+
+//FETCH ALL USER INVITATIONS
+interface GetMyInvitations {
+  type: PetsActionTypes.GET_MY_INVITATIONS
+}
+
+interface GetMyInvitationsSuccess {
+  type: PetsActionTypes.GET_MY_INVITATIONS_SUCCESS
+  payload: InvitationStatus[]
+}
+
+interface GetMyInvitationsFail {
+  type: PetsActionTypes.GET_MY_INVITATIONS_FAIL
+}
+
+export const getMyInvitations = (): ThunkResult<void> => async dispatch => {
+  handleGetMyInvitations(dispatch)
+  try {
+    const response: InvitationStatus[] = await pets.getMyInvitations()
+    handleGetMyInvitationsSuccess(dispatch, response)
+  } catch (e) {
+    handleGetMyInvitationsFail(dispatch)
+  }
+}
+
+export const handleGetMyInvitations = (dispatch: Dispatch<GetMyInvitations>) => {
+  dispatch({ type: PetsActionTypes.GET_MY_INVITATIONS })
+}
+
+const handleGetMyInvitationsSuccess = (
+  dispatch: Dispatch<GetMyInvitationsSuccess>,
+  response: InvitationStatus[]
+) => {
+  dispatch({
+    type: PetsActionTypes.GET_MY_INVITATIONS_SUCCESS,
+    payload: response,
+  })
+}
+
+const handleGetMyInvitationsFail = (dispatch: Dispatch<GetMyInvitationsFail>) => {
+  dispatch({
+    type: PetsActionTypes.GET_MY_INVITATIONS_FAIL,
+  })
+}
+
+
 export type PETS_ACTIONS =
   | GetPets
   | GetPetsSuccess
@@ -333,6 +461,9 @@ export type PETS_ACTIONS =
   | GetSharedPets
   | GetSharedPetsSuccess
   | GetSharedPetsFail
+  | GetUserPets
+  | GetUserPetsFail
+  | GetUserPetsSuccess
   | GetPet
   | GetPetSuccess
   | GetPetFail
@@ -345,3 +476,9 @@ export type PETS_ACTIONS =
   | DeletePet
   | DeletePetSuccess
   | DeletePetFail
+  | GetPetInvitations
+  | GetPetInvitationsFail
+  | GetPetInvitationsSuccess
+  | GetMyInvitations
+  | GetMyInvitationsFail
+  | GetMyInvitationsSuccess

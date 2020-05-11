@@ -43,6 +43,8 @@ import {
 } from './examinationValues/examinationValuesReducer'
 import { EXAMINATIONS_ACTIONS } from './examinations/examinationsActions'
 import { EXAMINATION_PARAMETER_VALUES_ACTIONS } from './examinationValues/examinationValuesActions'
+import { InvitationsState, invitationReducer } from './invitations/invitationsReducer'
+import { INVITATIONS_ACTIONS } from './invitations/invitationsActions'
 
 export type ThunkResult<R> = ThunkAction<R, RootState, undefined, RootActions>
 
@@ -59,6 +61,7 @@ export interface RootState {
   readonly importantDates: ImportantDateState
   readonly examinations: ExaminationsState
   readonly examinationParameterValues: ExaminationParameterValuesState
+  readonly invitations: InvitationsState
 }
 
 const rootReducer = combineReducers<RootState>({
@@ -74,6 +77,7 @@ const rootReducer = combineReducers<RootState>({
   importantDates: importantDateReducer,
   examinations: examinationsReducer,
   examinationParameterValues: examinationParameterValuesReducer,
+  invitations: invitationReducer,
 })
 
 export type RootActions =
@@ -88,6 +92,7 @@ export type RootActions =
   | IMPORTANT_DATES_ACTIONS
   | EXAMINATION_PARAMETER_VALUES_ACTIONS
   | EXAMINATIONS_ACTIONS
+  | INVITATIONS_ACTIONS
 
 export const store = createStore(
   rootReducer,

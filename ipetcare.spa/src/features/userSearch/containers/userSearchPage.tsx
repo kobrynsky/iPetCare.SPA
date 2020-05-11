@@ -70,7 +70,9 @@ const renderVets = (results: GetSearchResponseDto) => {
   if (results.vets) {
     return results.vets.map(v => (
       <UserResult
+        role={v.role}
         key={v.id}
+        userId={v.userId}
         firstName={v.firstName}
         lastName={v.lastName}
         title="lek"
@@ -79,6 +81,7 @@ const renderVets = (results: GetSearchResponseDto) => {
         institutions={v.institutions}
         specialization={v.specialization}
         currentSearchingUserRole={results.currentSearchingUserRole}
+        isOwner={false}
       />
     ))
   } else {
@@ -90,13 +93,16 @@ const renderOwners = (results: GetSearchResponseDto) => {
   if (results.owners) {
     return results.owners.map(v => (
       <UserResult
+        role={v.role}
         key={v.id}
+        userId={v.userId}
         firstName={v.firstName}
         lastName={v.lastName}
         email={v.email}
         imageUrl="https://i.kym-cdn.com/entries/icons/facebook/000/032/280/meme1.jpg"
         placeOfResidence={v.placeOfResidence}
         currentSearchingUserRole={results.currentSearchingUserRole}
+        isOwner={true}
       />
     ))
   } else {
@@ -120,6 +126,7 @@ export const UserSearchPage = () => {
   useEffect(() => {
     if (request.query.length > 0) {
       if (timeout) clearTimeout(timeout)
+      console.log(request)
       setTimeoutState(
         setTimeout(() => {
           who === VET
@@ -133,13 +140,13 @@ export const UserSearchPage = () => {
   const getPages = () => {
     return who === VET
       ? ceil(
-          searchState.vetsResponse.totalItems /
-            searchState.vetsResponse.pageSize
-        )
+        searchState.vetsResponse.totalItems /
+        searchState.vetsResponse.pageSize
+      )
       : ceil(
-          searchState.ownersResponse.totalItems /
-            searchState.ownersResponse.pageSize
-        )
+        searchState.ownersResponse.totalItems /
+        searchState.ownersResponse.pageSize
+      )
   }
 
   const onInputChange = (e: any) => {
@@ -151,8 +158,8 @@ export const UserSearchPage = () => {
       {who === VET ? (
         <h2 className={styles.resultTitle}>Weterynarze</h2>
       ) : (
-        <h2 className={styles.resultTitle}>Użytkownicy</h2>
-      )}
+          <h2 className={styles.resultTitle}>Użytkownicy</h2>
+        )}
       <br />
       <div className={styles.resultContainer}>
         {who === VET

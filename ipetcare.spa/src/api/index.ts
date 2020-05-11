@@ -1,7 +1,7 @@
 import axios, { AxiosResponse, AxiosRequestConfig } from 'axios'
 import { BASE_URL } from '../utils/constants'
 import { getUserState, deleteUserState } from '../utils/localStorageHelper'
-import { Pet, PetForm } from '../state/pets/petsReducer'
+import { Pet, PetForm, PetDetails, InvitationStatus } from '../state/pets/petsReducer'
 import { Race } from '../state/races/racesReducer'
 import { Species } from '../state/species/speciesReducer'
 import { history } from '../index'
@@ -23,6 +23,7 @@ import {
 } from '../state/examinations/examinationsReducer'
 import { ExaminationParameterValue } from '../state/examinationValues/examinationValuesReducer'
 import { toast } from 'react-toastify'
+import { Invitation } from '../state/invitations/invitationsReducer'
 
 axios.defaults.baseURL = BASE_URL
 
@@ -72,7 +73,7 @@ axios.interceptors.response.use(undefined, error => {
     console.log(error.response)
     toast.error(
       'Błąd: ' +
-        'Błąd serwera - sprawdź konsolę, aby uzyskać więcej informacji!'
+      'Błąd serwera - sprawdź konsolę, aby uzyskać więcej informacji!'
     )
     console.error(
       'Błąd serwera - sprawdź konsolę, aby uzyskać więcej informacji!'
@@ -94,6 +95,7 @@ const examinationsBody = (response: any) => response.examinations
 const examinationParameterValuesBody = (response: any) =>
   response.examinationParametersValues
 const usersBody = (response: any) => response.users
+const invitationsBody = (response: any) => response.invitationsStatus
 
 const requests = {
   get: (url: string, body?: {}) =>
@@ -131,8 +133,10 @@ export const Users = {
 export const Pets = {
   getPets: (): Promise<Pet[]> => requests.get('/pets').then(petsBody),
   getMyPets: (): Promise<Pet[]> => requests.get('/pets/my').then(petsBody),
-  getSharedPets: (): Promise<Pet[]> =>
-    requests.get('/pets/shared').then(petsBody),
+  getUserPets: (userId: string): Promise<PetDetails[]> => requests.get(`/pets/user/${userId}`).then(petsBody),
+  getSharedPets: (): Promise<Pet[]> => requests.get('/pets/shared').then(petsBody),
+  getInvitationsStatus: (petId: string): Promise<InvitationStatus[]> => requests.get(`/pets/${petId}/invitations`).then(invitationsBody),
+  getMyInvitations: (): Promise<InvitationStatus[]> => requests.get(`/pets/my/invitations`).then(invitationsBody),
   getPet: (id: string): Promise<Pet> => requests.get(`/pets/${id}`),
   create: (pet: PetForm | any) => {
     let formData = new FormData()
@@ -271,3 +275,12 @@ export const ExaminationParametersValues = {
     ),
   delete: (id: string) => requests.del(`/examinationParameterValues/${id}`),
 }
+
+export const Invitations = {
+  create: (petId: string) => requests.post('/invitations', { petId }),
+  delete: (invitationId: string) => requests.del(`/invitations/${invitationId}`),
+  accept: (invitationId: string) => requests.put(`/invitations/${invitationId}/accept`, {}),
+  decline: (invitationId: string) => requests.put(`/invitations/${invitationId}/decline`, {}),
+  deleteAccess: (petId: string, userId: string) => requests.del(`/invitations/delete-access/${userId}/${petId}`),
+}
+
