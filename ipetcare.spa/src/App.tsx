@@ -140,7 +140,6 @@ const App: React.FC = () => {
                   <Route
                     path='/pets/:petId/invitations' component={PetInvitationsPage}
                   />
-                  <Route
                   <PrivateRoute
                     requiredRole={[OWNER, ADMIN, VET]}
                     path="/pets/:petId/notes"
@@ -166,7 +165,6 @@ const App: React.FC = () => {
                     component={SomeonePetsListPage}
                   />
                   <Route exact path="/pets/create" component={PetFormPage} />
-                  <Route
                   <PrivateRoute
                     exact
                     path="/pets/create"
