@@ -39,7 +39,7 @@ import { CalendarPage } from './features/calendar/containers/calendarPage'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import PrivateRoute from './utils/privateRoute'
-import { ADMIN, OWNER } from './utils/constants'
+import { ADMIN, OWNER, VET } from './utils/constants'
 import ScrollToTop from './pageElements/containers/scrollToTop'
 
 const App: React.FC = () => {
@@ -88,57 +88,124 @@ const App: React.FC = () => {
                   <Route path="/" component={HomeScreen} exact />
                   <Route path="/register" component={RegisterForm} />
                   <Route path="/login" component={LoginForm} />
-                  <Route path="/admin" component={AdminScreen} />
-                  <Route path="/owner" component={OwnerScreen} />
-                  <Route path="/vet" component={VetScreen} />
-                  <Route path="/races" component={RacesPage} />
-                  <Route path="/species" component={SpeciesPage} />
-                  <Route path="/calendar" component={CalendarPage} />
-                  <Route
+                  <PrivateRoute
+                    requiredRole={[ADMIN]}
+                    path="/admin"
+                    component={AdminScreen}
+                  />
+                  <PrivateRoute
+                    requiredRole={[OWNER]}
+                    path="/owner"
+                    component={OwnerScreen}
+                  />
+                  <PrivateRoute
+                    requiredRole={[VET]}
+                    path="/vet"
+                    component={VetScreen}
+                  />
+                  <PrivateRoute
+                    requiredRole={[ADMIN]}
+                    path="/races"
+                    component={RacesPage}
+                  />
+                  <PrivateRoute
+                    requiredRole={[ADMIN]}
+                    path="/species"
+                    component={SpeciesPage}
+                  />
+                  <PrivateRoute
+                    requiredRole={[OWNER]}
+                    path="/calendar"
+                    component={CalendarPage}
+                  />
+                  <PrivateRoute
+                    requiredRole={[OWNER, ADMIN, VET]}
                     path="/pets/:petId/notes/add"
                     component={AddNotePage}
                   />
-                  <Route
+                  <PrivateRoute
+                    requiredRole={[OWNER, ADMIN, VET]}
                     path="/pets/:petId/notes/edit/:noteId"
                     component={EditNotePage}
                   />
-                  <Route path="/pets/:petId/notes" component={PetNotesPage} />
-                  <Route
+                  <PrivateRoute
+                    requiredRole={[OWNER, ADMIN, VET]}
+                    path="/pets/:petId/notes"
+                    component={PetNotesPage}
+                  />
+                  <PrivateRoute
+                    requiredRole={[OWNER, ADMIN, VET]}
                     path="/pets/:petId/examinations/add"
                     component={AddExaminationPage}
                   />
-                  <Route
+                  <PrivateRoute
+                    requiredRole={[OWNER, ADMIN, VET]}
                     path="/pets/:petId/examinations/:examinationId"
                     component={PetExaminationPage}
                   />
-                  <Route
+                  <PrivateRoute
+                    requiredRole={[OWNER, ADMIN, VET]}
                     path="/pets/:petId/examinations"
                     component={PetExaminationsPage}
                   />
-                  <Route exact path="/pets/create" component={PetFormPage} />
-                  <Route
+                  <PrivateRoute
+                    exact
+                    path="/pets/create"
+                    requiredRole={[OWNER]}
+                    component={PetFormPage}
+                  />
+                  <PrivateRoute
+                    requiredRole={[OWNER, ADMIN, VET]}
                     exact
                     path="/pets/:petId/edit"
                     component={PetFormPage}
                   />
-                  <Route exact path="/pets/:petId" component={PetPage} />
-                  <Route exact path="/pets" component={PetList} />
+                  <PrivateRoute
+                    requiredRole={[OWNER, ADMIN, VET]}
+                    exact
+                    path="/pets/:petId"
+                    component={PetPage}
+                  />
+                  <PrivateRoute
+                    requiredRole={[OWNER, ADMIN, VET]}
+                    exact
+                    path="/pets"
+                    component={PetList}
+                  />
 
-                  <Route path="/profile/edit" component={EditProfilePage} />
-                  <Route path="/users/search" component={UserSearchPage} />
-                  <Route path="/institutions" component={InstitutionsPage} />
-                  <Route
+                  <PrivateRoute
+                    requiredRole={[OWNER, ADMIN, VET]}
+                    path="/profile/edit"
+                    component={EditProfilePage}
+                  />
+                  <PrivateRoute
+                    requiredRole={[OWNER, ADMIN, VET]}
+                    path="/users/search"
+                    component={UserSearchPage}
+                  />
+                  <PrivateRoute
+                    requiredRole={[ADMIN]}
+                    path="/institutions"
+                    component={InstitutionsPage}
+                  />
+                  <PrivateRoute
+                    requiredRole={[ADMIN]}
                     path="/examination/types"
                     component={ExaminationTypesPage}
                   />
-                  <Route
+                  <PrivateRoute
+                    requiredRole={[ADMIN]}
                     path="/examination/parameters"
                     component={ExaminationParametersPage}
                   />
 
                   <Route path="/forbidden" component={ForbiddenPage} />
                   <Route path="/unauthorized" component={UnauthorizedPage} />
-                  <Route path="/users" component={UsersPage} />
+                  <PrivateRoute
+                    requiredRole={[ADMIN]}
+                    path="/users"
+                    component={UsersPage}
+                  />
                   <Route path="*" component={NotFoundPage} />
                 </Switch>
               )}
