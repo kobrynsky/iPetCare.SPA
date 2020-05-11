@@ -25,7 +25,7 @@ export function VetScreen() {
           <Grid item md={3}></Grid>
 
           <Grid item md={6} xs={12}>
-            <Grid container direction="column">
+            <Grid className="home-cards" container direction="column">
               <Grid item>
                 <ContentCard title={`Witaj ${user.firstName}`}>
                   Właśnie zalogowałeś się do panelu weterynarza w systemie

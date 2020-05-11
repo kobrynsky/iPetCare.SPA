@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Card, TextField, Button, Grid } from '@material-ui/core'
 import { User } from '../../../state/user/userReducer'
 import { TableInstitutions } from './myInstitutionsTable'
-import { VET, BASE_URL_IMG, DEFAULT_USER_IMG } from '../../../utils/constants'
+import { VET, BASE_URL_IMG, DEFAULT_USER_IMG, OWNER } from '../../../utils/constants'
 // import '../../auth/auth.css'
 
 interface Props {
@@ -88,13 +88,15 @@ export const EditProfileForm = ({ user, onSubmit, disabled }: Props) => {
             onChange={e => setEmail(e.target.value)}
           />
 
-          <TextField
-            margin="normal"
-            // variant="outlined"
-            label="Miejsce zamieszkania"
-            value={placeOfResidence}
-            onChange={e => setPlaceOfResidence(e.target.value)}
-          />
+          {user.role === OWNER && (
+            <TextField
+              margin="normal"
+              // variant="outlined"
+              label="Miejsce zamieszkania"
+              value={placeOfResidence}
+              onChange={e => setPlaceOfResidence(e.target.value)}
+            />
+          )}
 
           {user.role === VET && (
             <TextField
