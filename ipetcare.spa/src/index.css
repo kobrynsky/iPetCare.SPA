@@ -86,3 +86,7 @@ body .MuiTypography-root,
 .MuiPagination-ul {
   justify-content: center;
 }
+
+.MuiTypography-h2 {
+  padding-top: 20px;
+}

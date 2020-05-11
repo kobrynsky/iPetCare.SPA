@@ -1,11 +1,18 @@
 import React from 'react'
 import '../home.css'
-import { Grid, Typography } from '@material-ui/core'
+import { Grid, Typography, makeStyles, Card } from '@material-ui/core'
 import { ContentCard } from '../../../common/components/contentCard'
 import { Link, NavLink } from 'react-router-dom'
 import PetsIcon from '@material-ui/icons/Pets'
 
+const useStyles = makeStyles({
+  homeScreenCard: {
+      paddingTop: 30,
+  },
+})
+
 export function HomeScreen() {
+  const classes = useStyles()
   return (
     <div>
       <Grid container direction="column" justify={'center'}>
@@ -36,7 +43,7 @@ export function HomeScreen() {
           </Grid>
 
           <Grid item xs={12} md={6}>
-            <Grid container direction="column" style={{ minWidth: 300 }}>
+            <Grid container direction="column" className="home-cards" style={{ minWidth: 300 }}>
               <Grid item id="whatItIs">
                 <ContentCard title="Co to jest?">
                   iPetCare to internetowa książeczka zdrowia zwierząt, która

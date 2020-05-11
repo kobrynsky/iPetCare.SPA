@@ -8,10 +8,6 @@
   color: peru;
 }
 
-/* .MuiTypography-root {
-  padding-top: 30px;
-} */
-
 body .titleContainerNotLogged .MuiTypography-h5 {
   font-family: Jazz LET, fantasy;
 }
@@ -30,6 +26,10 @@ body .MuiButtonGroup-root {
   margin-right: 20px;
   height: 40px;
 } */
+
+.home-cards .MuiGrid-item .MuiCard-root {
+  padding-top: 30px;
+}
 
 body .MuiButton-label {
   font-family: Trebuchet MS, sans-serif;
