@@ -45,6 +45,7 @@ const useStyles = makeStyles({
   },
   root: {
     maxWidth: 300,
+    minWidth: 200,
     margin: 10,
     height: 450,
   },
@@ -150,7 +151,11 @@ export const PetCard = (props: Props) => {
             <Button
               size="small"
               color="primary"
-              onClick={() => { dispatch(deletePetAccess(pet.id as string, userId as string, true)) }}
+              onClick={() => {
+                dispatch(
+                  deletePetAccess(pet.id as string, userId as string, true)
+                )
+              }}
             >
               Usuń dostęp
             </Button>

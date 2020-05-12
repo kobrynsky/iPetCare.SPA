@@ -59,7 +59,7 @@ export const UserResult = ({
   title = '',
   currentSearchingUserRole,
   isOwner,
-  role
+  role,
 }: Props) => {
   const classes = useStyles()
 
@@ -96,15 +96,12 @@ export const UserResult = ({
       </CardContent>
       {/* </CardActionArea> */}
       <CardActions>
-        <Button size="small" color="primary">
-          Szczegóły
-        </Button>
-        {currentSearchingUserRole === ADMIN &&
+        {currentSearchingUserRole === ADMIN && (
           <Button size="small" color="primary">
             Usuń
           </Button>
-        }
-        {role === OWNER &&
+        )}
+        {role === OWNER && (
           <Button
             size="small"
             color="primary"
@@ -113,7 +110,7 @@ export const UserResult = ({
           >
             Zwierzaki
           </Button>
-        }
+        )}
       </CardActions>
     </Card>
   )

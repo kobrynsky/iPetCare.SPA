@@ -96,22 +96,19 @@ export const PetList = () => {
           <Grid container spacing={3} justify="space-around">
             {petsState.sharedItems.map((pet: Pet) => {
               return (
-                <Grid key={pet.id} item xs={4}>
-                  <PetCard
-                    pet={{
-                      ...pet,
-                      species: speciesState.items.find(
-                        s =>
-                          s.id ===
-                          racesState.items.find(r => r.id === pet.raceId)
-                            ?.speciesId
-                      )?.name,
-                      race: racesState.items.find(r => r.id === pet.raceId)
-                        ?.name,
-                    }}
-                    shared={true}
-                  />
-                </Grid>
+                <PetCard
+                  pet={{
+                    ...pet,
+                    species: speciesState.items.find(
+                      s =>
+                        s.id ===
+                        racesState.items.find(r => r.id === pet.raceId)
+                          ?.speciesId
+                    )?.name,
+                    race: racesState.items.find(r => r.id === pet.raceId)?.name,
+                  }}
+                  shared={true}
+                />
               )
             })}
           </Grid>

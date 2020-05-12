@@ -26,10 +26,10 @@ const ownerRoutes: Route[] = [
     caption: 'Moje Zwierzęta',
     path: '/pets',
   },
-  {
-    caption: 'Weterynarze',
-    path: '/',
-  },
+  // {
+  //   caption: 'Weterynarze',
+  //   path: '/',
+  // },
   {
     caption: 'Kalendarz',
     path: '/calendar',
@@ -37,7 +37,7 @@ const ownerRoutes: Route[] = [
   {
     caption: 'Dostęp',
     path: '/pets/my/invitations',
-  }
+  },
 ]
 
 const vetRoutes: Route[] = [
@@ -45,10 +45,10 @@ const vetRoutes: Route[] = [
     caption: 'Zwierzęta',
     path: '/pets',
   },
-  {
-    caption: 'Weterynarze',
-    path: '/',
-  },
+  // {
+  //   caption: 'Weterynarze',
+  //   path: '/',
+  // },
   {
     caption: 'Kalendarz',
     path: '/',
