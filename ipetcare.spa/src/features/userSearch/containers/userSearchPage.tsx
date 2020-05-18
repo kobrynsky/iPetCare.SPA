@@ -44,7 +44,7 @@ const useStyles = makeStyles({
   },
   inputContainer: {
     display: 'flex',
-    marginTop: 20,
+    margin: 20,
     padding: 10,
     minWidth: 300,
     flexDirection: 'row',
@@ -140,13 +140,13 @@ export const UserSearchPage = () => {
   const getPages = () => {
     return who === VET
       ? ceil(
-        searchState.vetsResponse.totalItems /
-        searchState.vetsResponse.pageSize
-      )
+          searchState.vetsResponse.totalItems /
+            searchState.vetsResponse.pageSize
+        )
       : ceil(
-        searchState.ownersResponse.totalItems /
-        searchState.ownersResponse.pageSize
-      )
+          searchState.ownersResponse.totalItems /
+            searchState.ownersResponse.pageSize
+        )
   }
 
   const onInputChange = (e: any) => {
@@ -158,8 +158,8 @@ export const UserSearchPage = () => {
       {who === VET ? (
         <h2 className={styles.resultTitle}>Weterynarze</h2>
       ) : (
-          <h2 className={styles.resultTitle}>Użytkownicy</h2>
-        )}
+        <h2 className={styles.resultTitle}>Użytkownicy</h2>
+      )}
       <br />
       <div className={styles.resultContainer}>
         {who === VET

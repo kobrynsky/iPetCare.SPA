@@ -3,6 +3,8 @@ body {
   margin: 0;
   height: 100%;
   width: 100%;
+  padding-right: 0 !important;
+  overflow: auto;
 }
 
 body .MuiInputBase-root .MuiInput-underline,

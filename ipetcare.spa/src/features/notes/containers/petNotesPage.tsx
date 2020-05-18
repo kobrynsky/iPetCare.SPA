@@ -59,7 +59,7 @@ export const PetNotesPage = (
         alignItems="flex-start"
         spacing={3}
       >
-        <Grid item xs={12} sm={8}>
+        <Grid item xs={10} sm={8}>
           {notesState.items.map(item => (
             <Card className="formCard">
               <CardContent>
