@@ -15,7 +15,7 @@ iPetCare is a web-based animal health booklet that is the key to simplifying the
 The main target group of the system are private owners animals and vets. It will allow veterinarians to access data and history the health of all the animals that form the basis of their patients and the owners of one or more the number of animals will provide an opportunity to centralise the process of taking care of all the animals in one place.
 
 ## Technologies
-- API for system management:
+- API
 	- C#
 	- .NET Core 3.0 WebApi
 	- EntityFrameworkCore
@@ -27,7 +27,7 @@ The main target group of the system are private owners animals and vets. It will
 - Client Application:
 	- ReactJs
 	- TypeScript
-	- ReactJs
+	- Redux
 	- SemanticUI
 	- Axios
 
