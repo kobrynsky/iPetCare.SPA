@@ -32,18 +32,18 @@ The main target group of the system are private owners animals and vets. It will
 	- Axios
 
 ## Screenshots
-![](https://github.com/blc132/iPetCare.SPA/blob/dev/images/admin_image_3.png?raw=true)
-![](https://github.com/blc132/iPetCare.SPA/blob/dev/images/admin_image_4.png?raw=true)
-![](https://github.com/blc132/iPetCare.SPA/blob/dev/images/admin_image_5.png?raw=true)
-![](https://github.com/blc132/iPetCare.SPA/blob/dev/images/admin_image_6.png?raw=true)
-![](https://github.com/blc132/iPetCare.SPA/blob/dev/images/admin_image_7.png?raw=true)
-![](https://github.com/blc132/iPetCare.SPA/blob/dev/images/admin_image_8.png?raw=true)
-![](https://github.com/blc132/iPetCare.SPA/blob/dev/images/admin_image_9.png?raw=true)
-![](https://github.com/blc132/iPetCare.SPA/blob/dev/images/owner_8.PNG?raw=true)
-![](https://github.com/blc132/iPetCare.SPA/blob/dev/images/owner_10.PNG?raw=true)
-![](https://github.com/blc132/iPetCare.SPA/blob/dev/images/owner_11.PNG?raw=true)
-![](https://github.com/blc132/iPetCare.SPA/blob/dev/images/owner_13.PNG?raw=true)
-![](https://github.com/blc132/iPetCare.SPA/blob/dev/images/owner_14.PNG?raw=true)
+![](https://github.com/kobrynsky/iPetCare.SPA/blob/dev/images/admin_image_3.png?raw=true)
+![](https://github.com/kobrynsky/iPetCare.SPA/blob/dev/images/admin_image_4.png?raw=true)
+![](https://github.com/kobrynsky/iPetCare.SPA/blob/dev/images/admin_image_5.png?raw=true)
+![](https://github.com/kobrynsky/iPetCare.SPA/blob/dev/images/admin_image_6.png?raw=true)
+![](https://github.com/kobrynsky/iPetCare.SPA/blob/dev/images/admin_image_7.png?raw=true)
+![](https://github.com/kobrynsky/iPetCare.SPA/blob/dev/images/admin_image_8.png?raw=true)
+![](https://github.com/kobrynsky/iPetCare.SPA/blob/dev/images/admin_image_9.png?raw=true)
+![](https://github.com/kobrynsky/iPetCare.SPA/blob/dev/images/owner_8.PNG?raw=true)
+![](https://github.com/kobrynsky/iPetCare.SPA/blob/dev/images/owner_10.PNG?raw=true)
+![](https://github.com/kobrynsky/iPetCare.SPA/blob/dev/images/owner_11.PNG?raw=true)
+![](https://github.com/kobrynsky/iPetCare.SPA/blob/dev/images/owner_13.PNG?raw=true)
+![](https://github.com/kobrynsky/iPetCare.SPA/blob/dev/images/owner_14.PNG?raw=true)
 
 ------------
 
